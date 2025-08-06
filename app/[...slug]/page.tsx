@@ -122,9 +122,11 @@ function SectionsUnion({
       case "PricingComponent":
         return <Pricing {...comp} key={comp._id} />;
       case "FaqComponent":
-        return <Faq {...comp} key={comp._id} />;
-      case "FaqComponent":
-        return <AccordionFaq {...comp} key={comp._id} eventsKey={eventsKey} />;
+        return comp.layout === "accordion" ? (
+          <AccordionFaq {...comp} key={comp._id} eventsKey={eventsKey} />
+        ) : (
+          <Faq {...comp} key={comp._id} />
+        );
       case "PricingTableComponent":
         return <PricingTable {...comp} key={comp._id} />;
       case "FeatureHeroComponent":
