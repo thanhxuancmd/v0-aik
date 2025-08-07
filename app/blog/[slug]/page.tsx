@@ -25,23 +25,28 @@ export const dynamic = "force-static";
 export const revalidate = 30;
 
 export const generateStaticParams = async () => {
-  const data = await basehub({ cache: "no-store" }).query({
-    site: {
-      blog: {
-        posts: {
-          items: {
-            _slug: true,
+  try {
+    const data = await basehub({ cache: "no-store" }).query({
+      site: {
+        blog: {
+          posts: {
+            items: {
+              _slug: true,
+            },
           },
         },
       },
-    },
-  });
+    });
 
-  return data.site.blog.posts.items.map((post) => {
-    return {
-      slug: post._slug,
-    };
-  });
+    return data.site.blog.posts.items.map((post) => {
+      return {
+        slug: post._slug,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to fetch blog posts for static params", error);
+    return [];
+  }
 };
 
 export const generateMetadata = async ({

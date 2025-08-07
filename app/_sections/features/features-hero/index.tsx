@@ -170,31 +170,36 @@ export default function FeatureHero({
 }
 
 async function LogoLite() {
-  const {
-    site: {
-      settings: { logoLite },
-    },
-  } = await basehub().query({
-    site: {
-      settings: {
-        logoLite: {
-          url: true,
-          width: true,
-          height: true,
-          alt: true,
+  try {
+    const {
+      site: {
+        settings: { logoLite },
+      },
+    } = await basehub().query({
+      site: {
+        settings: {
+          logoLite: {
+            url: true,
+            width: true,
+            height: true,
+            alt: true,
+          },
         },
       },
-    },
-  });
+    });
 
-  return (
-    <BaseHubImage
-      priority
-      alt={logoLite.alt ?? "Logo"}
-      className="size-20"
-      height={logoLite.height}
-      src={logoLite.url}
-      width={logoLite.width}
-    />
-  );
+    return (
+      <BaseHubImage
+        priority
+        alt={logoLite.alt ?? "Logo"}
+        className="size-20"
+        height={logoLite.height}
+        src={logoLite.url}
+        width={logoLite.width}
+      />
+    );
+  } catch (error) {
+    console.error("Failed to load logo", error);
+    return null;
+  }
 }
