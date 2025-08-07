@@ -26,23 +26,28 @@ interface ChangelogPageParams {
 }
 
 export const generateStaticParams = async () => {
-  const data = await basehub({ cache: "no-store" }).query({
-    site: {
-      changelog: {
-        posts: {
-          items: {
-            _slug: true,
+  try {
+    const data = await basehub({ cache: "no-store" }).query({
+      site: {
+        changelog: {
+          posts: {
+            items: {
+              _slug: true,
+            },
           },
         },
       },
-    },
-  });
+    });
 
-  return data.site.changelog.posts.items.map((post) => {
-    return {
-      slug: post._slug,
-    };
-  });
+    return data.site.changelog.posts.items.map((post) => {
+      return {
+        slug: post._slug,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to fetch changelog posts for static params", error);
+    return [];
+  }
 };
 
 export const generateMetadata = async ({

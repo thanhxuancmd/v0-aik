@@ -16,93 +16,108 @@ export const dynamic = "force-static";
 export const revalidate = 30;
 
 export const generateMetadata = async (): Promise<Metadata | undefined> => {
-  const data = await basehub().query({
-    site: {
-      blog: {
-        metadata: {
-          title: true,
-          description: true,
+  try {
+    const data = await basehub().query({
+      site: {
+        blog: {
+          metadata: {
+            title: true,
+            description: true,
+          },
         },
       },
-    },
-  });
+    });
 
-  return {
-    title: data.site.blog.metadata.title ?? undefined,
-    description: data.site.blog.metadata.description ?? undefined,
-  };
+    return {
+      title: data.site.blog.metadata.title ?? undefined,
+      description: data.site.blog.metadata.description ?? undefined,
+    };
+  } catch (error) {
+    console.error("Failed to load blog metadata", error);
+    return { title: "Blog" };
+  }
 };
 
 export default async function BlogPage() {
-  const {
-    _componentInstances: { blogPost },
-    site: { blog, generalEvents },
-    collections: { authors },
-  } = await basehub().query({
-    _componentInstances: {
-      blogPost: {
-        _searchKey: true,
-      },
-    },
-    collections: {
-      authors: {
-        items: {
-          _id: true,
-          image: avatarFragment,
+  try {
+    const {
+      _componentInstances: { blogPost },
+      site: { blog, generalEvents },
+      collections: { authors },
+    } = await basehub().query({
+      _componentInstances: {
+        blogPost: {
+          _searchKey: true,
         },
       },
-    },
-    site: {
-      generalEvents: { ingestKey: true },
-      blog: {
-        _analyticsKey: true,
-        mainTitle: true,
-        featuredPosts: blogpostCardFragment,
-        listTitle: true,
-        posts: {
-          __args: { orderBy: "publishedAt__DESC" },
-          items: blogpostCardFragment,
+      collections: {
+        authors: {
+          items: {
+            _id: true,
+            image: avatarFragment,
+          },
         },
       },
-    },
-  });
+      site: {
+        generalEvents: { ingestKey: true },
+        blog: {
+          _analyticsKey: true,
+          mainTitle: true,
+          featuredPosts: blogpostCardFragment,
+          listTitle: true,
+          posts: {
+            __args: { orderBy: "publishedAt__DESC" },
+            items: blogpostCardFragment,
+          },
+        },
+      },
+    });
 
-  const { posts } = blog;
+    const { posts } = blog;
 
-  if (posts.items.length === 0) {
-    notFound();
-  }
+    if (posts.items.length === 0) {
+      notFound();
+    }
 
-  return (
-    <Section className="gap-16">
-      <PageView ingestKey={generalEvents.ingestKey} />
-      <div className="grid grid-cols-1 gap-5 self-stretch md:grid-cols-2">
-        <Heading align="left">
-          <h2>{blog.mainTitle}</h2>
-        </Heading>
-        <SearchHitsProvider
-          authorsAvatars={authors.items.reduce((acc: Record<string, AvatarFragment>, author) => {
-            acc[author._id] = author.image;
+    return (
+      <Section className="gap-16">
+        <PageView ingestKey={generalEvents.ingestKey} />
+        <div className="grid grid-cols-1 gap-5 self-stretch md:grid-cols-2">
+          <Heading align="left">
+            <h2>{blog.mainTitle}</h2>
+          </Heading>
+          <SearchHitsProvider
+            authorsAvatars={authors.items.reduce((acc: Record<string, AvatarFragment>, author) => {
+              acc[author._id] = author.image;
 
-            return acc;
-          }, {})}
-        >
-          <Search _searchKey={blogPost._searchKey} />
-        </SearchHitsProvider>
-        {blog.featuredPosts?.slice(0, 3).map((post) => (
-          <BlogpostCard key={post._id} type="card" {...post} />
-        ))}
-      </div>
-      <div className="w-full space-y-3">
-        <Heading align="left">
-          <h3 className="!text-xl lg:!text-2xl">{blog.listTitle}</h3>
-        </Heading>
-        <div className="-mx-4 flex flex-col self-stretch">
-          {posts.items.map((post) => (
-            <BlogpostCard key={post._id} {...post} className="-mx-4" />
+              return acc;
+            }, {})}
+          >
+            <Search _searchKey={blogPost._searchKey} />
+          </SearchHitsProvider>
+          {blog.featuredPosts?.slice(0, 3).map((post) => (
+            <BlogpostCard key={post._id} type="card" {...post} />
           ))}
         </div>
-      </div>
-    </Section>
-  );
+        <div className="w-full space-y-3">
+          <Heading align="left">
+            <h3 className="!text-xl lg:!text-2xl">{blog.listTitle}</h3>
+          </Heading>
+          <div className="-mx-4 flex flex-col self-stretch">
+            {posts.items.map((post) => (
+              <BlogpostCard key={post._id} {...post} className="-mx-4" />
+            ))}
+          </div>
+        </div>
+      </Section>
+    );
+  } catch (error) {
+    console.error("Failed to load blog page", error);
+    return (
+      <main className="p-8 text-center">
+        <h1 className="text-3xl font-bold mb-4">Blog</h1>
+        <p>Content unavailable.</p>
+      </main>
+    );
+  }
 }

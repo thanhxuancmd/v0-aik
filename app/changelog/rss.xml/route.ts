@@ -2,27 +2,28 @@ import { siteUrl } from "../../../lib/constants";
 import { basehub } from "basehub";
 
 export async function GET() {
-  const data = await basehub().query({
-    site: {
-      changelog: {
-        title: true,
-        subtitle: true,
-        posts: {
-          __args: {
-            orderBy: "publishedAt__DESC",
-          },
-          items: {
-            _title: true,
-            _slug: true,
-            excerpt: true,
-            publishedAt: true,
+  try {
+    const data = await basehub().query({
+      site: {
+        changelog: {
+          title: true,
+          subtitle: true,
+          posts: {
+            __args: {
+              orderBy: "publishedAt__DESC",
+            },
+            items: {
+              _title: true,
+              _slug: true,
+              excerpt: true,
+              publishedAt: true,
+            },
           },
         },
       },
-    },
-  });
+    });
 
-  const feed = `<?xml version="1.0" encoding="UTF-8" ?>
+    const feed = `<?xml version="1.0" encoding="UTF-8" ?>
       <rss version="2.0">
           <channel>
               <title>${data.site.changelog.title}</title>
@@ -42,8 +43,15 @@ export async function GET() {
           </channel>
       </rss>`;
 
-  return new Response(feed, {
-    status: 200,
-    headers: { "Content-Type": "application/rss+xml" },
-  });
+    return new Response(feed, {
+      status: 200,
+      headers: { "Content-Type": "application/rss+xml" },
+    });
+  } catch (error) {
+    console.error("Failed to generate changelog RSS feed", error);
+    return new Response("", {
+      status: 200,
+      headers: { "Content-Type": "application/rss+xml" },
+    });
+  }
 }
