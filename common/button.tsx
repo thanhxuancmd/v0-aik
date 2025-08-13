@@ -1,14 +1,13 @@
-import { type VariantProps, cva } from "class-variance-authority";
-import Link, { type LinkProps } from "next/link";
-import { Icon } from "basehub/react-icon";
+import type React from "react"
+import { type VariantProps, cva } from "class-variance-authority"
+import Link, { type LinkProps } from "next/link"
 
 export const $button = cva(
   "gap-1 font-normal shrink-0 rounded-full ring-[--control] focus-visible:ring-2 outline-hidden outline-0",
   {
     variants: {
       intent: {
-        primary:
-          "bg-[--accent-500] hover:bg-[--accent-600] text-[--text-on-accent-primary] border-[--accent-600]",
+        primary: "bg-[--accent-500] hover:bg-[--accent-600] text-[--text-on-accent-primary] border-[--accent-600]",
         secondary:
           "bg-[--surface-secondary] text-[--text-primary] border-[--border] border dark:bg-[--dark-surface-secondary] dark:text-[--dark-text-primary] dark:border-[--dark-border] hover:bg-[--surface-tertiary] dark:hover:bg-[--dark-surface-tertiary]",
         tertiary:
@@ -33,13 +32,13 @@ export const $button = cva(
       },
     },
   },
-);
+)
 
 type ButtonProps<C extends keyof React.JSX.IntrinsicElements> = VariantProps<typeof $button> &
   React.JSX.IntrinsicElements[C] & {
-    icon?: React.ReactNode;
-    unstyled?: boolean;
-  };
+    icon?: React.ReactNode
+    unstyled?: boolean
+  }
 
 export const Button = ({
   children,
@@ -74,10 +73,10 @@ export const Button = ({
       {...props}
     >
       {children}
-      {icon ? <span>{typeof icon === "string" ? <Icon content={icon} /> : icon}</span> : null}
+      {icon ? <span>{icon}</span> : null}
     </button>
-  );
-};
+  )
+}
 
 export const ButtonLink = ({
   children,
@@ -113,5 +112,5 @@ export const ButtonLink = ({
       {children}
       {icon ? <span>{icon}</span> : null}
     </Link>
-  );
-};
+  )
+}
