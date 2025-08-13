@@ -1,49 +1,60 @@
-"use client";
-import clsx from "clsx";
-import { BaseHubImage } from "basehub/next-image";
+"use client"
+import clsx from "clsx"
+import { CustomTooltip } from "./tooltip"
+import type { ImageProps } from "next/image"
 
-import { type AvatarFragment, type AuthorFragment } from "../lib/basehub/fragments";
+interface AuthorProps {
+  image: {
+    url: string
+    alt?: string
+    width: number
+    height: number
+  }
+  _title: string
+}
 
-import { CustomTooltip } from "./tooltip";
-import type { ImageProps } from "next/image";
+interface AvatarProps {
+  url: string
+  alt?: string
+  width?: number
+  height?: number
+  className?: string
+}
 
-export function Author({
-  image,
-  _title,
-  ...props
-}: AuthorFragment & Omit<ImageProps, "src" | "alt">) {
+export function Author({ image, _title, ...props }: AuthorProps & Omit<ImageProps, "src" | "alt">) {
   return (
     <CustomTooltip content={_title}>
-      <BaseHubImage
+      <img
+        src={image.url || "/placeholder-user.jpg"}
         alt={image.alt ?? `Avatar for ${_title}`}
-        className="size-8 rounded-full border-2 border-[--surface-primary] object-cover transition-all dark:border-[--dark-surface-primary]"
+        className="size-8 rounded-full border-2 border-background object-cover transition-all dark:border-dark-background"
         height={image.height}
-        src={image.url}
         width={image.width}
         {...props}
       />
     </CustomTooltip>
-  );
+  )
 }
 
 export function Avatar({
   className,
   alt,
   url,
+  width = 28,
+  height = 28,
   ...props
-}: AvatarFragment & Omit<ImageProps, "src" | "alt">) {
+}: AvatarProps & Omit<ImageProps, "src" | "alt">) {
   return (
-    <BaseHubImage
-      priority
+    <img
+      src={url || "/placeholder-user.jpg"}
       alt={alt ?? "Avatar"}
       className={clsx(
-        "size-7 shrink-0 rounded-full border-2 border-[--surface-primary] object-cover dark:border-[--dark-surface-primary]",
+        "size-7 shrink-0 rounded-full border-2 border-background object-cover dark:border-dark-background",
         className,
       )}
-      height={28}
-      src={url}
-      width={28}
+      height={height}
+      width={width}
       {...props}
     />
-  );
+  )
 }

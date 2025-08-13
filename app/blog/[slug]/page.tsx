@@ -1,155 +1,90 @@
-import { notFound } from "next/navigation";
-import { RichText } from "basehub/react-rich-text";
-import type { Metadata } from "next";
-import { Section } from "../../../common/section-wrapper";
-import { authorFragment, darkLightImageFragment } from "../../../lib/basehub/fragments";
-import { Heading } from "../../../common/heading";
-import { Avatar } from "../../../common/avatar";
-import {
-  FaqItemComponentFragment,
-  FaqRichtextComponent,
-  richTextBaseComponents,
-  RichTextCalloutComponent,
-  richTextCalloutComponentFragment,
-  richTextClasses,
-} from "../../../components/rich-text";
-import { CodeSnippet, codeSnippetFragment } from "../../../components/code-snippet";
-import { basehub } from "basehub";
-import { cx } from "class-variance-authority";
-import { DarkLightImage } from "../../../common/dark-light-image";
-import { PageView } from "../../../components/page-view";
-import { formatDate } from "../../_utils/dates";
-import "../../../basehub.config";
+import { notFound } from "next/navigation"
+import type { Metadata } from "next"
+import { Section } from "../../../common/section-wrapper"
+import { Heading } from "../../../common/heading"
+import { Avatar } from "../../../common/avatar"
+import { PageView } from "../../../components/page-view"
+import { formatDate } from "../../_utils/dates"
 
-export const dynamic = "force-static";
-export const revalidate = 30;
+export const dynamic = "force-static"
+export const revalidate = 30
+
+const sampleBlogPosts = [
+  {
+    _slug: "xu-huong-ai-agents-2024",
+    _title: "Xu hướng AI Agents trong năm 2024",
+    description: "Khám phá những xu hướng mới nhất trong lĩnh vực AI Agents và cách chúng đang thay đổi cách làm việc.",
+    authors: [
+      {
+        _id: "author1",
+        _title: "Nguyễn Văn A",
+        image: { url: "/placeholder-user.jpg", alt: "Nguyễn Văn A", width: 40, height: 40 },
+      },
+    ],
+    publishedAt: "2024-01-15",
+    categories: ["AI", "Technology"],
+    image: {
+      light: { url: "/placeholder.jpg", alt: "AI Agents 2024", width: 1200, height: 630, aspectRatio: 1.9 },
+      dark: { url: "/placeholder.jpg", alt: "AI Agents 2024", width: 1200, height: 630, aspectRatio: 1.9 },
+    },
+    body: {
+      content: `
+        <h2>Giới thiệu về AI Agents</h2>
+        <p>AI Agents đang trở thành một trong những công nghệ quan trọng nhất trong năm 2024. Chúng không chỉ đơn thuần là chatbot mà là những trợ lý thông minh có khả năng thực hiện nhiều tác vụ phức tạp.</p>
+        
+        <h3>Các xu hướng chính</h3>
+        <ul>
+          <li>Tự động hóa quy trình kinh doanh</li>
+          <li>Hỗ trợ khách hàng 24/7</li>
+          <li>Phân tích dữ liệu thông minh</li>
+          <li>Tích hợp đa nền tảng</li>
+        </ul>
+        
+        <p>Với sự phát triển mạnh mẽ của công nghệ AI, chúng ta có thể kỳ vọng vào một tương lai nơi AI Agents sẽ trở thành một phần không thể thiếu trong mọi doanh nghiệp.</p>
+      `,
+    },
+  },
+]
 
 export const generateStaticParams = async () => {
-  const data = await basehub({ cache: "no-store" }).query({
-    site: {
-      blog: {
-        posts: {
-          items: {
-            _slug: true,
-          },
-        },
-      },
-    },
-  });
-
-  return data.site.blog.posts.items.map((post) => {
-    return {
-      slug: post._slug,
-    };
-  });
-};
+  return sampleBlogPosts.map((post) => ({
+    slug: post._slug,
+  }))
+}
 
 export const generateMetadata = async ({
   params: _params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> => {
-  const { slug } = await _params;
-  const data = await basehub().query({
-    site: {
-      settings: {
-        metadata: {
-          titleTemplate: true,
-          sitename: true,
-        },
-      },
-      blog: {
-        posts: {
-          __args: {
-            filter: {
-              _sys_slug: { eq: slug },
-            },
-            first: 1,
-          },
-          items: {
-            ogImage: { url: true },
-            _id: true,
-            _title: true,
-            description: true,
-          },
-        },
-      },
-    },
-  });
+  const { slug } = await _params
+  const post = sampleBlogPosts.find((p) => p._slug === slug)
 
-  const post = data.site.blog.posts.items[0];
-
-  if (!post) return undefined;
-  const images = [{ url: post.ogImage.url }];
+  if (!post) return undefined
 
   return {
     title: post._title,
     description: post.description,
     openGraph: {
-      images,
+      images: [{ url: post.image.light.url }],
       type: "article",
     },
     twitter: {
-      images,
+      images: [post.image.light.url],
       card: "summary_large_image",
-      site: data.site.settings.metadata.sitename,
     },
-  };
-};
+  }
+}
 
 export default async function BlogPage({ params: _params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await _params;
-  const {
-    site: {
-      generalEvents,
-      blog: { posts },
-    },
-  } = await basehub().query({
-    site: {
-      generalEvents: { ingestKey: true },
-      blog: {
-        posts: {
-          __args: {
-            filter: {
-              _sys_slug: {
-                eq: slug,
-              },
-            },
-            first: 1,
-          },
-          items: {
-            _title: true,
-            description: true,
-            authors: authorFragment,
-            publishedAt: true,
-            image: darkLightImageFragment,
-            categories: true,
-            body: {
-              json: {
-                __typename: true,
-                blocks: {
-                  __typename: true,
-                  on_FaqItemComponent: FaqItemComponentFragment,
-                  on_RichTextCalloutComponent: richTextCalloutComponentFragment,
-                  on_CodeSnippetComponent: codeSnippetFragment,
-                },
-                content: 1,
-                toc: 1,
-              },
-            },
-          },
-        },
-      },
-    },
-  });
+  const { slug } = await _params
+  const blogpost = sampleBlogPosts.find((p) => p._slug === slug)
 
-  const blogpost = posts.items.at(0);
-
-  if (!blogpost) return notFound();
+  if (!blogpost) return notFound()
 
   return (
     <>
-      <PageView ingestKey={generalEvents.ingestKey} />
+      <PageView />
       <Section>
         <Heading subtitle={blogpost.description}>
           <h1>{blogpost._title}</h1>
@@ -163,7 +98,7 @@ export default async function BlogPage({ params: _params }: { params: Promise<{ 
               </figure>
             ))}
           </div>
-          <div className="flex divide-x divide-[--border] text-sm font-normal text-[--text-tertiary] dark:divide-[--dark-border] dark:text-[--dark-text-tertiary]">
+          <div className="flex divide-x divide-border text-sm font-normal text-muted-foreground">
             <p className="pr-2">{formatDate(blogpost.publishedAt)}</p>
             <span className="pl-2">
               {blogpost.categories.map((category) => (
@@ -175,30 +110,19 @@ export default async function BlogPage({ params: _params }: { params: Promise<{ 
           </div>
         </div>
       </Section>
-      <DarkLightImage
-        {...blogpost.image}
-        priority
-        withPlaceholder
-        className="h-full max-h-[720px] w-full object-cover"
-        style={{ aspectRatio: blogpost.image.light.aspectRatio }}
-      />
+      <div className="w-full">
+        <img
+          src={blogpost.image.light.url || "/placeholder.svg"}
+          alt={blogpost.image.light.alt}
+          className="h-full max-h-[720px] w-full object-cover"
+          style={{ aspectRatio: blogpost.image.light.aspectRatio }}
+        />
+      </div>
       <Section>
-        <div
-          className={cx(richTextClasses, "[&>p:first-child]:text-2xl [&>p:first-child]:font-light")}
-        >
-          <RichText
-            blocks={blogpost.body.json.blocks}
-            components={{
-              ...richTextBaseComponents,
-              FaqItemComponent: FaqRichtextComponent,
-              RichTextCalloutComponent: RichTextCalloutComponent,
-              CodeSnippetComponent: CodeSnippet,
-            }}
-          >
-            {blogpost.body.json.content}
-          </RichText>
+        <div className="prose prose-lg max-w-none dark:prose-invert">
+          <div dangerouslySetInnerHTML={{ __html: blogpost.body.content }} />
         </div>
       </Section>
     </>
-  );
+  )
 }

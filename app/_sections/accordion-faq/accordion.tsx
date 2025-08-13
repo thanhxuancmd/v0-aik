@@ -1,19 +1,17 @@
-"use client";
-import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { MinusCircledIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import * as React from "react";
-import { type Faq } from "../../_sections/faq";
-import { sendEvent } from "basehub/events";
-import { GeneralEvents } from "../../../lib/basehub/fragments";
+"use client"
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import { MinusCircledIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import * as React from "react"
+import type { Faq } from "../../_sections/faq"
 
 export function Accordion({
   items,
   eventsKey,
 }: {
-  items: Faq["questions"]["items"];
-  eventsKey: GeneralEvents["ingestKey"];
+  items: Faq["questions"]["items"]
+  eventsKey?: string
 }) {
-  const [activeItems, setActiveItems] = React.useState<string[]>([]);
+  const [activeItems, setActiveItems] = React.useState<string[]>([])
 
   return (
     <AccordionPrimitive.Root
@@ -23,15 +21,10 @@ export function Accordion({
       onValueChange={(activeItems) => setActiveItems(activeItems)}
     >
       {items.map((item) => (
-        <AccordionItem
-          key={item._title}
-          {...item}
-          eventsKey={eventsKey}
-          isActive={activeItems.includes(item._title)}
-        />
+        <AccordionItem key={item._title} {...item} eventsKey={eventsKey} isActive={activeItems.includes(item._title)} />
       ))}
     </AccordionPrimitive.Root>
-  );
+  )
 }
 
 function AccordionItem({
@@ -39,16 +32,14 @@ function AccordionItem({
   answer,
   isActive,
   eventsKey,
-}: Faq["questions"]["items"][0] & { isActive: boolean; eventsKey: GeneralEvents["ingestKey"] }) {
+}: Faq["questions"]["items"][0] & { isActive: boolean; eventsKey?: string }) {
   return (
     <AccordionPrimitive.Item key={_title} className="flex flex-col" value={_title}>
       <AccordionPrimitive.Header>
         <AccordionPrimitive.Trigger
-          className="outline-hidden focus-visible:ring-3 flex w-full items-start gap-3 rounded-md py-2 text-lg font-medium leading-relaxed tracking-tighter ring-[--accent-500]"
+          className="outline-hidden focus-visible:ring-3 flex w-full items-start gap-3 rounded-md py-2 text-lg font-medium leading-relaxed tracking-tighter ring-primary"
           onClick={() => {
-            sendEvent(eventsKey, {
-              eventType: "faq_expanded",
-            });
+            console.log("FAQ expanded:", _title)
           }}
         >
           {isActive ? (
@@ -60,9 +51,9 @@ function AccordionItem({
           <span className="text-start">{_title}</span>
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
-      <AccordionPrimitive.Content className="data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown transform overflow-hidden pl-7 leading-relaxed tracking-tight text-[--text-tertiary] dark:text-[--dark-text-tertiary]">
+      <AccordionPrimitive.Content className="data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown transform overflow-hidden pl-7 leading-relaxed tracking-tight text-muted-foreground">
         <div>{answer}</div>
       </AccordionPrimitive.Content>
     </AccordionPrimitive.Item>
-  );
+  )
 }
