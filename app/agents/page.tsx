@@ -1,416 +1,495 @@
-'use client'
+"use client"
 
-import { useState, useMemo } from 'react'
+import { useState } from "react"
+import {
+  Search,
+  Grid3X3,
+  List,
+  Users,
+  Calendar,
+  Sparkles,
+  MessageSquare,
+  PenTool,
+  BarChart3,
+  Zap,
+  Brain,
+  Code,
+  Palette,
+  Music,
+  Video,
+  ShoppingCart,
+  Briefcase,
+  ArrowRight,
+  ExternalLink,
+  Github,
+  Loader2,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Filter, Grid3X3, List, Star, Users, Calendar, MessageSquare, FileText, ShoppingCart, BarChart3, Palette, Code, Zap, Brain, Headphones, Sparkles } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
+import { useAgents } from "@/hooks/use-agents"
+import { useCategories } from "@/hooks/use-categories"
+import type { Agent } from "@/lib/types/agent"
 
-// Agent data
-const agents = [
-  {
-    id: 1,
-    name: "ContentGenie AI",
-    description: "Tạo nội dung marketing chuyên nghiệp với AI. Hỗ trợ blog, social media, email marketing.",
-    category: "content",
-    price: "₫299,000",
-    rating: 4.9,
-    users: 2840,
-    author: "Marketing Pro",
-    updatedAt: "2024-01-15",
-    featured: true,
-    tags: ["Content", "Marketing", "Blog", "Social Media"],
-    image: "/placeholder.svg?height=200&width=300&text=ContentGenie"
-  },
-  {
-    id: 2,
-    name: "ChatBot Builder Pro",
-    description: "Xây dựng chatbot thông minh cho website và fanpage. Tích hợp AI conversation.",
-    category: "chatbots",
-    price: "₫450,000",
-    rating: 4.8,
-    users: 1920,
-    author: "Bot Master",
-    updatedAt: "2024-01-12",
-    featured: false,
-    tags: ["Chatbot", "AI", "Customer Service", "Automation"],
-    image: "/placeholder.svg?height=200&width=300&text=ChatBot+Builder"
-  },
-  {
-    id: 3,
-    name: "E-commerce Assistant",
-    description: "AI trợ lý bán hàng online. Tự động trả lời khách hàng, quản lý đơn hàng, phân tích dữ liệu.",
-    category: "ecommerce",
-    price: "₫680,000",
-    rating: 4.7,
-    users: 1560,
-    author: "Shop AI",
-    updatedAt: "2024-01-10",
-    featured: true,
-    tags: ["E-commerce", "Sales", "Analytics", "Customer Support"],
-    image: "/placeholder.svg?height=200&width=300&text=E-commerce+Assistant"
-  },
-  {
-    id: 4,
-    name: "Data Analyst Pro",
-    description: "Phân tích dữ liệu thông minh với AI. Tạo báo cáo, biểu đồ, insights tự động.",
-    category: "analytics",
-    price: "₫520,000",
-    rating: 4.9,
-    users: 980,
-    author: "Data Guru",
-    updatedAt: "2024-01-08",
-    featured: false,
-    tags: ["Analytics", "Data Science", "Reports", "Business Intelligence"],
-    image: "/placeholder.svg?height=200&width=300&text=Data+Analyst"
-  },
-  {
-    id: 5,
-    name: "Design AI Studio",
-    description: "Tạo thiết kế đồ họa chuyên nghiệp với AI. Logo, banner, poster, social media graphics.",
-    category: "design",
-    price: "₫380,000",
-    rating: 4.6,
-    users: 2100,
-    author: "Creative AI",
-    updatedAt: "2024-01-14",
-    featured: false,
-    tags: ["Design", "Graphics", "Logo", "Creative"],
-    image: "/placeholder.svg?height=200&width=300&text=Design+Studio"
-  },
-  {
-    id: 6,
-    name: "Code Assistant AI",
-    description: "Trợ lý lập trình thông minh. Code review, bug detection, optimization suggestions.",
-    category: "development",
-    price: "₫420,000",
-    rating: 4.8,
-    users: 1340,
-    author: "Dev Master",
-    updatedAt: "2024-01-11",
-    featured: true,
-    tags: ["Development", "Code Review", "Programming", "AI Assistant"],
-    image: "/placeholder.svg?height=200&width=300&text=Code+Assistant"
-  },
-  {
-    id: 7,
-    name: "Productivity Booster",
-    description: "Tăng năng suất làm việc với AI. Quản lý task, lịch trình, email automation.",
-    category: "productivity",
-    price: "₫350,000",
-    rating: 4.7,
-    users: 1780,
-    author: "Productivity Pro",
-    updatedAt: "2024-01-13",
-    featured: false,
-    tags: ["Productivity", "Task Management", "Automation", "Workflow"],
-    image: "/placeholder.svg?height=200&width=300&text=Productivity+Booster"
-  },
-  {
-    id: 8,
-    name: "Smart Brain AI",
-    description: "AI đa năng cho mọi tác vụ. Từ viết lách, phân tích đến sáng tạo nội dung.",
-    category: "smart",
-    price: "₫590,000",
-    rating: 4.9,
-    users: 3200,
-    author: "AI Innovator",
-    updatedAt: "2024-01-16",
-    featured: true,
-    tags: ["Multi-purpose", "Smart AI", "Creative", "Analysis"],
-    image: "/placeholder.svg?height=200&width=300&text=Smart+Brain"
-  }
-]
-
-// Categories with icons and counts
-const categories = [
-  { id: "all", name: "Tất cả", icon: Sparkles, count: agents.length },
-  { id: "content", name: "Nội dung", icon: FileText, count: agents.filter(a => a.category === "content").length },
-  { id: "chatbots", name: "Chatbots", icon: MessageSquare, count: agents.filter(a => a.category === "chatbots").length },
-  { id: "ecommerce", name: "E-commerce", icon: ShoppingCart, count: agents.filter(a => a.category === "ecommerce").length },
-  { id: "analytics", name: "Phân tích", icon: BarChart3, count: agents.filter(a => a.category === "analytics").length },
-  { id: "design", name: "Thiết kế", icon: Palette, count: agents.filter(a => a.category === "design").length },
-  { id: "development", name: "Lập trình", icon: Code, count: agents.filter(a => a.category === "development").length },
-  { id: "productivity", name: "Năng suất", icon: Zap, count: agents.filter(a => a.category === "productivity").length },
-  { id: "smart", name: "AI Smart", icon: Brain, count: agents.filter(a => a.category === "smart").length },
-  { id: "support", name: "Hỗ trợ", icon: Headphones, count: 0 },
-  { id: "education", name: "Giáo dục", icon: Users, count: 0 }
-]
+const iconMap: Record<string, any> = {
+  Grid3X3,
+  Code,
+  Brain,
+  Zap,
+  PenTool,
+  MessageSquare,
+  BarChart3,
+  Palette,
+  Music,
+  Video,
+  ShoppingCart,
+  Briefcase,
+}
 
 export default function AgentsPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [sortBy, setSortBy] = useState("popular")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+  const [pricingFilter, setPricingFilter] = useState("all")
+  const [sourceTypeFilter, setSourceTypeFilter] = useState("all")
 
-  // Filter and sort agents
-  const filteredAgents = useMemo(() => {
-    let filtered = agents
+  const { categories, loading: categoriesLoading } = useCategories()
+  const {
+    data: agentsData,
+    loading: agentsLoading,
+    error,
+  } = useAgents({
+    category: selectedCategory,
+    search: searchQuery,
+    sortBy,
+    pricing: pricingFilter,
+    sourceType: sourceTypeFilter,
+    limit: 50,
+  })
 
-    // Filter by search query
-    if (searchQuery) {
-      filtered = filtered.filter(agent =>
-        agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        agent.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        agent.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-      )
+  const selectedCategoryData = categories.find((cat) => cat.slug === selectedCategory)
+
+  const formatNumber = (num: number): string => {
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k"
     }
+    return num.toString()
+  }
 
-    // Filter by category
-    if (selectedCategory !== "all") {
-      filtered = filtered.filter(agent => agent.category === selectedCategory)
-    }
+  const formatDate = (dateString: string): string => {
+    return new Date(dateString).toLocaleDateString("vi-VN")
+  }
 
-    // Sort agents
-    switch (sortBy) {
-      case "popular":
-        return filtered.sort((a, b) => b.users - a.users)
-      case "rating":
-        return filtered.sort((a, b) => b.rating - a.rating)
-      case "newest":
-        return filtered.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-      case "price-low":
-        return filtered.sort((a, b) => parseInt(a.price.replace(/[₫,]/g, "")) - parseInt(b.price.replace(/[₫,]/g, "")))
-      case "price-high":
-        return filtered.sort((a, b) => parseInt(b.price.replace(/[₫,]/g, "")) - parseInt(a.price.replace(/[₫,]/g, "")))
+  const getPricingBadge = (pricing: string) => {
+    switch (pricing) {
+      case "free":
+        return <Badge className="bg-green-500/20 text-green-300 border-green-500/30">Miễn phí</Badge>
+      case "paid":
+        return <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">Trả phí</Badge>
+      case "freemium":
+        return <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">Freemium</Badge>
       default:
-        return filtered
+        return null
     }
-  }, [searchQuery, selectedCategory, sortBy])
+  }
 
-  const selectedCategoryData = categories.find(cat => cat.id === selectedCategory)
+  const getSourceBadge = (sourceType: string) => {
+    switch (sourceType) {
+      case "open-source":
+        return (
+          <Badge variant="outline" className="border-white/20 text-white">
+            Open Source
+          </Badge>
+        )
+      case "closed-source":
+        return (
+          <Badge variant="outline" className="border-white/20 text-gray-300">
+            Closed Source
+          </Badge>
+        )
+      default:
+        return null
+    }
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Có lỗi xảy ra</h2>
+          <p className="text-gray-400 mb-6">{error}</p>
+          <Button onClick={() => window.location.reload()}>Thử lại</Button>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fillRule="evenodd"%3E%3Cg fill="%239C92AC" fillOpacity="0.1"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-6 bg-gradient-to-r from-purple-500 to-blue-500 text-white border-0 text-lg px-4 py-2">
-              🤖 {selectedCategoryData?.count || 0} AI Agents
-            </Badge>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+      <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900">
+        <div className="absolute inset-0 opacity-20">
+          <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(156,146,172,0.1)_1px,transparent_1px)] bg-[length:60px_60px]" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Sparkles className="h-8 w-8 text-purple-400" />
+              <Badge variant="secondary" className="text-sm font-medium bg-white/10 text-white border-white/20">
+                {agentsData?.total || 0} Agents
+              </Badge>
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6">
               {selectedCategory === "all" ? "Khám phá AI Agents" : `${selectedCategoryData?.name} Agents`}
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {selectedCategory === "all" 
-                ? "Tìm kiếm và sử dụng các AI agents mạnh mẽ để tự động hóa công việc và tăng năng suất của bạn."
-                : `Khám phá các AI agents chuyên biệt cho ${selectedCategoryData?.name.toLowerCase()}. Được tối ưu hóa cho hiệu suất cao nhất.`
-              }
+              {selectedCategory === "all"
+                ? "Tìm kiếm và khám phá các AI Agents chất lượng cao từ cộng đồng toàn cầu để tối ưu hóa công việc và sáng tạo của bạn."
+                : `Khám phá các AI Agents chuyên về ${selectedCategoryData?.name.toLowerCase()} được tuyển chọn kỹ lưỡng.`}
             </p>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="pb-20">
-        <div className="container mx-auto px-4">
-          {/* Search and Filters */}
-          <div className="mb-12">
-            <Card className="bg-white/10 backdrop-blur-md border-white/20">
-              <CardContent className="p-6">
-                {/* Search Bar */}
-                <div className="relative mb-6">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <Input
-                    placeholder="Tìm kiếm AI agents..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-12 text-lg"
-                  />
-                </div>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Search and Filters */}
+        <div className="mb-8">
+          <div className="flex flex-col lg:flex-row gap-4 mb-6">
+            {/* Search */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                placeholder="Tìm kiếm agents..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+              />
+            </div>
 
-                {/* Categories */}
-                <div className="flex flex-wrap gap-3 mb-6">
-                  {categories.map((category) => {
-                    const Icon = category.icon
-                    const isActive = selectedCategory === category.id
-                    return (
-                      <Button
-                        key={category.id}
-                        variant={isActive ? "default" : "outline"}
-                        onClick={() => setSelectedCategory(category.id)}
-                        className={`${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0"
-                            : "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                        } backdrop-blur-md transition-all duration-300`}
-                      >
-                        <Icon className="w-4 h-4 mr-2" />
-                        {category.name}
-                        <Badge variant="secondary" className="ml-2 bg-white/20 text-white border-0">
-                          {category.count}
-                        </Badge>
-                      </Button>
-                    )
-                  })}
-                </div>
+            {/* Pricing Filter */}
+            <Select value={pricingFilter} onValueChange={setPricingFilter}>
+              <SelectTrigger className="w-full lg:w-40 h-12 bg-white/10 border-white/20 text-white">
+                <SelectValue placeholder="Giá" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-900 border-gray-700">
+                <SelectItem value="all" className="text-white hover:bg-gray-800">
+                  Tất cả
+                </SelectItem>
+                <SelectItem value="free" className="text-white hover:bg-gray-800">
+                  Miễn phí
+                </SelectItem>
+                <SelectItem value="paid" className="text-white hover:bg-gray-800">
+                  Trả phí
+                </SelectItem>
+                <SelectItem value="freemium" className="text-white hover:bg-gray-800">
+                  Freemium
+                </SelectItem>
+              </SelectContent>
+            </Select>
 
-                {/* Controls */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div className="flex items-center gap-4">
-                    <Select value={sortBy} onValueChange={setSortBy}>
-                      <SelectTrigger className="w-48 bg-white/10 border-white/20 text-white">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="popular">Phổ biến nhất</SelectItem>
-                        <SelectItem value="rating">Đánh giá cao</SelectItem>
-                        <SelectItem value="newest">Mới nhất</SelectItem>
-                        <SelectItem value="price-low">Giá thấp đến cao</SelectItem>
-                        <SelectItem value="price-high">Giá cao đến thấp</SelectItem>
-                      </SelectContent>
-                    </Select>
+            {/* Source Type Filter */}
+            <Select value={sourceTypeFilter} onValueChange={setSourceTypeFilter}>
+              <SelectTrigger className="w-full lg:w-48 h-12 bg-white/10 border-white/20 text-white">
+                <SelectValue placeholder="Loại mã nguồn" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-900 border-gray-700">
+                <SelectItem value="all" className="text-white hover:bg-gray-800">
+                  Tất cả
+                </SelectItem>
+                <SelectItem value="open-source" className="text-white hover:bg-gray-800">
+                  Open Source
+                </SelectItem>
+                <SelectItem value="closed-source" className="text-white hover:bg-gray-800">
+                  Closed Source
+                </SelectItem>
+              </SelectContent>
+            </Select>
 
-                    <div className="flex items-center gap-2">
-                      <Button
-                        variant={viewMode === "grid" ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setViewMode("grid")}
-                        className={viewMode === "grid" 
-                          ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0" 
-                          : "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                        }
-                      >
-                        <Grid3X3 className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant={viewMode === "list" ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setViewMode("list")}
-                        className={viewMode === "list" 
-                          ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0" 
-                          : "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                        }
-                      >
-                        <List className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
+            {/* Sort */}
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-full lg:w-48 h-12 bg-white/10 border-white/20 text-white">
+                <SelectValue placeholder="Sắp xếp theo" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-900 border-gray-700">
+                <SelectItem value="popular" className="text-white hover:bg-gray-800">
+                  Phổ biến nhất
+                </SelectItem>
+                <SelectItem value="autonomy" className="text-white hover:bg-gray-800">
+                  Độ tự động
+                </SelectItem>
+                <SelectItem value="users" className="text-white hover:bg-gray-800">
+                  Nhiều người dùng
+                </SelectItem>
+                <SelectItem value="newest" className="text-white hover:bg-gray-800">
+                  Mới nhất
+                </SelectItem>
+                <SelectItem value="name" className="text-white hover:bg-gray-800">
+                  Tên A-Z
+                </SelectItem>
+              </SelectContent>
+            </Select>
 
-                  <div className="text-gray-300">
-                    Hiển thị {filteredAgents.length} kết quả
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* View Mode */}
+            <div className="flex bg-white/10 rounded-lg p-1 border border-white/20">
+              <Button
+                variant={viewMode === "grid" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("grid")}
+                className={`h-10 ${viewMode === "grid" ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white" : "text-white hover:bg-white/20"}`}
+              >
+                <Grid3X3 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant={viewMode === "list" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("list")}
+                className={`h-10 ${viewMode === "list" ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white" : "text-white hover:bg-white/20"}`}
+              >
+                <List className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
-          {/* Agents Grid/List */}
-          {filteredAgents.length > 0 ? (
-            <div className={`grid gap-6 ${
-              viewMode === "grid" 
-                ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
-                : "grid-cols-1"
-            }`}>
-              {filteredAgents.map((agent) => (
-                <Card key={agent.id} className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-all duration-300 group">
-                  <CardHeader className="p-0">
-                    <div className="relative">
-                      <img
-                        src={agent.image || "/placeholder.svg"}
-                        alt={agent.name}
-                        className="w-full h-48 object-cover rounded-t-lg"
-                      />
-                      {agent.featured && (
-                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0">
-                          ⭐ Nổi bật
-                        </Badge>
-                      )}
-                      <div className="absolute top-3 right-3 flex gap-2">
-                        <Badge className="bg-black/50 text-white border-0">
-                          {agent.price}
-                        </Badge>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="mb-4">
-                      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
-                        {agent.name}
-                      </h3>
-                      <p className="text-gray-300 text-sm line-clamp-2">
-                        {agent.description}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-4 mb-4 text-sm text-gray-400">
-                      <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span>{agent.rating}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />
-                        <span>{agent.users.toLocaleString()}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{new Date(agent.updatedAt).toLocaleDateString('vi-VN')}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {agent.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="bg-white/20 text-white border-0 text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
-                      <span>Bởi {agent.author}</span>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Button className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0">
-                        Xem chi tiết
-                      </Button>
-                      <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                        Demo
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+          {/* Categories */}
+          {!categoriesLoading && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {categories.map((category) => {
+                const IconComponent = iconMap[category.icon] || Grid3X3
+                return (
+                  <Button
+                    key={category.slug}
+                    variant={selectedCategory === category.slug ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedCategory(category.slug)}
+                    className={`h-10 ${
+                      selectedCategory === category.slug
+                        ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0"
+                        : "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                    }`}
+                  >
+                    <IconComponent className="h-4 w-4 mr-2" />
+                    {category.name}
+                    <Badge variant="secondary" className="ml-2 text-xs bg-white/20 text-white border-0">
+                      {category.agent_count}
+                    </Badge>
+                  </Button>
+                )
+              })}
             </div>
-          ) : (
-            <div className="text-center py-20">
-              <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search className="w-12 h-12 text-gray-400" />
+          )}
+
+          {/* Results Summary */}
+          <div className="flex items-center justify-between text-sm text-gray-400">
+            <span>
+              Hiển thị {agentsData?.agents.length || 0} kết quả
+              {searchQuery && ` cho "${searchQuery}"`}
+            </span>
+          </div>
+        </div>
+
+        {/* Loading State */}
+        {agentsLoading && (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 className="h-8 w-8 animate-spin text-purple-400" />
+            <span className="ml-2 text-gray-400">Đang tải...</span>
+          </div>
+        )}
+
+        {/* Agents Grid/List */}
+        {!agentsLoading && agentsData && agentsData.agents.length > 0 ? (
+          <div
+            className={
+              viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" : "space-y-4"
+            }
+          >
+            {agentsData.agents.map((agent: Agent) => (
+              <Card
+                key={agent.id}
+                className={`group hover:shadow-xl transition-all duration-300 bg-white/10 backdrop-blur-sm border-white/20 hover:border-purple-400 hover:bg-white/15 relative ${
+                  viewMode === "list" ? "flex flex-row" : ""
+                }`}
+              >
+                {agent.featured && (
+                  <div className="absolute -top-2 -right-2 z-10">
+                    <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-0">
+                      <Sparkles className="h-3 w-3 mr-1" />
+                      Nổi bật
+                    </Badge>
+                  </div>
+                )}
+
+                <div className={viewMode === "list" ? "w-48 flex-shrink-0" : ""}>
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <img
+                      src={
+                        agent.image_url ||
+                        `/placeholder.svg?height=200&width=300&text=${encodeURIComponent(agent.name)}`
+                      }
+                      alt={agent.name}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+
+                    {/* Badges overlay */}
+                    <div className="absolute top-3 left-3 flex flex-col gap-2">
+                      {getSourceBadge(agent.source_type)}
+                      {getPricingBadge(agent.pricing)}
+                    </div>
+                  </div>
+                </div>
+
+                <CardContent className={`p-6 ${viewMode === "list" ? "flex-1" : ""}`}>
+                  <div className="flex items-start justify-between mb-3">
+                    <CardTitle className="font-semibold text-lg text-white group-hover:text-purple-300 transition-colors">
+                      {agent.name}
+                    </CardTitle>
+                  </div>
+
+                  <p className="text-gray-300 text-sm mb-4 line-clamp-2">{agent.description}</p>
+
+                  {/* Progress Indicators */}
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+                        <span>Phổ biến</span>
+                        <span>{agent.popularity}%</span>
+                      </div>
+                      <Progress value={agent.popularity} className="h-2 bg-white/10" />
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+                        <span>Tự động</span>
+                        <span>{agent.autonomy}%</span>
+                      </div>
+                      <Progress value={agent.autonomy} className="h-2 bg-white/10" />
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {agent.tags.slice(0, 3).map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs bg-white/20 text-gray-300 border-0">
+                        {tag}
+                      </Badge>
+                    ))}
+                    {agent.tags.length > 3 && (
+                      <Badge variant="secondary" className="text-xs bg-white/20 text-gray-300 border-0">
+                        +{agent.tags.length - 3}
+                      </Badge>
+                    )}
+                  </div>
+
+                  {/* Stats */}
+                  <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">
+                    <div className="flex items-center gap-1">
+                      <Users className="h-3 w-3" />
+                      {formatNumber(agent.users_count)}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      {formatDate(agent.updated_at)}
+                    </div>
+                  </div>
+
+                  {/* Author */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <Avatar className="h-6 w-6">
+                      <AvatarImage
+                        src={agent.author_avatar || `/placeholder.svg?height=24&width=24&text=${agent.author_name[0]}`}
+                      />
+                      <AvatarFallback className="bg-white/20 text-white text-xs">{agent.author_name[0]}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-xs text-gray-400">{agent.author_name}</span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-2">
+                      {agent.github_url && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-xs border-white/20 text-white hover:bg-white/20 bg-transparent"
+                          asChild
+                        >
+                          <a href={agent.github_url} target="_blank" rel="noopener noreferrer">
+                            <Github className="h-3 w-3 mr-1" />
+                            GitHub
+                          </a>
+                        </Button>
+                      )}
+                      {agent.demo_url && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-xs border-white/20 text-white hover:bg-white/20 bg-transparent"
+                          asChild
+                        >
+                          <a href={agent.demo_url} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="h-3 w-3 mr-1" />
+                            Demo
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                    <Button
+                      size="sm"
+                      className="text-xs bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0"
+                    >
+                      Chi tiết
+                      <ArrowRight className="h-3 w-3 ml-1" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          !agentsLoading && (
+            /* Empty State */
+            <div className="text-center py-16">
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-white/10 flex items-center justify-center">
+                <Search className="h-12 w-12 text-gray-400" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Không tìm thấy AI agents</h3>
-              <p className="text-gray-300 mb-6">
+              <h3 className="text-xl font-semibold text-white mb-2">Không tìm thấy agents</h3>
+              <p className="text-gray-400 mb-6">
                 Thử thay đổi từ khóa tìm kiếm hoặc bộ lọc để tìm thấy agents phù hợp.
               </p>
-              <Button 
+              <Button
                 onClick={() => {
                   setSearchQuery("")
                   setSelectedCategory("all")
+                  setPricingFilter("all")
+                  setSourceTypeFilter("all")
                 }}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0"
+                variant="outline"
+                className="border-white/20 text-white hover:bg-white/20"
               >
                 Xóa bộ lọc
               </Button>
             </div>
-          )}
+          )
+        )}
 
-          {/* Load More */}
-          {filteredAgents.length > 0 && (
-            <div className="text-center mt-12">
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-white/20 text-white hover:bg-white/10 backdrop-blur-md px-8"
-              >
-                Tải thêm agents
-              </Button>
-            </div>
-          )}
-        </div>
+        {/* Load More */}
+        {agentsData && agentsData.hasMore && (
+          <div className="text-center mt-12">
+            <Button
+              variant="outline"
+              size="lg"
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+            >
+              Tải thêm agents
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </div>
+        )}
       </section>
     </div>
   )

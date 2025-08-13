@@ -1,15 +1,18 @@
-"use client";
+"use client"
 
-import { GeneralEvents } from "../lib/basehub/fragments";
-import { sendEvent } from "basehub/events";
-import * as React from "react";
+import { useEffect } from "react"
 
-export function PageView({ ingestKey }: { ingestKey: GeneralEvents["ingestKey"] }) {
-  React.useEffect(() => {
-    sendEvent(ingestKey, {
-      eventType: "view",
-    });
-  }, [ingestKey]);
+interface PageViewProps {
+  ingestKey?: string
+}
 
-  return null;
+export function PageView({ ingestKey }: PageViewProps) {
+  useEffect(() => {
+    // Analytics tracking logic can be implemented here
+    if (ingestKey) {
+      console.log("Page view tracked with key:", ingestKey)
+    }
+  }, [ingestKey])
+
+  return null
 }
