@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search, Filter, Grid3X3, List, Star, Users, Calendar, MessageSquare, FileText, ShoppingCart, BarChart3, Palette, Code, Zap, Brain, Headphones, Sparkles } from 'lucide-react'
+import { AgentDemoModal } from '@/components/agent-demo-modal'
 
 // Agent data
 const agents = [
@@ -369,9 +370,11 @@ export default function AgentsPage() {
                       <Button className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0">
                         Xem chi tiết
                       </Button>
-                      <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                        Demo
-                      </Button>
+                      <AgentDemoModal agent={agent}>
+                        <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                          Demo
+                        </Button>
+                      </AgentDemoModal>
                     </div>
                   </CardContent>
                 </Card>
