@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
       FROM agents
       ${whereClause}
     `
-    const countResult = await sql(countQuery, params)
+    const countResult = await sql.query(countQuery, params)
     const total = Number.parseInt(countResult[0].total)
 
     // Get agents
@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
     `
     params.push(limit, offset)
 
-    const agents = await sql(agentsQuery, params)
+    const agents = await sql.query(agentsQuery, params)
 
     return NextResponse.json({
       agents,
