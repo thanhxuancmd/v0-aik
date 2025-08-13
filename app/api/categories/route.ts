@@ -22,7 +22,7 @@ export async function GET() {
         c.name ASC
     `
 
-    const categories = await sql(query)
+    const categories = await sql.query(query)
 
     // Update the "all" category count to be the total of all agents
     const allCategoryIndex = categories.findIndex((cat) => cat.slug === "all")
