@@ -12,11 +12,11 @@ export async function GET() {
       FROM categories c
       LEFT JOIN (
         SELECT 
-          category_slug,
+          category,
           COUNT(*) as count
         FROM agents
-        GROUP BY category_slug
-      ) agent_counts ON c.slug = agent_counts.category_slug
+        GROUP BY category
+      ) agent_counts ON c.slug = agent_counts.category
       ORDER BY 
         CASE WHEN c.slug = 'all' THEN 0 ELSE 1 END,
         c.name ASC
