@@ -21,10 +21,7 @@ export function SearchHitsProvider({
 export function useSearchHits() {
   const context = useContext(SearchHitsContext)
   if (context === undefined) {
-    if (typeof window === "undefined") {
-      return { authorsAvatars: {} }
-    }
-    throw new Error("useSearchHits must be used within a SearchHitsProvider")
+    return { authorsAvatars: {} }
   }
   return context
 }
