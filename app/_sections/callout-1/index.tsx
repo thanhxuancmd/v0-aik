@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { TrendingUp, Users, DollarSign, Star } from 'lucide-react'
 import Link from "next/link"
 
-export function Callout1() {
+export function Callout() {
   return (
     <section className="py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 relative overflow-hidden">
       {/* Background Pattern */}
