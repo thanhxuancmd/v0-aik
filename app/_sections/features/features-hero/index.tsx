@@ -1,36 +1,30 @@
-import { BaseHubImage } from "basehub/next-image";
-import { basehub, fragmentOn } from "basehub";
-import { Heading } from "../../../../common/heading";
-import { Section } from "../../../../common/section-wrapper";
-import { darkLightImageFragment, headingFragment } from "../../../../lib/basehub/fragments";
-import clsx from "clsx";
-import { DarkLightImage } from "../../../../common/dark-light-image";
-import { TrackedButtonLink } from "../../../../components/tracked-button";
-import s from "./hero.module.css";
-import { GeneralEvents } from "../../../../lib/basehub/fragments";
+import { Heading } from "../../../../common/heading"
+import { Section } from "../../../../common/section-wrapper"
+import clsx from "clsx"
+import { TrackedButtonLink } from "../../../../components/tracked-button"
+import s from "./hero.module.css"
 
-export const featureHeroFragment = fragmentOn("FeatureHeroComponent", {
-  _analyticsKey: true,
-  heroLayout: true,
-  heading: headingFragment,
-  image: darkLightImageFragment,
-  actions: {
-    _id: true,
-    href: true,
-    label: true,
-    type: true,
-  },
-});
+interface FeatureHeroProps {
+  heading: {
+    title: string
+    subtitle?: string
+    align?: "left" | "center" | "right"
+  }
+  heroLayout: "Image bottom" | "Image Right" | "full image" | "gradient"
+  image: {
+    light: { url: string; alt: string; width: number; height: number; aspectRatio: number }
+    dark: { url: string; alt: string; width: number; height: number; aspectRatio: number }
+  }
+  actions: Array<{
+    _id: string
+    href: string
+    label: string
+    type: "primary" | "secondary"
+  }>
+  eventsKey?: string
+}
 
-type FeatureHero = fragmentOn.infer<typeof featureHeroFragment>;
-
-export default function FeatureHero({
-  heading,
-  heroLayout,
-  image,
-  actions,
-  eventsKey,
-}: FeatureHero & { eventsKey: GeneralEvents["ingestKey"] }) {
+export default function FeatureHero({ heading, heroLayout, image, actions, eventsKey }: FeatureHeroProps) {
   switch (heroLayout) {
     case "Image bottom": {
       return (
@@ -54,13 +48,14 @@ export default function FeatureHero({
               ))}
             </div>
           </div>
-          <DarkLightImage
-            priority
-            className="block rounded-lg border border-[--border] dark:border-[--dark-border]"
-            {...image}
+          <img
+            src={image.light.url || "/placeholder.svg"}
+            alt={image.light.alt}
+            className="block rounded-lg border border-border dark:border-dark-border"
+            style={{ aspectRatio: image.light.aspectRatio }}
           />
         </Section>
-      );
+      )
     }
     case "Image Right": {
       return (
@@ -85,22 +80,24 @@ export default function FeatureHero({
                 ))}
               </div>
             </div>
-            <DarkLightImage
-              priority
-              className="block flex-1 rounded-lg border border-[--border] dark:border-[--dark-border] lg:w-1/2"
-              {...image}
+            <img
+              src={image.light.url || "/placeholder.svg"}
+              alt={image.light.alt}
+              className="block flex-1 rounded-lg border border-border dark:border-dark-border lg:w-1/2"
+              style={{ aspectRatio: image.light.aspectRatio }}
             />
           </div>
         </Section>
-      );
+      )
     }
     case "full image": {
       return (
         <>
-          <DarkLightImage
-            {...image}
-            priority
-            className="block max-h-[720px] w-full border-y border-t-0 border-[--border] object-cover dark:border-[--dark-border]"
+          <img
+            src={image.light.url || "/placeholder.svg"}
+            alt={image.light.alt}
+            className="block max-h-[720px] w-full border-y border-t-0 border-border object-cover dark:border-dark-border"
+            style={{ aspectRatio: image.light.aspectRatio }}
           />
           <Section>
             <div className="flex items-center justify-between self-stretch">
@@ -126,7 +123,7 @@ export default function FeatureHero({
             </div>
           </Section>
         </>
-      );
+      )
     }
     case "gradient": {
       return (
@@ -161,40 +158,14 @@ export default function FeatureHero({
             )}
           />
         </Section>
-      );
+      )
     }
     default: {
-      return null;
+      return null
     }
   }
 }
 
-async function LogoLite() {
-  const {
-    site: {
-      settings: { logoLite },
-    },
-  } = await basehub().query({
-    site: {
-      settings: {
-        logoLite: {
-          url: true,
-          width: true,
-          height: true,
-          alt: true,
-        },
-      },
-    },
-  });
-
-  return (
-    <BaseHubImage
-      priority
-      alt={logoLite.alt ?? "Logo"}
-      className="size-20"
-      height={logoLite.height}
-      src={logoLite.url}
-      width={logoLite.width}
-    />
-  );
+function LogoLite() {
+  return <img src="/generic-sports-club-logo.png" alt="AIK Logo" className="size-20" width={80} height={80} />
 }

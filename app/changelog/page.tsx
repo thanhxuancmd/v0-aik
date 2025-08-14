@@ -1,67 +1,68 @@
-import { BaseHubImage } from "basehub/next-image";
-import Link from "next/link";
-import { Heading } from "../../common/heading";
-import { ChangelogList } from "./_components/changelog-list";
-import { changelogListFragment } from "./_components/changelog-fragment";
-import { PageView } from "../../components/page-view";
-import type { Metadata } from "next";
-import { basehub } from "basehub";
-import { notFound } from "next/navigation";
-import "../../basehub.config";
+import Link from "next/link"
+import { Heading } from "../../common/heading"
+import { ChangelogList } from "./_components/changelog-list"
+import { PageView } from "../../components/page-view"
+import type { Metadata } from "next"
 
-export const dynamic = "force-static";
-export const revalidate = 30;
+export const dynamic = "force-static"
+export const revalidate = 30
 
 export const generateMetadata = async (): Promise<Metadata | undefined> => {
-  const data = await basehub().query({
-    site: {
-      changelog: {
-        metadata: {
-          title: true,
-          description: true,
-        },
-      },
-    },
-  });
-
   return {
-    title: data.site.changelog.metadata.title ?? undefined,
-    description: data.site.changelog.metadata.description ?? undefined,
-  };
-};
+    title: "Changelog - AIK Marketplace",
+    description: "Theo dõi các cập nhật và tính năng mới của AIK Marketplace",
+  }
+}
+
+// Sample changelog data
+const sampleChangelog = {
+  title: "Changelog",
+  subtitle: "Theo dõi các cập nhật mới nhất",
+  socialLinksTitle: "Theo dõi",
+  socialLinks: [
+    {
+      _id: "1",
+      _title: "Twitter",
+      url: "https://twitter.com/aik_marketplace",
+      icon: { url: "/placeholder.svg" },
+    },
+    {
+      _id: "2",
+      _title: "GitHub",
+      url: "https://github.com/aik-marketplace",
+      icon: { url: "/placeholder.svg" },
+    },
+  ],
+  posts: {
+    items: [
+      {
+        _id: "1",
+        _title: "Phiên bản 2.1.0 - Cải thiện hiệu suất",
+        _slug: "v2-1-0-cai-thien-hieu-suat",
+        publishedAt: "2024-01-15",
+        excerpt: "Cải thiện hiệu suất tải trang và thêm tính năng tìm kiếm nâng cao.",
+        content: "Chi tiết về các cải thiện trong phiên bản này...",
+        tags: ["Performance", "Search", "UI/UX"],
+      },
+      {
+        _id: "2",
+        _title: "Phiên bản 2.0.0 - Giao diện mới",
+        _slug: "v2-0-0-giao-dien-moi",
+        publishedAt: "2024-01-10",
+        excerpt: "Ra mắt giao diện hoàn toàn mới với thiết kế hiện đại và trải nghiệm người dùng tốt hơn.",
+        content: "Chi tiết về giao diện mới...",
+        tags: ["UI/UX", "Design", "Major Update"],
+      },
+    ],
+  },
+}
 
 export default async function ChangelogPage() {
-  const {
-    site: { changelog, generalEvents },
-  } = await basehub().query({
-    site: {
-      changelog: {
-        _analyticsKey: true,
-        title: true,
-        subtitle: true,
-        posts: {
-          __args: {
-            orderBy: "publishedAt__DESC",
-          },
-          items: changelogListFragment,
-        },
-        socialLinksTitle: true,
-        socialLinks: { icon: { url: true }, url: true, _title: true, _id: true },
-      },
-      generalEvents: {
-        ingestKey: true,
-      },
-    },
-  });
-
-  const socialLinks = changelog.socialLinks;
-  if (changelog.posts.items.length === 0) {
-    return notFound();
-  }
+  const changelog = sampleChangelog
 
   return (
     <>
-      <PageView ingestKey={generalEvents.ingestKey} />
+      <PageView />
       <div className="flex items-center justify-between border-b border-[--border] dark:border-[--dark-border]">
         <div className="mx-auto flex w-full max-w-screen-md flex-col items-start justify-between gap-4 border-r border-[--border] px-8 py-24 dark:border-[--dark-border] md:flex-row md:items-center">
           <Heading align="left" className="flex-1 !flex-col-reverse" subtitle={changelog.subtitle}>
@@ -72,20 +73,9 @@ export default async function ChangelogPage() {
               {changelog.socialLinksTitle}
             </p>
             <div className="flex gap-2">
-              {socialLinks.map((link) => (
-                <Link
-                  key={link._id}
-                  className="aspect-square hover:brightness-90"
-                  href={link.url}
-                  target="_blank"
-                >
-                  <BaseHubImage
-                    priority
-                    alt={link._title}
-                    height={18}
-                    src={link.icon?.url ?? ""}
-                    width={18}
-                  />
+              {changelog.socialLinks.map((link) => (
+                <Link key={link._id} className="aspect-square hover:brightness-90" href={link.url} target="_blank">
+                  <img alt={link._title} height={18} src={link.icon?.url ?? "/placeholder.svg"} width={18} />
                 </Link>
               ))}
             </div>
@@ -96,5 +86,5 @@ export default async function ChangelogPage() {
         <ChangelogList changelogPosts={changelog.posts.items} />
       </div>
     </>
-  );
+  )
 }

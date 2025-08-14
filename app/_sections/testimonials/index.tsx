@@ -1,18 +1,34 @@
-import { Section } from "../../../common/section-wrapper";
-import { Heading } from "../../../common/heading";
-import { fragmentOn } from "basehub";
-import { headingFragment, quoteFragment } from "../../../lib/basehub/fragments";
+import { Section } from "../../../common/section-wrapper"
+import { Heading } from "../../../common/heading"
+import { Slider } from "./slider"
 
-import { Slider } from "./slider";
+interface TestimonialsSliderProps {
+  heading: {
+    title: string
+    subtitle?: string
+    align?: "left" | "center" | "right" | "none"
+  }
+  quotes: Array<{
+    _id: string
+    quote: string
+    author: {
+      _id: string
+      _title: string
+      role?: string
+      company?: { _title: string }
+      image: {
+        url: string
+        alt?: string
+        width: number
+        height: number
+      }
+    }
+    company?: string
+    rating?: number
+  }>
+}
 
-export const testimonialsSliderFragment = fragmentOn("TestimonialSliderComponent", {
-  heading: headingFragment,
-  quotes: quoteFragment,
-});
-
-export type TestimonialsSlider = fragmentOn.infer<typeof testimonialsSliderFragment>;
-
-export function Testimonials({ heading, quotes }: TestimonialsSlider) {
+export function Testimonials({ heading, quotes }: TestimonialsSliderProps) {
   return (
     <div className="relative overflow-clip">
       <Section>
@@ -27,5 +43,5 @@ export function Testimonials({ heading, quotes }: TestimonialsSlider) {
         </Slider>
       </Section>
     </div>
-  );
+  )
 }

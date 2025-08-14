@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Search, Menu } from 'lucide-react'
+import { usePathname } from "next/navigation"
+import { Search, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -50,32 +51,39 @@ const browseItems = [
   },
   {
     title: "Customer Service",
-    href: "/agents/customer-service",
+    href: "/agents?category=chatbot",
     description: "AI agents hỗ trợ chăm sóc khách hàng",
   },
   {
     title: "Analytics",
-    href: "/agents/analytics",
+    href: "/agents?category=analytics",
     description: "AI agents phân tích dữ liệu và báo cáo",
   },
   {
     title: "Content",
-    href: "/agents/content",
+    href: "/agents?category=content",
     description: "AI agents tạo và quản lý nội dung",
   },
   {
     title: "Automation",
-    href: "/agents/automation",
+    href: "/agents?category=automation",
     description: "AI agents tự động hóa quy trình",
   },
   {
     title: "Latest",
-    href: "/agents/latest",
+    href: "/agents?sort=newest",
     description: "AI agents mới nhất được thêm vào",
   },
 ]
 
-const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
+function isActivePath(pathname: string, href: string) {
+  if (href === "/agents") {
+    return pathname === "/agents" || pathname.startsWith("/agents?")
+  }
+  return pathname === href || pathname.startsWith(href + "/")
+}
+
+const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a"> & { title: string }>(
   ({ className, title, children, ...props }, ref) => {
     return (
       <li>
@@ -99,7 +107,13 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
 ListItem.displayName = "ListItem"
 
 export function Header() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
+
+  const isAgentsActive = pathname === "/agents" || pathname.startsWith("/agents?")
+  const isEcosystemActive = ["/ecosystem", "/community", "/blog", "/events"].some(
+    (path) => pathname === path || pathname.startsWith(path + "/"),
+  )
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -107,14 +121,23 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <AIKLogo size={28} className="text-foreground" />
-          <span className="font-bold text-xl">AIK</span>
+          <span className="text-xl font-bold">AIK</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <NavigationMenu className="hidden lg:flex mx-6">
+        <NavigationMenu className="mx-6 hidden lg:flex">
           <NavigationMenuList>
+            {/* Duyệt Agents */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Duyệt Agents</NavigationMenuTrigger>
+              <NavigationMenuTrigger
+                className={cn(
+                  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+                  "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4 data-[state=open]:after:w-3/4",
+                  isAgentsActive && "after:w-3/4",
+                )}
+              >
+                Duyệt Agents
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {browseItems.map((item) => (
@@ -125,8 +148,18 @@ export function Header() {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
+
+            {/* Hệ sinh thái */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Hệ sinh thái</NavigationMenuTrigger>
+              <NavigationMenuTrigger
+                className={cn(
+                  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+                  "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4 data-[state=open]:after:w-3/4",
+                  isEcosystemActive && "after:w-3/4",
+                )}
+              >
+                Hệ sinh thái
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {ecosystemItems.map((item) => (
@@ -137,16 +170,32 @@ export function Header() {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
+
+            {/* Bảng giá */}
             <NavigationMenuItem>
               <Link href="/pricing" legacyBehavior passHref>
-                <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                <NavigationMenuLink
+                  className={cn(
+                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+                    "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4",
+                    isActivePath(pathname, "/pricing") && "after:w-3/4",
+                  )}
+                >
                   Bảng giá
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+
+            {/* Doanh nghiệp */}
             <NavigationMenuItem>
               <Link href="/enterprise" legacyBehavior passHref>
-                <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                <NavigationMenuLink
+                  className={cn(
+                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+                    "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4",
+                    isActivePath(pathname, "/enterprise") && "after:w-3/4",
+                  )}
+                >
                   Doanh nghiệp
                 </NavigationMenuLink>
               </Link>
@@ -155,10 +204,13 @@ export function Header() {
         </NavigationMenu>
 
         {/* Search */}
-        <div className="flex-1 flex justify-center px-4">
+        <div className="flex flex-1 justify-center px-4">
           <div className="relative w-full max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Tìm kiếm AI agents..." className="pl-8" />
+            <Input
+              placeholder="Tìm kiếm AI agents..."
+              className="pl-8 transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+            />
           </div>
         </div>
 
@@ -166,11 +218,14 @@ export function Header() {
         <div className="flex items-center space-x-2">
           <LanguageSwitcher />
           <ThemeToggle />
-          <div className="hidden md:flex items-center space-x-2">
-            <Button variant="ghost" size="sm">
+
+          <div className="hidden items-center space-x-2 md:flex">
+            <Button variant="ghost" size="sm" className="transition-colors">
               Đăng nhập
             </Button>
-            <Button size="sm">Đăng ký</Button>
+            <Button size="sm" className="transition-colors">
+              Đăng ký
+            </Button>
           </div>
 
           {/* Mobile menu */}
@@ -178,57 +233,64 @@ export function Header() {
             <SheetTrigger asChild>
               <Button variant="ghost" size="sm" className="lg:hidden">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">Mở menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
-              <div className="flex flex-col space-y-4 mt-4">
+              <div className="mt-4 flex flex-col space-y-4">
                 <div className="space-y-2">
-                  <h4 className="font-medium">Duyệt Agents</h4>
-                  {browseItems.map((item) => (
-                    <Link
-                      key={item.title}
-                      href={item.href}
-                      className="block px-2 py-1 text-sm text-muted-foreground hover:text-foreground"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.title}
-                    </Link>
-                  ))}
+                  <h4 className="px-2 text-sm font-medium text-muted-foreground">Duyệt Agents</h4>
+                  <div className="space-y-1">
+                    {browseItems.map((item) => (
+                      <Link
+                        key={item.title}
+                        href={item.href}
+                        className="block rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
+
                 <div className="space-y-2">
-                  <h4 className="font-medium">Hệ sinh thái</h4>
-                  {ecosystemItems.map((item) => (
-                    <Link
-                      key={item.title}
-                      href={item.href}
-                      className="block px-2 py-1 text-sm text-muted-foreground hover:text-foreground"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.title}
-                    </Link>
-                  ))}
+                  <h4 className="px-2 text-sm font-medium text-muted-foreground">Hệ sinh thái</h4>
+                  <div className="space-y-1">
+                    {ecosystemItems.map((item) => (
+                      <Link
+                        key={item.title}
+                        href={item.href}
+                        className="block rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-2">
+
+                <div className="space-y-1 border-t pt-4">
                   <Link
                     href="/pricing"
-                    className="block px-2 py-1 text-sm text-muted-foreground hover:text-foreground"
+                    className="block rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
                     onClick={() => setIsOpen(false)}
                   >
                     Bảng giá
                   </Link>
                   <Link
                     href="/enterprise"
-                    className="block px-2 py-1 text-sm text-muted-foreground hover:text-foreground"
+                    className="block rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
                     onClick={() => setIsOpen(false)}
                   >
                     Doanh nghiệp
                   </Link>
                 </div>
-                <div className="flex flex-col space-y-2 pt-4 border-t">
+
+                <div className="flex flex-col space-y-2 border-t pt-4">
                   <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
                     Đăng nhập
                   </Button>

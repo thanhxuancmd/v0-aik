@@ -1,12 +1,9 @@
-import type { Faq } from "../../_sections/faq";
+import type { Faq } from "../../_sections/faq"
+import { Heading } from "../../../common/heading"
+import { Section } from "../../../common/section-wrapper"
+import { Accordion } from "./accordion"
 
-import { Heading } from "../../../common/heading";
-import { Section } from "../../../common/section-wrapper";
-
-import { Accordion } from "./accordion";
-import { GeneralEvents } from "../../../lib/basehub/fragments";
-
-export function AccordionFaq(faq: Faq & { eventsKey: GeneralEvents["ingestKey"] }) {
+export function AccordionFaq(faq: Faq & { eventsKey?: string }) {
   return (
     <Section>
       <Heading {...faq.heading}>
@@ -16,5 +13,5 @@ export function AccordionFaq(faq: Faq & { eventsKey: GeneralEvents["ingestKey"] 
         <Accordion items={faq.questions.items} eventsKey={faq.eventsKey} />
       </div>
     </Section>
-  );
+  )
 }

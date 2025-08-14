@@ -1,83 +1,45 @@
-import { buttonFragment } from "../lib/basehub/fragments";
-import { fragmentOn } from "basehub";
-import { RichText, type RichTextProps } from "basehub/react-rich-text";
-import Image from "next/image";
-import Link, { type LinkProps } from "next/link";
-
-export const formWrapperFragment = fragmentOn("FormWrapperComponent", {
-  title: true,
-  subtitle: {
-    json: {
-      content: true,
-    },
-  },
-  cta: buttonFragment,
-});
-export type FormWrapperFragment = fragmentOn.infer<typeof formWrapperFragment>;
-export const settingsLogoLiteFragment = fragmentOn("Settings", {
-  logoLite: {
-    url: true,
-    width: true,
-    height: true,
-  },
-});
-export type SettingsLogoLiteFragment = fragmentOn.infer<typeof settingsLogoLiteFragment>;
+import type React from "react"
+import Image from "next/image"
+import Link, { type LinkProps } from "next/link"
 
 export function FormLayout({
   children,
   title,
   subtitle,
-  settingsLogoLite,
+  logoUrl,
 }: {
-  title: string;
-  subtitle: React.ReactNode;
-  children: React.ReactNode;
-  settingsLogoLite: SettingsLogoLiteFragment;
+  title: string
+  subtitle: React.ReactNode
+  children: React.ReactNode
+  logoUrl?: string
 }) {
-  const logoLite = settingsLogoLite.logoLite;
-
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-col gap-5 rounded-xl border border-[--surface-secondary] bg-[--surface-primary] p-5 shadow-md dark:border-[--dark-border] dark:bg-[--dark-surface-secondary] dark:shadow-none">
+    <div className="mx-auto flex w-full max-w-xl flex-col gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-md dark:border-gray-800 dark:bg-gray-900 dark:shadow-none">
       <header className="flex flex-col gap-3">
-        <Image
-          priority
-          alt="Logo"
-          className="size-8 self-start"
-          height={logoLite.height}
-          src={logoLite.url}
-          width={logoLite.width}
-        />
+        {logoUrl && (
+          <Image
+            priority
+            alt="Logo"
+            className="size-8 self-start"
+            height={32}
+            src={logoUrl || "/placeholder.svg"}
+            width={32}
+          />
+        )}
         <div className="flex flex-col gap-1">
           <h1 className="text-xl font-medium">{title}</h1>
-          <div className="text-sm text-[--text-secondary] dark:text-[--dark-text-secondary]">
-            {subtitle}
-          </div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">{subtitle}</div>
         </div>
       </header>
       {children}
     </div>
-  );
+  )
 }
 
-export function RichTextFormWrapper({ children }: RichTextProps) {
+function CustomAnchor({ children, ...props }: React.AllHTMLAttributes<HTMLAnchorElement> & LinkProps) {
   return (
-    <RichText
-      components={{
-        a: CustomAnchor,
-      }}
-    >
-      {children}
-    </RichText>
-  );
-}
-
-function CustomAnchor({
-  children,
-  ...props
-}: React.AllHTMLAttributes<HTMLAnchorElement> & LinkProps) {
-  return (
-    <Link className="text-[--accent-500] hover:underline" {...props}>
+    <Link className="text-blue-600 hover:underline dark:text-blue-400" {...props}>
       {children}
     </Link>
-  );
+  )
 }

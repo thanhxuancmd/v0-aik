@@ -1,37 +1,37 @@
-import { BaseHubImage } from "basehub/next-image";
+import { Heading } from "../../../../common/heading"
+import { Section } from "../../../../common/section-wrapper"
 
-import { Heading } from "../../../../common/heading";
-import { Section } from "../../../../common/section-wrapper";
-import { fragmentOn } from "basehub";
-import { darkLightImageFragment, headingFragment } from "../../../../lib/basehub/fragments";
-import { DarkLightImage } from "../../../../common/dark-light-image";
-
-export const bigFeatureFragment = fragmentOn("FeaturesBigImageComponent", {
-  _analyticsKey: true,
+interface BigFeatureProps {
   featuresBigImageList: {
-    items: {
-      _title: true,
-      description: true,
+    items: Array<{
+      _title: string
+      description: string
       icon: {
-        alt: true,
-        url: true,
-      },
-    },
-  },
-  heading: headingFragment,
-  image: darkLightImageFragment,
-});
+        alt: string
+        url: string
+      }
+    }>
+  }
+  heading: {
+    title: string
+    subtitle?: string
+    align?: "left" | "center" | "right"
+  }
+  image: {
+    light: { url: string; alt: string; width: number; height: number; aspectRatio: number }
+    dark: { url: string; alt: string; width: number; height: number; aspectRatio: number }
+  }
+}
 
-type BigFeature = fragmentOn.infer<typeof bigFeatureFragment>;
-
-export function BigFeature({ featuresBigImageList, heading, image }: BigFeature) {
+export function BigFeature({ featuresBigImageList, heading, image }: BigFeatureProps) {
   return (
     <Section container="default">
-      <DarkLightImage
+      <img
+        src={image.light.url || "/placeholder.svg"}
+        alt={image.light.alt}
         height={600}
         width={1216}
-        {...image}
-        className="block rounded-xl border border-[--border] dark:border-[--dark-border] md:order-3 md:w-full"
+        className="block rounded-xl border border-border dark:border-dark-border md:order-3 md:w-full"
       />
       <Heading {...heading}>
         <h4>{heading.title}</h4>
@@ -39,24 +39,22 @@ export function BigFeature({ featuresBigImageList, heading, image }: BigFeature)
       <div className="flex w-full flex-col items-start gap-4 md:order-2 md:grid md:grid-cols-3 md:gap-16">
         {featuresBigImageList.items.map(({ _title, description, icon }) => (
           <article key={_title} className="flex flex-col gap-4">
-            <figure className="flex size-9 items-center justify-center rounded-full border border-[--border] bg-[--surface-secondary] p-2 dark:border-[--dark-border] dark:bg-[--dark-surface-secondary]">
-              <BaseHubImage
+            <figure className="flex size-9 items-center justify-center rounded-full border border-border bg-secondary p-2 dark:border-dark-border dark:bg-dark-secondary">
+              <img
+                src={icon.url || "/placeholder.svg"}
                 alt={icon.alt ?? _title}
                 className="dark:invert"
                 height={18}
-                src={icon.url}
                 width={18}
               />
             </figure>
             <div className="flex flex-col items-start gap-1">
               <h5 className="text-lg font-medium">{_title}</h5>
-              <p className="text-[--text-tertiary] dark:text-[--dark-text-tertiary]">
-                {description}
-              </p>
+              <p className="text-muted-foreground">{description}</p>
             </div>
           </article>
         ))}
       </div>
     </Section>
-  );
+  )
 }
