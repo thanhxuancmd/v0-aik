@@ -10,10 +10,10 @@ const SearchHitsContext = createContext<SearchHitsContextType | undefined>(undef
 
 export function SearchHitsProvider({
   children,
-  authorsAvatars,
+  authorsAvatars = {}, // Added default empty object to prevent undefined destructuring
 }: {
   children: ReactNode
-  authorsAvatars: Record<string, any>
+  authorsAvatars?: Record<string, any> // Made authorsAvatars optional
 }) {
   return <SearchHitsContext.Provider value={{ authorsAvatars }}>{children}</SearchHitsContext.Provider>
 }
@@ -21,6 +21,9 @@ export function SearchHitsProvider({
 export function useSearchHits() {
   const context = useContext(SearchHitsContext)
   if (context === undefined) {
+    if (typeof window === "undefined") {
+      return { authorsAvatars: {} }
+    }
     throw new Error("useSearchHits must be used within a SearchHitsProvider")
   }
   return context
