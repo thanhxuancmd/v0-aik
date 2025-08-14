@@ -69,6 +69,7 @@ export const Button = ({
               size,
             }
           : { className },
+      )}
       disabled={disabled}
       {...props}
     >

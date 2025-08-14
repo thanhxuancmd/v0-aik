@@ -85,6 +85,7 @@ export function ChangelogList({ changelogPosts }: { changelogPosts: ChangelogLis
                   "absolute -left-0 top-0 z-10 h-full w-px origin-top scale-y-0 transform-gpu rounded-full !bg-[--accent-500] !shadow-[--accent-500-10] transition-transform duration-500 group-last:hidden",
                   activeIdx - 1 === idx && "scale-y-100",
                   activeIdx > idx && "scale-y-100 delay-150",
+                )}
               />
             </div>
           </div>
