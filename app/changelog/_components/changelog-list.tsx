@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import { BaseHubImage } from "basehub/next-image";
 import clsx from "clsx";
 
 import { ButtonLink } from "../../../common/button";
@@ -86,18 +85,14 @@ export function ChangelogList({ changelogPosts }: { changelogPosts: ChangelogLis
                   "absolute -left-0 top-0 z-10 h-full w-px origin-top scale-y-0 transform-gpu rounded-full !bg-[--accent-500] !shadow-[--accent-500-10] transition-transform duration-500 group-last:hidden",
                   activeIdx - 1 === idx && "scale-y-100",
                   activeIdx > idx && "scale-y-100 delay-150",
-                )}
               />
             </div>
           </div>
           <article className="mb-16 flex flex-col gap-6">
-            <BaseHubImage
+            <img
               alt={post._title}
-              blurDataURL={post.image.blurDataURL}
               className="rounded-lg border border-[--border] dark:border-[--dark-border]"
               height={480}
-              placeholder="blur"
-              priority={idx === 0}
               src={post.image.url}
               width={647}
             />
@@ -111,18 +106,30 @@ export function ChangelogList({ changelogPosts }: { changelogPosts: ChangelogLis
             </div>
             <footer className="flex items-center justify-between">
               {post.authors.length > 1 ? (
-                <AvatarsGroup animate>
+                <div className="flex items-center gap-2">
                   {post.authors.map((author) => (
-                    <Author key={author._id} {...author} />
+                    <div key={author._id} className="flex items-center gap-2">
+                      <img
+                        alt={author._title}
+                        height={24}
+                        src={author.image.url}
+                        width={24}
+                        className="rounded-full"
+                      />
+                      <p className="text-sm text-[--text-tertiary] dark:text-[--dark-text-tertiary]">
+                        {author._title}
+                      </p>
+                    </div>
                   ))}
-                </AvatarsGroup>
+                </div>
               ) : post.authors[0] ? (
                 <div className="flex items-center gap-2 rounded-full">
-                  <BaseHubImage
+                  <img
                     alt={post.authors[0]._title}
                     height={24}
                     src={post.authors[0].image.url}
                     width={24}
+                    className="rounded-full"
                   />
                   <p className="text-sm text-[--text-tertiary] dark:text-[--dark-text-tertiary]">
                     {post.authors[0]._title}

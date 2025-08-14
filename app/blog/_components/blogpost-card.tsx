@@ -1,27 +1,32 @@
 import Link from "next/link";
 import clsx from "clsx";
 
-import { fragmentOn } from "basehub";
 import { AvatarsGroup } from "../../../common/avatars-group";
 import { Author } from "../../../common/avatar";
-import { authorFragment, darkLightImageFragment } from "../../../lib/basehub/fragments";
 import { formatDate } from "../../_utils/dates";
-import { DarkLightImage } from "../../../common/dark-light-image";
 import { ButtonLink } from "../../../common/button";
 import { SimpleTooltip } from "../../../common/tooltip";
 
-export const blogpostCardFragment = fragmentOn("BlogPostComponent", {
-  _id: true,
-  _title: true,
-  _slug: true,
-  description: true,
-  publishedAt: true,
-  authors: authorFragment,
-  image: darkLightImageFragment,
-  categories: true,
-});
+// Mock data types
+type BlogpostCardFragment = {
+  _id: string;
+  _title: string;
+  _slug: string;
+  description: string;
+  publishedAt: string;
+  authors: Array<{
+    _id: string;
+    _title: string;
+    image: { url: string };
+  }>;
+  image: {
+    light: { aspectRatio: number };
+    url: string;
+    blurDataURL?: string;
+  };
+  categories: string[];
+};
 
-type BlogpostCardFragment = fragmentOn.infer<typeof blogpostCardFragment>;
 type BlogPostCard = {
   type?: "card" | "list";
   className?: string;
@@ -77,10 +82,9 @@ export function BlogpostCard({ type = "list", className, ...post }: BlogPostCard
             className="overflow-hidden p-2"
             style={{ aspectRatio: post.image.light.aspectRatio }}
           >
-            <DarkLightImage
-              {...post.image}
-              priority
-              withPlaceholder
+            <img
+              src={post.image.url}
+              alt={post._title}
               className="h-full w-full rounded-sm bg-[--surface-tertiary-20] object-cover dark:bg-[--dark-surface-tertiary-20]"
               height={324}
               width={576}

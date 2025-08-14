@@ -69,12 +69,11 @@ export const Button = ({
               size,
             }
           : { className },
-      )}
       disabled={disabled}
       {...props}
     >
       {children}
-      {icon ? <span>{typeof icon === "string" ? <Icon content={icon} /> : icon}</span> : null}
+      {icon ? <span>{icon}</span> : null}
     </button>
   );
 };
