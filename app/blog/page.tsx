@@ -1,7 +1,5 @@
 import { Heading } from "../../common/heading"
 import { Section } from "../../common/section-wrapper"
-import { SearchContent as Search } from "../../common/search"
-import { SearchHitsProvider } from "../../context/search-hits-context"
 import { BlogpostCard } from "./_components/blogpost-card"
 import { PageView } from "../../components/page-view"
 import type { Metadata } from "next"
@@ -72,9 +70,9 @@ export default async function BlogPage() {
         <Heading align="left">
           <h2>Blog & Tin tức</h2>
         </Heading>
-        <SearchHitsProvider authorsAvatars={{}}>
-          <Search _searchKey="blog" />
-        </SearchHitsProvider>
+        <div className="flex items-center justify-center p-4 bg-muted rounded-lg">
+          <p className="text-muted-foreground">Tìm kiếm blog posts</p>
+        </div>
         {featuredPosts.map((post) => (
           <BlogpostCard key={post._id} type="card" {...post} />
         ))}
