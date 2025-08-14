@@ -36,6 +36,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AIK Marketplace - Nền tảng AI Agents hàng đầu Việt Nam",
   description: "Khám phá và triển khai AI agents mạnh mẽ cho doanh nghiệp của bạn. Hơn 15,000+ AI agents chất lượng cao từ cộng đồng developer Việt Nam.",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
