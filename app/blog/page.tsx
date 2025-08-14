@@ -1,105 +1,57 @@
 import { Heading } from "../../common/heading";
 import { Section } from "../../common/section-wrapper";
-import { SearchContent as Search } from "../../common/search";
-import { SearchHitsProvider } from "../../context/search-hits-context";
-import { type AvatarFragment, avatarFragment } from "../../lib/basehub/fragments";
-
-import { BlogpostCard, blogpostCardFragment } from "./_components/blogpost-card";
-import { PageView } from "../../components/page-view";
 import type { Metadata } from "next";
-import { basehub } from "basehub";
 import { notFound } from "next/navigation";
-
-import "../../basehub.config";
 
 export const dynamic = "force-static";
 export const revalidate = 30;
 
 export const generateMetadata = async (): Promise<Metadata | undefined> => {
-  const data = await basehub().query({
-    site: {
-      blog: {
-        metadata: {
-          title: true,
-          description: true,
-        },
-      },
-    },
-  });
-
   return {
-    title: data.site.blog.metadata.title ?? undefined,
-    description: data.site.blog.metadata.description ?? undefined,
+    title: "Blog - AIK Marketplace",
+    description: "Tin tức và insights về AI agents và công nghệ",
   };
 };
 
+const mockPosts = [
+  {
+    id: "1",
+    title: "Cách tạo AI Agent đầu tiên của bạn",
+    description: "Hướng dẫn từng bước để tạo ra AI agent đầu tiên",
+    publishedAt: "2024-01-15",
+    slug: "cach-tao-ai-agent-dau-tien",
+    authors: [{ name: "Nguyễn Văn A" }],
+  },
+  {
+    id: "2", 
+    title: "Xu hướng AI trong năm 2024",
+    description: "Những xu hướng AI đáng chú ý trong năm 2024",
+    publishedAt: "2024-01-10",
+    slug: "xu-huong-ai-2024",
+    authors: [{ name: "Trần Thị B" }],
+  },
+];
+
 export default async function BlogPage() {
-  const {
-    _componentInstances: { blogPost },
-    site: { blog, generalEvents },
-    collections: { authors },
-  } = await basehub().query({
-    _componentInstances: {
-      blogPost: {
-        _searchKey: true,
-      },
-    },
-    collections: {
-      authors: {
-        items: {
-          _id: true,
-          image: avatarFragment,
-        },
-      },
-    },
-    site: {
-      generalEvents: { ingestKey: true },
-      blog: {
-        _analyticsKey: true,
-        mainTitle: true,
-        featuredPosts: blogpostCardFragment,
-        listTitle: true,
-        posts: {
-          __args: { orderBy: "publishedAt__DESC" },
-          items: blogpostCardFragment,
-        },
-      },
-    },
-  });
-
-  const { posts } = blog;
-
-  if (posts.items.length === 0) {
+  if (mockPosts.length === 0) {
     notFound();
   }
 
   return (
     <Section className="gap-16">
-      <PageView ingestKey={generalEvents.ingestKey} />
-      <div className="grid grid-cols-1 gap-5 self-stretch md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 self-stretch">
         <Heading align="left">
-          <h2>{blog.mainTitle}</h2>
+          <h2>Blog & Tin tức</h2>
         </Heading>
-        <SearchHitsProvider
-          authorsAvatars={authors.items.reduce((acc: Record<string, AvatarFragment>, author) => {
-            acc[author._id] = author.image;
-
-            return acc;
-          }, {})}
-        >
-          <Search _searchKey={blogPost._searchKey} />
-        </SearchHitsProvider>
-        {blog.featuredPosts?.slice(0, 3).map((post) => (
-          <BlogpostCard key={post._id} type="card" {...post} />
-        ))}
-      </div>
-      <div className="w-full space-y-3">
-        <Heading align="left">
-          <h3 className="!text-xl lg:!text-2xl">{blog.listTitle}</h3>
-        </Heading>
-        <div className="-mx-4 flex flex-col self-stretch">
-          {posts.items.map((post) => (
-            <BlogpostCard key={post._id} {...post} className="-mx-4" />
+        <div className="grid gap-6 md:grid-cols-2">
+          {mockPosts.map((post) => (
+            <article key={post.id} className="border rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+              <p className="text-gray-600 mb-4">{post.description}</p>
+              <div className="text-sm text-gray-500">
+                {new Date(post.publishedAt).toLocaleDateString('vi-VN')} • {post.authors[0].name}
+              </div>
+            </article>
           ))}
         </div>
       </div>
