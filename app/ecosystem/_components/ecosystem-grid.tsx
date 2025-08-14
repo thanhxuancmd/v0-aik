@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Star } from "lucide-react"
 import Image from "next/image"
 
 interface EcosystemItem {
@@ -109,7 +108,7 @@ export function EcosystemGrid() {
                           {item.pricing}
                         </Badge>
                         <div className="flex items-center gap-1 text-xs text-gray-500">
-                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                          <span>⭐</span>
                           <span>{item.popularity}/10</span>
                         </div>
                       </div>
@@ -139,7 +138,7 @@ export function EcosystemGrid() {
                     className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors bg-transparent"
                     onClick={() => window.open(item.website, "_blank")}
                   >
-                    <ExternalLink className="w-4 h-4 mr-2" />
+                    <span className="mr-2">↗</span>
                     Xem chi tiết
                   </Button>
                 </CardContent>
