@@ -111,6 +111,7 @@ export function Callout() {
       </div>
     </section>
   )
+  )
 }
 
 // Export fragment for reuse
