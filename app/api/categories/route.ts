@@ -4,10 +4,10 @@ import { getDatabase } from "@/lib/database"
 export async function GET() {
   try {
     console.log('GET /api/categories called')
-    const db = getDatabase()
+    const db = await getDatabase()
     
     // Get categories with updated agent counts
-    const categories = db.prepare(`
+    const categoriesResult = db.exec(`
       SELECT 
         c.*,
         COALESCE(agent_counts.count, 0) as agent_count
@@ -18,17 +18,30 @@ export async function GET() {
         GROUP BY category
       ) agent_counts ON c.slug = agent_counts.category
       ORDER BY c.id
-    `).all()
+    `)
+
+    let categories = []
+    if (categoriesResult[0] && categoriesResult[0].values) {
+      const columns = categoriesResult[0].columns
+      categories = categoriesResult[0].values.map((row: any[]) => {
+        const category: any = {}
+        columns.forEach((col: string, index: number) => {
+          category[col] = row[index]
+        })
+        return category
+      })
+    }
 
     console.log('Raw categories from DB:', categories.length)
 
     // Update the "all" category count
-    const totalAgents = db.prepare('SELECT COUNT(*) as total FROM agents').get() as { total: number }
-    console.log('Total agents count:', totalAgents.total)
+    const totalResult = db.exec('SELECT COUNT(*) as total FROM agents')
+    const totalAgents = totalResult[0]?.values[0]?.[0] || 0
+    console.log('Total agents count:', totalAgents)
     
     const processedCategories = categories.map((cat: any) => ({
       ...cat,
-      agent_count: cat.slug === 'all' ? totalAgents.total : cat.agent_count,
+      agent_count: cat.slug === 'all' ? totalAgents : cat.agent_count,
       created_at: cat.created_at,
       updated_at: cat.updated_at
     }))

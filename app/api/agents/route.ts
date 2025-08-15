@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 
     console.log('Query params:', { category, search, sortBy, pricing, sourceType, limit, offset })
 
-    const db = getDatabase()
+    const db = await getDatabase()
 
     // Build WHERE clause
     let whereConditions = []
@@ -69,8 +69,10 @@ export async function GET(request: NextRequest) {
 
     // Get total count
     const countQuery = `SELECT COUNT(*) as total FROM agents ${whereClause}`
-    const countResult = db.prepare(countQuery).get(...params) as { total: number }
-    const total = countResult.total
+    console.log('Count query:', countQuery, 'params:', params)
+    
+    const countResult = db.exec(countQuery, params)
+    const total = countResult[0]?.values[0]?.[0] || 0
 
     // Get agents with pagination
     const agentsQuery = `
@@ -82,7 +84,21 @@ export async function GET(request: NextRequest) {
     console.log('Executing query:', agentsQuery)
     console.log('Query params:', [...params, limit, offset])
     
-    const agents = db.prepare(agentsQuery).all(...params, limit, offset)
+    const agentsResult = db.exec(agentsQuery, [...params, limit, offset])
+    const agentsData = agentsResult[0]
+    
+    let agents = []
+    if (agentsData && agentsData.values) {
+      const columns = agentsData.columns
+      agents = agentsData.values.map((row: any[]) => {
+        const agent: any = {}
+        columns.forEach((col: string, index: number) => {
+          agent[col] = row[index]
+        })
+        return agent
+      })
+    }
+    
     console.log('Found agents:', agents.length)
 
     // Parse tags JSON for each agent
