@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { TrendingUp, Clock, User, ArrowRight, Flame, Bot, Newspaper, ExternalLink } from "lucide-react"
+import { TrendingUp, Clock, User, ArrowRight, Flame, Bot, Newspaper } from "lucide-react"
 import Link from "next/link"
 
 type News = {
@@ -300,19 +300,17 @@ export function AINews() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {news.map((n, i) => (
-            <Link key={i} href={n.url} className="group">
-              <article className="h-full rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors">
-                <h3 className="text-xl font-semibold group-hover:underline">{n.title}</h3>
-                <p className="mt-2 text-gray-300">{n.summary}</p>
-                <div className="mt-4 flex items-center gap-3 text-sm text-gray-400">
-                  <Clock className="h-4 w-4" />
-                  <span>{n.date}</span>
-                  <span>•</span>
-                  <span>{n.source}</span>
-                  <ExternalLink className="ml-auto h-4 w-4 opacity-70" />
-                </div>
-              </article>
-            </Link>
+            <article
+              key={i}
+              className="h-full rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors"
+            >
+              <h3 className="text-xl font-semibold">{n.title}</h3>
+              <p className="mt-2 text-gray-300">{n.excerpt}</p>
+              <div className="mt-4 flex items-center gap-3 text-sm text-gray-400">
+                <Clock className="h-4 w-4" />
+                <span>{n.date}</span>
+              </div>
+            </article>
           ))}
         </div>
       </div>
