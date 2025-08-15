@@ -1,256 +1,493 @@
-import initSqlJs from 'sql.js'
+// Mock database implementation for WebContainer compatibility
+// This avoids native binding issues with better-sqlite3 and browser-only issues with sql.js
 
-let SQL: any = null
-let db: any = null
+interface Agent {
+  id: number
+  name: string
+  slug: string
+  description: string
+  category: string
+  pricing: 'free' | 'paid' | 'freemium'
+  source_type: 'open-source' | 'closed-source'
+  popularity: number
+  autonomy: number
+  users_count: number
+  author_name: string
+  author_avatar: string
+  image_url: string
+  tags: string
+  featured: boolean
+  github_url?: string
+  demo_url?: string
+  website_url?: string
+  created_at: string
+  updated_at: string
+}
 
-export async function getDatabase() {
-  if (!db) {
-    console.log('Initializing SQL.js database...')
-    
-    if (!SQL) {
-      SQL = await initSqlJs({
-        // Use CDN for WASM file since we can't bundle it properly in WebContainer
-        locateFile: (file: string) => `https://sql.js.org/dist/${file}`
-      })
+interface Category {
+  id: number
+  name: string
+  slug: string
+  icon: string
+  description: string
+  agent_count: number
+  created_at: string
+  updated_at: string
+}
+
+// Mock data
+const mockAgents: Agent[] = [
+  {
+    id: 1,
+    name: 'ChatGPT',
+    slug: 'chatgpt',
+    description: 'Advanced conversational AI that can assist with writing, analysis, math, coding, and creative tasks.',
+    category: 'chatbot',
+    pricing: 'freemium',
+    source_type: 'closed-source',
+    popularity: 98,
+    autonomy: 75,
+    users_count: 267000,
+    author_name: 'OpenAI',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Conversational AI', 'GPT-4', 'Multimodal', 'General Purpose']),
+    featured: true,
+    github_url: null,
+    demo_url: 'https://chat.openai.com',
+    website_url: 'https://openai.com/chatgpt',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 2,
+    name: 'GitHub Copilot',
+    slug: 'github-copilot',
+    description: 'AI pair programmer that helps you write code faster with intelligent code completions and suggestions.',
+    category: 'development',
+    pricing: 'paid',
+    source_type: 'closed-source',
+    popularity: 96,
+    autonomy: 45,
+    users_count: 125000,
+    author_name: 'GitHub',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Code Completion', 'AI Programming', 'IDE Integration', 'Productivity']),
+    featured: true,
+    github_url: null,
+    demo_url: 'https://github.com/features/copilot',
+    website_url: 'https://github.com/features/copilot',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 3,
+    name: 'Midjourney',
+    slug: 'midjourney',
+    description: 'AI-powered image generation tool that creates stunning artwork and designs from text descriptions.',
+    category: 'design',
+    pricing: 'paid',
+    source_type: 'closed-source',
+    popularity: 94,
+    autonomy: 25,
+    users_count: 234000,
+    author_name: 'Midjourney Inc',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Image Generation', 'Art', 'Creative', 'Text-to-Image']),
+    featured: true,
+    github_url: null,
+    demo_url: 'https://midjourney.com',
+    website_url: 'https://midjourney.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 4,
+    name: 'LangChain',
+    slug: 'langchain',
+    description: 'Framework for developing applications powered by language models with chains, agents, and memory capabilities.',
+    category: 'development',
+    pricing: 'free',
+    source_type: 'open-source',
+    popularity: 95,
+    autonomy: 15,
+    users_count: 89000,
+    author_name: 'LangChain Inc',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Framework', 'Chains', 'Memory', 'Tools']),
+    featured: true,
+    github_url: 'https://github.com/langchain-ai/langchain',
+    demo_url: null,
+    website_url: 'https://langchain.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 5,
+    name: 'AutoGPT',
+    slug: 'autogpt',
+    description: 'Autonomous AI agent that can perform tasks independently by breaking them down into sub-tasks and executing them.',
+    category: 'automation',
+    pricing: 'freemium',
+    source_type: 'open-source',
+    popularity: 88,
+    autonomy: 92,
+    users_count: 67000,
+    author_name: 'Significant Gravitas',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Autonomous', 'Task Planning', 'GPT-4', 'Web Browsing']),
+    featured: true,
+    github_url: 'https://github.com/Significant-Gravitas/AutoGPT',
+    demo_url: null,
+    website_url: 'https://agpt.co',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 6,
+    name: 'Stable Diffusion',
+    slug: 'stable-diffusion',
+    description: 'Open-source text-to-image diffusion model capable of generating detailed images from text descriptions.',
+    category: 'design',
+    pricing: 'free',
+    source_type: 'open-source',
+    popularity: 93,
+    autonomy: 20,
+    users_count: 189000,
+    author_name: 'Stability AI',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Text-to-Image', 'Diffusion', 'Open Source', 'Art Generation']),
+    featured: true,
+    github_url: 'https://github.com/Stability-AI/StableDiffusion',
+    demo_url: 'https://huggingface.co/spaces/stabilityai/stable-diffusion',
+    website_url: 'https://stability.ai',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 7,
+    name: 'Anthropic Claude',
+    slug: 'anthropic-claude',
+    description: 'Constitutional AI assistant focused on being helpful, harmless, and honest with advanced reasoning capabilities.',
+    category: 'chatbot',
+    pricing: 'paid',
+    source_type: 'closed-source',
+    popularity: 91,
+    autonomy: 65,
+    users_count: 156000,
+    author_name: 'Anthropic',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Constitutional AI', 'Reasoning', 'Safety', 'Helpful']),
+    featured: true,
+    github_url: null,
+    demo_url: 'https://claude.ai',
+    website_url: 'https://anthropic.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 8,
+    name: 'Vercel AI SDK',
+    slug: 'vercel-ai-sdk',
+    description: 'Free open-source TypeScript SDK for building LLM-powered apps and agents across frameworks with unified API.',
+    category: 'development',
+    pricing: 'free',
+    source_type: 'open-source',
+    popularity: 92,
+    autonomy: 4,
+    users_count: 45000,
+    author_name: 'Vercel',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['TypeScript', 'SDK', 'LLM', 'Framework']),
+    featured: true,
+    github_url: 'https://github.com/vercel/ai',
+    demo_url: 'https://sdk.vercel.ai',
+    website_url: 'https://vercel.com/ai',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 9,
+    name: 'CrewAI',
+    slug: 'crewai',
+    description: 'Framework for orchestrating role-playing, autonomous AI agents to collaborate and complete complex tasks.',
+    category: 'ai-assistant',
+    pricing: 'freemium',
+    source_type: 'open-source',
+    popularity: 76,
+    autonomy: 78,
+    users_count: 23000,
+    author_name: 'CrewAI Inc',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Multi-Agent', 'Role-Playing', 'Collaboration', 'Tasks']),
+    featured: false,
+    github_url: 'https://github.com/joaomdmoura/crewAI',
+    demo_url: null,
+    website_url: 'https://crewai.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 10,
+    name: 'Perplexity AI',
+    slug: 'perplexity-ai',
+    description: 'AI-powered search engine that provides accurate answers with real-time information and source citations.',
+    category: 'ai-assistant',
+    pricing: 'freemium',
+    source_type: 'closed-source',
+    popularity: 87,
+    autonomy: 42,
+    users_count: 145000,
+    author_name: 'Perplexity AI',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Search', 'Real-time', 'Citations', 'Research']),
+    featured: false,
+    github_url: null,
+    demo_url: 'https://perplexity.ai',
+    website_url: 'https://perplexity.ai',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 11,
+    name: 'Gemini',
+    slug: 'gemini',
+    description: 'Google\'s most capable AI model with advanced reasoning, coding, and creative capabilities across text, images, and code.',
+    category: 'ai-assistant',
+    pricing: 'freemium',
+    source_type: 'closed-source',
+    popularity: 95,
+    autonomy: 82,
+    users_count: 180000,
+    author_name: 'Google',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Multimodal', 'Reasoning', 'Coding', 'Creative', 'Google AI']),
+    featured: true,
+    github_url: null,
+    demo_url: 'https://gemini.google.com',
+    website_url: 'https://gemini.google.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 12,
+    name: 'Zapier AI Actions',
+    slug: 'zapier-ai-actions',
+    description: 'Connect AI agents to 6000+ apps with natural language automation and workflow orchestration.',
+    category: 'automation',
+    pricing: 'freemium',
+    source_type: 'closed-source',
+    popularity: 85,
+    autonomy: 56,
+    users_count: 78000,
+    author_name: 'Zapier',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Automation', 'Integrations', 'Workflow', 'Natural Language']),
+    featured: false,
+    github_url: null,
+    demo_url: 'https://zapier.com/ai',
+    website_url: 'https://zapier.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 13,
+    name: 'Runway ML',
+    slug: 'runway-ml',
+    description: 'AI-powered creative suite for video generation, editing, and visual effects with cutting-edge models.',
+    category: 'video',
+    pricing: 'freemium',
+    source_type: 'closed-source',
+    popularity: 89,
+    autonomy: 28,
+    users_count: 67000,
+    author_name: 'Runway AI',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Video Generation', 'Creative', 'Visual Effects', 'AI Models']),
+    featured: true,
+    github_url: null,
+    demo_url: 'https://runwayml.com',
+    website_url: 'https://runwayml.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 14,
+    name: 'ElevenLabs',
+    slug: 'elevenlabs',
+    description: 'AI voice generator that creates realistic speech in any voice and style with advanced voice cloning technology.',
+    category: 'audio',
+    pricing: 'freemium',
+    source_type: 'closed-source',
+    popularity: 86,
+    autonomy: 30,
+    users_count: 45000,
+    author_name: 'ElevenLabs',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Voice Synthesis', 'Voice Cloning', 'Text-to-Speech', 'Audio AI']),
+    featured: false,
+    github_url: null,
+    demo_url: 'https://elevenlabs.io',
+    website_url: 'https://elevenlabs.io',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 15,
+    name: 'Unitree R1',
+    slug: 'unitree-r1',
+    description: 'Ultra-lightweight humanoid robot with 26 joints, multimodal AI, priced for research and education.',
+    category: 'robotics',
+    pricing: 'paid',
+    source_type: 'closed-source',
+    popularity: 82,
+    autonomy: 48,
+    users_count: 1200,
+    author_name: 'Unitree Robotics',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['Humanoid', 'Robot', 'Multimodal', 'Research']),
+    featured: true,
+    github_url: null,
+    demo_url: 'https://unitree.com/r1',
+    website_url: 'https://unitree.com',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  {
+    id: 16,
+    name: 'GLM-4.5',
+    slug: 'glm-4-5',
+    description: 'Open-source hybrid-reasoning MoE foundation model optimized for intelligent agent tasks with 128K context and tool use.',
+    category: 'ai-assistant',
+    pricing: 'free',
+    source_type: 'open-source',
+    popularity: 79,
+    autonomy: 84,
+    users_count: 28000,
+    author_name: 'Zhipu AI',
+    author_avatar: '/placeholder-user.jpg',
+    image_url: '/placeholder.jpg',
+    tags: JSON.stringify(['MoE', 'Foundation Model', 'Tool Use', '128K Context']),
+    featured: true,
+    github_url: 'https://github.com/THUDM/GLM-4',
+    demo_url: null,
+    website_url: 'https://zhipuai.cn',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  }
+]
+
+const mockCategories: Category[] = [
+  { id: 1, name: 'Tất cả', slug: 'all', icon: 'Grid3X3', description: 'Tất cả các AI Agents', agent_count: 16, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 2, name: 'Phát triển', slug: 'development', icon: 'Code', description: 'AI Agents hỗ trợ lập trình và phát triển phần mềm', agent_count: 3, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 3, name: 'AI Assistant', slug: 'ai-assistant', icon: 'Brain', description: 'Trợ lý AI thông minh cho các tác vụ đa dạng', agent_count: 4, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 4, name: 'Chatbot', slug: 'chatbot', icon: 'MessageSquare', description: 'Bot trò chuyện và hỗ trợ khách hàng', agent_count: 2, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 5, name: 'Thiết kế', slug: 'design', icon: 'Palette', description: 'Thiết kế đồ họa và sáng tạo với AI', agent_count: 2, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 6, name: 'Tự động hóa', slug: 'automation', icon: 'Zap', description: 'Tự động hóa quy trình và workflow', agent_count: 2, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 7, name: 'Video', slug: 'video', icon: 'Video', description: 'Tạo và chỉnh sửa video với AI', agent_count: 1, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 8, name: 'Âm thanh', slug: 'audio', icon: 'Music', description: 'Xử lý và tạo nội dung âm thanh', agent_count: 1, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 9, name: 'Robotics', slug: 'robotics', icon: 'Zap', description: 'Robot và hệ thống tự động thông minh', agent_count: 1, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 10, name: 'Phân tích', slug: 'analytics', icon: 'BarChart3', description: 'Phân tích dữ liệu và business intelligence', agent_count: 0, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 11, name: 'Nội dung', slug: 'content', icon: 'PenTool', description: 'Tạo và quản lý nội dung với AI', agent_count: 0, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 12, name: 'Thương mại', slug: 'ecommerce', icon: 'ShoppingCart', description: 'Giải pháp AI cho thương mại điện tử', agent_count: 0, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' },
+  { id: 13, name: 'Kinh doanh', slug: 'business', icon: 'Briefcase', description: 'Công cụ AI cho quản lý kinh doanh', agent_count: 0, created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z' }
+]
+
+export class MockDatabase {
+  private agents: Agent[] = mockAgents
+  private categories: Category[] = mockCategories
+
+  queryAgents(filters: {
+    category?: string
+    search?: string
+    pricing?: string
+    sourceType?: string
+    sortBy?: string
+    limit?: number
+    offset?: number
+  }) {
+    let filteredAgents = [...this.agents]
+
+    // Apply filters
+    if (filters.category && filters.category !== 'all') {
+      filteredAgents = filteredAgents.filter(agent => agent.category === filters.category)
     }
-    
-    // Create in-memory database
-    db = new SQL.Database()
-    console.log('Database connected (in-memory)')
-    
-    // Initialize database schema
-    await initializeDatabase()
+
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase()
+      filteredAgents = filteredAgents.filter(agent => 
+        agent.name.toLowerCase().includes(searchLower) ||
+        agent.description.toLowerCase().includes(searchLower) ||
+        agent.tags.toLowerCase().includes(searchLower)
+      )
+    }
+
+    if (filters.pricing && filters.pricing !== 'all') {
+      filteredAgents = filteredAgents.filter(agent => agent.pricing === filters.pricing)
+    }
+
+    if (filters.sourceType && filters.sourceType !== 'all') {
+      filteredAgents = filteredAgents.filter(agent => agent.source_type === filters.sourceType)
+    }
+
+    // Apply sorting
+    switch (filters.sortBy) {
+      case 'autonomy':
+        filteredAgents.sort((a, b) => b.autonomy - a.autonomy)
+        break
+      case 'users':
+        filteredAgents.sort((a, b) => b.users_count - a.users_count)
+        break
+      case 'newest':
+        filteredAgents.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
+        break
+      case 'name':
+        filteredAgents.sort((a, b) => a.name.localeCompare(b.name))
+        break
+      default:
+        filteredAgents.sort((a, b) => b.popularity - a.popularity)
+    }
+
+    const total = filteredAgents.length
+    const offset = filters.offset || 0
+    const limit = filters.limit || 50
+    const paginatedAgents = filteredAgents.slice(offset, offset + limit)
+
+    return {
+      agents: paginatedAgents,
+      total,
+      hasMore: offset + limit < total,
+      page: Math.floor(offset / limit) + 1,
+      totalPages: Math.ceil(total / limit)
+    }
   }
-  return db
-}
 
-async function initializeDatabase() {
-  console.log('Initializing database schema...')
-  
-  // Create categories table
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS categories (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      slug TEXT UNIQUE NOT NULL,
-      icon TEXT NOT NULL,
-      description TEXT,
-      agent_count INTEGER DEFAULT 0,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `)
-
-  // Create agents table
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS agents (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      slug TEXT UNIQUE NOT NULL,
-      description TEXT NOT NULL,
-      category TEXT NOT NULL,
-      pricing TEXT NOT NULL CHECK (pricing IN ('free', 'paid', 'freemium')),
-      source_type TEXT NOT NULL CHECK (source_type IN ('open-source', 'closed-source')),
-      popularity INTEGER DEFAULT 0 CHECK (popularity >= 0 AND popularity <= 100),
-      autonomy INTEGER DEFAULT 0 CHECK (autonomy >= 0 AND autonomy <= 100),
-      users_count INTEGER DEFAULT 0,
-      author_name TEXT NOT NULL,
-      author_avatar TEXT,
-      image_url TEXT,
-      tags TEXT,
-      featured BOOLEAN DEFAULT FALSE,
-      github_url TEXT,
-      demo_url TEXT,
-      website_url TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `)
-
-  // Create indexes
-  db.exec(`
-    CREATE INDEX IF NOT EXISTS idx_agents_category ON agents(category);
-    CREATE INDEX IF NOT EXISTS idx_agents_pricing ON agents(pricing);
-    CREATE INDEX IF NOT EXISTS idx_agents_source_type ON agents(source_type);
-    CREATE INDEX IF NOT EXISTS idx_agents_popularity ON agents(popularity DESC);
-    CREATE INDEX IF NOT EXISTS idx_agents_autonomy ON agents(autonomy DESC);
-    CREATE INDEX IF NOT EXISTS idx_agents_users_count ON agents(users_count DESC);
-    CREATE INDEX IF NOT EXISTS idx_agents_featured ON agents(featured);
-    CREATE INDEX IF NOT EXISTS idx_agents_updated_at ON agents(updated_at DESC);
-    CREATE INDEX IF NOT EXISTS idx_agents_name ON agents(name);
-  `)
-
-  // Check if we need to seed data
-  const categoryCount = db.exec('SELECT COUNT(*) as count FROM categories')[0]?.values[0]?.[0] || 0
-  console.log('Current category count:', categoryCount)
-  
-  if (categoryCount === 0) {
-    console.log('Seeding database...')
-    await seedDatabase()
-  } else {
-    console.log('Database already has data, skipping seed')
+  getCategories() {
+    return this.categories
   }
 }
 
-async function seedDatabase() {
-  console.log('Seeding database with initial data...')
-  
-  // Insert categories
-  const categories = [
-    ['Tất cả', 'all', 'Grid3X3', 'Tất cả các AI Agents', 16],
-    ['Phát triển', 'development', 'Code', 'AI Agents hỗ trợ lập trình và phát triển phần mềm', 3],
-    ['AI Assistant', 'ai-assistant', 'Brain', 'Trợ lý AI thông minh cho các tác vụ đa dạng', 3],
-    ['Chatbot', 'chatbot', 'MessageSquare', 'Bot trò chuyện và hỗ trợ khách hàng', 2],
-    ['Thiết kế', 'design', 'Palette', 'Thiết kế đồ họa và sáng tạo với AI', 2],
-    ['Tự động hóa', 'automation', 'Zap', 'Tự động hóa quy trình và workflow', 2],
-    ['Video', 'video', 'Video', 'Tạo và chỉnh sửa video với AI', 1],
-    ['Âm thanh', 'audio', 'Music', 'Xử lý và tạo nội dung âm thanh', 1],
-    ['Robotics', 'robotics', 'Zap', 'Robot và hệ thống tự động thông minh', 1],
-    ['Phân tích', 'analytics', 'BarChart3', 'Phân tích dữ liệu và business intelligence', 0],
-    ['Nội dung', 'content', 'PenTool', 'Tạo và quản lý nội dung với AI', 0],
-    ['Thương mại', 'ecommerce', 'ShoppingCart', 'Giải pháp AI cho thương mại điện tử', 0],
-    ['Kinh doanh', 'business', 'Briefcase', 'Công cụ AI cho quản lý kinh doanh', 0]
-  ]
+let dbInstance: MockDatabase | null = null
 
-  categories.forEach(category => {
-    db.run(
-      'INSERT OR REPLACE INTO categories (name, slug, icon, description, agent_count) VALUES (?, ?, ?, ?, ?)',
-      category
-    )
-  })
-
-  // Insert agents
-  const agents = [
-    [
-      'ChatGPT', 'chatgpt',
-      'Advanced conversational AI that can assist with writing, analysis, math, coding, and creative tasks.',
-      'chatbot', 'freemium', 'closed-source', 98, 75, 267000, 'OpenAI', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Conversational AI', 'GPT-4', 'Multimodal', 'General Purpose']),
-      1, null, 'https://chat.openai.com', 'https://openai.com/chatgpt'
-    ],
-    [
-      'GitHub Copilot', 'github-copilot',
-      'AI pair programmer that helps you write code faster with intelligent code completions and suggestions.',
-      'development', 'paid', 'closed-source', 96, 45, 125000, 'GitHub', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Code Completion', 'AI Programming', 'IDE Integration', 'Productivity']),
-      1, null, 'https://github.com/features/copilot', 'https://github.com/features/copilot'
-    ],
-    [
-      'Midjourney', 'midjourney',
-      'AI-powered image generation tool that creates stunning artwork and designs from text descriptions.',
-      'design', 'paid', 'closed-source', 94, 25, 234000, 'Midjourney Inc', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Image Generation', 'Art', 'Creative', 'Text-to-Image']),
-      1, null, 'https://midjourney.com', 'https://midjourney.com'
-    ],
-    [
-      'LangChain', 'langchain',
-      'Framework for developing applications powered by language models with chains, agents, and memory capabilities.',
-      'development', 'free', 'open-source', 95, 15, 89000, 'LangChain Inc', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Framework', 'Chains', 'Memory', 'Tools']),
-      1, 'https://github.com/langchain-ai/langchain', null, 'https://langchain.com'
-    ],
-    [
-      'AutoGPT', 'autogpt',
-      'Autonomous AI agent that can perform tasks independently by breaking them down into sub-tasks and executing them.',
-      'automation', 'freemium', 'open-source', 88, 92, 67000, 'Significant Gravitas', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Autonomous', 'Task Planning', 'GPT-4', 'Web Browsing']),
-      1, 'https://github.com/Significant-Gravitas/AutoGPT', null, 'https://agpt.co'
-    ],
-    [
-      'Stable Diffusion', 'stable-diffusion',
-      'Open-source text-to-image diffusion model capable of generating detailed images from text descriptions.',
-      'design', 'free', 'open-source', 93, 20, 189000, 'Stability AI', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Text-to-Image', 'Diffusion', 'Open Source', 'Art Generation']),
-      1, 'https://github.com/Stability-AI/StableDiffusion', 'https://huggingface.co/spaces/stabilityai/stable-diffusion', 'https://stability.ai'
-    ],
-    [
-      'Anthropic Claude', 'anthropic-claude',
-      'Constitutional AI assistant focused on being helpful, harmless, and honest with advanced reasoning capabilities.',
-      'chatbot', 'paid', 'closed-source', 91, 65, 156000, 'Anthropic', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Constitutional AI', 'Reasoning', 'Safety', 'Helpful']),
-      1, null, 'https://claude.ai', 'https://anthropic.com'
-    ],
-    [
-      'Vercel AI SDK', 'vercel-ai-sdk',
-      'Free open-source TypeScript SDK for building LLM-powered apps and agents across frameworks with unified API.',
-      'development', 'free', 'open-source', 92, 4, 45000, 'Vercel', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['TypeScript', 'SDK', 'LLM', 'Framework']),
-      1, 'https://github.com/vercel/ai', 'https://sdk.vercel.ai', 'https://vercel.com/ai'
-    ],
-    [
-      'CrewAI', 'crewai',
-      'Framework for orchestrating role-playing, autonomous AI agents to collaborate and complete complex tasks.',
-      'ai-assistant', 'freemium', 'open-source', 76, 78, 23000, 'CrewAI Inc', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Multi-Agent', 'Role-Playing', 'Collaboration', 'Tasks']),
-      0, 'https://github.com/joaomdmoura/crewAI', null, 'https://crewai.com'
-    ],
-    [
-      'Perplexity AI', 'perplexity-ai',
-      'AI-powered search engine that provides accurate answers with real-time information and source citations.',
-      'ai-assistant', 'freemium', 'closed-source', 87, 42, 145000, 'Perplexity AI', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Search', 'Real-time', 'Citations', 'Research']),
-      0, null, 'https://perplexity.ai', 'https://perplexity.ai'
-    ],
-    [
-      'Gemini', 'gemini',
-      'Google\'s most capable AI model with advanced reasoning, coding, and creative capabilities across text, images, and code.',
-      'ai-assistant', 'freemium', 'closed-source', 95, 82, 180000, 'Google', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Multimodal', 'Reasoning', 'Coding', 'Creative', 'Google AI']),
-      1, null, 'https://gemini.google.com', 'https://gemini.google.com'
-    ],
-    [
-      'Zapier AI Actions', 'zapier-ai-actions',
-      'Connect AI agents to 6000+ apps with natural language automation and workflow orchestration.',
-      'automation', 'freemium', 'closed-source', 85, 56, 78000, 'Zapier', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Automation', 'Integrations', 'Workflow', 'Natural Language']),
-      0, null, 'https://zapier.com/ai', 'https://zapier.com'
-    ],
-    [
-      'Runway ML', 'runway-ml',
-      'AI-powered creative suite for video generation, editing, and visual effects with cutting-edge models.',
-      'video', 'freemium', 'closed-source', 89, 28, 67000, 'Runway AI', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Video Generation', 'Creative', 'Visual Effects', 'AI Models']),
-      1, null, 'https://runwayml.com', 'https://runwayml.com'
-    ],
-    [
-      'ElevenLabs', 'elevenlabs',
-      'AI voice generator that creates realistic speech in any voice and style with advanced voice cloning technology.',
-      'audio', 'freemium', 'closed-source', 86, 30, 45000, 'ElevenLabs', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Voice Synthesis', 'Voice Cloning', 'Text-to-Speech', 'Audio AI']),
-      0, null, 'https://elevenlabs.io', 'https://elevenlabs.io'
-    ],
-    [
-      'Unitree R1', 'unitree-r1',
-      'Ultra-lightweight humanoid robot with 26 joints, multimodal AI, priced for research and education.',
-      'robotics', 'paid', 'closed-source', 82, 48, 1200, 'Unitree Robotics', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['Humanoid', 'Robot', 'Multimodal', 'Research']),
-      1, null, 'https://unitree.com/r1', 'https://unitree.com'
-    ],
-    [
-      'GLM-4.5', 'glm-4-5',
-      'Open-source hybrid-reasoning MoE foundation model optimized for intelligent agent tasks with 128K context and tool use.',
-      'ai-assistant', 'free', 'open-source', 79, 84, 28000, 'Zhipu AI', '/placeholder-user.jpg',
-      '/placeholder.jpg', JSON.stringify(['MoE', 'Foundation Model', 'Tool Use', '128K Context']),
-      1, 'https://github.com/THUDM/GLM-4', null, 'https://zhipuai.cn'
-    ]
-  ]
-
-  agents.forEach(agent => {
-    db.run(
-      `INSERT OR REPLACE INTO agents (
-        name, slug, description, category, pricing, source_type, 
-        popularity, autonomy, users_count, author_name, author_avatar,
-        image_url, tags, featured, github_url, demo_url, website_url
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      agent
-    )
-  })
-
-  console.log('Database seeded successfully!')
-}
-
-export function closeDatabase() {
-  if (db) {
-    db.close()
+export async function getDatabase(): Promise<MockDatabase> {
+  if (!dbInstance) {
+    console.log('Initializing mock database...')
+    dbInstance = new MockDatabase()
+    console.log('Mock database initialized with', mockAgents.length, 'agents and', mockCategories.length, 'categories')
   }
+  return dbInstance
 }
