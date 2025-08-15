@@ -11,6 +11,7 @@ export function useAgents(filters: AgentsFilters = {}) {
   useEffect(() => {
     const fetchAgents = async () => {
       try {
+        console.log('useAgents: Starting fetch with filters:', filters)
         setLoading(true)
         setError(null)
 
@@ -25,14 +26,18 @@ export function useAgents(filters: AgentsFilters = {}) {
         if (filters.offset) params.set("offset", filters.offset.toString())
 
         const response = await fetch(`/api/agents?${params.toString()}`)
+        console.log('useAgents: API response status:', response.status)
 
         if (!response.ok) {
+          console.error('useAgents: API response not ok:', response.status, response.statusText)
           throw new Error("Failed to fetch agents")
         }
 
         const result = await response.json()
+        console.log('useAgents: Received data:', result)
         setData(result)
       } catch (err) {
+        console.error('useAgents: Error occurred:', err)
         setError(err instanceof Error ? err.message : "An error occurred")
       } finally {
         setLoading(false)
@@ -50,5 +55,6 @@ export function useAgents(filters: AgentsFilters = {}) {
     filters.offset,
   ])
 
+  console.log('useAgents: Current state:', { data: data?.agents?.length, loading, error })
   return { data, loading, error }
 }

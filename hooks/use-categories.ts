@@ -11,18 +11,23 @@ export function useCategories() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        console.log('useCategories: Starting fetch')
         setLoading(true)
         setError(null)
 
         const response = await fetch("/api/categories")
+        console.log('useCategories: API response status:', response.status)
 
         if (!response.ok) {
+          console.error('useCategories: API response not ok:', response.status, response.statusText)
           throw new Error("Failed to fetch categories")
         }
 
         const result = await response.json()
+        console.log('useCategories: Received categories:', result.length)
         setCategories(result)
       } catch (err) {
+        console.error('useCategories: Error occurred:', err)
         setError(err instanceof Error ? err.message : "An error occurred")
       } finally {
         setLoading(false)
@@ -32,5 +37,6 @@ export function useCategories() {
     fetchCategories()
   }, [])
 
+  console.log('useCategories: Current state:', { categoriesCount: categories.length, loading, error })
   return { categories, loading, error }
 }

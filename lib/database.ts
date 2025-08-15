@@ -6,14 +6,17 @@ let db: Database.Database
 
 export function getDatabase() {
   if (!db) {
+    console.log('Initializing database...')
     // Ensure data directory exists
     const fs = require('fs')
     const dataDir = path.dirname(dbPath)
     if (!fs.existsSync(dataDir)) {
+      console.log('Creating data directory:', dataDir)
       fs.mkdirSync(dataDir, { recursive: true })
     }
     
     db = new Database(dbPath)
+    console.log('Database connected:', dbPath)
     db.pragma('journal_mode = WAL')
     
     // Initialize database schema
@@ -23,6 +26,7 @@ export function getDatabase() {
 }
 
 function initializeDatabase() {
+  console.log('Initializing database schema...')
   // Create categories table
   db.exec(`
     CREATE TABLE IF NOT EXISTS categories (
@@ -79,8 +83,12 @@ function initializeDatabase() {
 
   // Seed data if tables are empty
   const categoryCount = db.prepare('SELECT COUNT(*) as count FROM categories').get() as { count: number }
+  console.log('Current category count:', categoryCount.count)
   if (categoryCount.count === 0) {
+    console.log('Seeding database...')
     seedDatabase()
+  } else {
+    console.log('Database already has data, skipping seed')
   }
 }
 
