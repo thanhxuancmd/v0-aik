@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import {
   Search,
   Grid3X3,
@@ -51,12 +52,15 @@ const iconMap: Record<string, any> = {
 }
 
 export default function AgentsPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("all")
-  const [sortBy, setSortBy] = useState("popular")
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [pricingFilter, setPricingFilter] = useState("all")
-  const [sourceTypeFilter, setSourceTypeFilter] = useState("all")
+  const searchParams = useSearchParams()
+  
+  // Initialize state from URL search parameters
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "")
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all")
+  const [sortBy, setSortBy] = useState(searchParams.get("sort") || "popular")
+  const [viewMode, setViewMode] = useState<"grid" | "list">((searchParams.get("view") as "grid" | "list") || "grid")
+  const [pricingFilter, setPricingFilter] = useState(searchParams.get("pricing") || "all")
+  const [sourceTypeFilter, setSourceTypeFilter] = useState(searchParams.get("source") || "all")
 
   const { categories, loading: categoriesLoading } = useCategories()
   const {

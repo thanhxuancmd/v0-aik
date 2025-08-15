@@ -58,6 +58,7 @@
     "react-resizable-panels": "latest",
     "recharts": "latest",
     "sonner": "latest",
+    "sql.js": "^1.13.0",
     "sqlite3": "^5.1.7",
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.17",
