@@ -1,5 +1,5 @@
 import type React from "react"
-import { Sidebar } from "@/components/admin/sidebar"
+import { TopNavigation } from "@/components/admin/top-navigation"
 
 export default function AdminLayout({
   children,
@@ -7,10 +7,10 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex h-screen bg-gray-50">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto">
-        <div className="p-8">{children}</div>
+    <div className="min-h-screen bg-gray-50">
+      <TopNavigation />
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">{children}</div>
       </main>
     </div>
   )
