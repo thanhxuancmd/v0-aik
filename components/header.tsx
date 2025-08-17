@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Search, Menu } from "lucide-react"
+import { Search, Menu, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -114,6 +114,7 @@ export function Header() {
   const isEcosystemActive = ["/ecosystem", "/community", "/blog", "/events"].some(
     (path) => pathname === path || pathname.startsWith(path + "/"),
   )
+  const isAdminActive = pathname.startsWith("/admin")
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -197,6 +198,22 @@ export function Header() {
                   )}
                 >
                   Doanh nghiệp
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+
+            {/* Admin */}
+            <NavigationMenuItem>
+              <Link href="/admin" legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+                    "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4",
+                    isAdminActive && "after:w-3/4",
+                  )}
+                >
+                  <Settings className="mr-2 h-4 w-4" />
+                  Admin
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -287,6 +304,14 @@ export function Header() {
                     onClick={() => setIsOpen(false)}
                   >
                     Doanh nghiệp
+                  </Link>
+                  <Link
+                    href="/admin"
+                    className="flex items-center rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Settings className="mr-2 h-4 w-4" />
+                    Admin
                   </Link>
                 </div>
 
