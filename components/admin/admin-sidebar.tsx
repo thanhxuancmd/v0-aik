@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
 
 const navigation = [
   {
@@ -104,12 +103,13 @@ export function AdminSidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200",
-                  isActive ? "bg-gray-900 text-white" : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
-                )}
+                className={
+                  isActive
+                    ? "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 bg-gray-900 text-white"
+                    : "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                }
               >
-                <span className={cn("transition-colors", isActive ? "text-white" : "text-gray-500")}>{item.icon}</span>
+                <span className={isActive ? "text-white" : "text-gray-500"}>{item.icon}</span>
                 <span>{item.name}</span>
               </Link>
             )
