@@ -1,9 +1,27 @@
 "use client"
 
-import { Search, ArrowRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+
+// SVG Components to replace lucide-react icons
+const SearchIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+  </svg>
+)
+
+const ArrowRightIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+)
+
+const SparklesIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
+  </svg>
+)
 
 export function Hero() {
   return (
@@ -22,7 +40,7 @@ export function Hero() {
         {/* Top Badge */}
         <div className="flex justify-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 backdrop-blur-sm border border-black/10">
-            <Sparkles className="w-4 h-4 text-purple-600" />
+            <SparklesIcon className="w-4 h-4 text-purple-600" />
             <span className="text-sm text-gray-700">Marketplace AI hàng đầu Việt Nam</span>
           </div>
         </div>
@@ -44,14 +62,14 @@ export function Hero() {
         <div className="max-w-2xl mx-auto mb-16">
           <div className="relative group">
             <div className="relative flex items-center bg-black/5 backdrop-blur-sm border border-black/20 rounded-2xl p-2">
-              <Search className="w-6 h-6 text-gray-600 ml-4" />
+              <SearchIcon className="w-6 h-6 text-gray-600 ml-4" />
               <Input
                 placeholder="Tìm kiếm AI agents, chatbots, automation tools..."
                 className="flex-1 bg-transparent border-0 text-black placeholder-gray-500 text-lg px-4 focus:ring-0 focus:outline-none"
               />
               <Button className="bg-black text-white hover:bg-gray-800 rounded-xl px-6 py-3 font-medium">
                 Tìm kiếm
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRightIcon className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </div>
