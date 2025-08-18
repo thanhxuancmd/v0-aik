@@ -3,9 +3,8 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { LayoutWrapper } from "@/components/layout-wrapper"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -108,11 +107,7 @@ export default function RootLayout({
       <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <TooltipProvider>
-            <div className="relative flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
+            <LayoutWrapper>{children}</LayoutWrapper>
           </TooltipProvider>
         </ThemeProvider>
       </body>
