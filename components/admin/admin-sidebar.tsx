@@ -80,17 +80,17 @@ export function AdminSidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 border-r border-gray-200 bg-gray-50">
-      <div className="p-6 border-b border-gray-200 bg-white">
+    <div className="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-teal-600 to-teal-700 shadow-xl">
+      <div className="p-6 border-b border-teal-500/30">
         <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <div className="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">AIK Admin</h1>
-            <p className="text-sm text-gray-500">AI Agent Store</p>
+            <h1 className="text-xl font-bold text-white">AIK Admin</h1>
+            <p className="text-sm text-teal-100">AI Agent Store</p>
           </div>
         </Link>
       </div>
@@ -105,11 +105,11 @@ export function AdminSidebar() {
                 href={item.href}
                 className={
                   isActive
-                    ? "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 bg-blue-600 text-white shadow-sm"
-                    : "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 text-gray-700 hover:text-blue-600 hover:bg-white hover:shadow-sm"
+                    ? "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 bg-white text-teal-700 shadow-lg"
+                    : "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 text-teal-100 hover:text-white hover:bg-white/10"
                 }
               >
-                <span className={isActive ? "text-white" : "text-gray-400"}>{item.icon}</span>
+                <span className={isActive ? "text-teal-600" : "text-teal-200"}>{item.icon}</span>
                 <span>{item.name}</span>
               </Link>
             )
@@ -117,14 +117,14 @@ export function AdminSidebar() {
         </div>
       </nav>
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white">
-        <div className="flex items-center gap-3 p-3 rounded-lg border border-gray-200">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-teal-500/30">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-sm">
+          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
             <span className="text-white font-semibold text-sm">A</span>
           </div>
           <div className="flex-1">
-            <p className="text-sm font-medium text-gray-900">Admin</p>
-            <p className="text-xs text-gray-500">Quản trị viên</p>
+            <p className="text-sm font-medium text-white">Admin</p>
+            <p className="text-xs text-teal-100">Quản trị viên</p>
           </div>
         </div>
       </div>
