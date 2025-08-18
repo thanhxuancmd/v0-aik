@@ -1,6 +1,6 @@
 export default function AdminDashboard() {
   return (
-    <div className="text-gray-900 bg-gray-50 min-h-screen p-8">
+    <div className="text-gray-900 bg-white min-h-screen p-8">
       <div className="mb-12">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900">Bảng điều khiển</h1>
         <p className="text-xl text-gray-600">Chào mừng đến với bảng quản trị AI Agent Store</p>
@@ -10,7 +10,7 @@ export default function AdminDashboard() {
         <div className="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-gray-500">Tổng số Agents</div>
-            <div className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -34,7 +34,7 @@ export default function AdminDashboard() {
         <div className="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-gray-500">Danh mục</div>
-            <div className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
         <div className="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-gray-500">Bài viết Blog</div>
-            <div className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-purple-600 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
         <div className="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-gray-500">Hệ sinh thái</div>
-            <div className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-orange-600 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -165,9 +165,9 @@ export default function AdminDashboard() {
           </div>
 
           <div className="space-y-4">
-            <button className="w-full text-left p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-all duration-300">
+            <button className="w-full text-left p-4 rounded-lg border border-blue-200 bg-blue-50 hover:bg-blue-100 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
@@ -179,9 +179,9 @@ export default function AdminDashboard() {
               </div>
             </button>
 
-            <button className="w-full text-left p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-all duration-300">
+            <button className="w-full text-left p-4 rounded-lg border border-purple-200 bg-purple-50 hover:bg-purple-100 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-purple-600 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -198,9 +198,9 @@ export default function AdminDashboard() {
               </div>
             </button>
 
-            <button className="w-full text-left p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-all duration-300">
+            <button className="w-full text-left p-4 rounded-lg border border-green-200 bg-green-50 hover:bg-green-100 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-green-600 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"

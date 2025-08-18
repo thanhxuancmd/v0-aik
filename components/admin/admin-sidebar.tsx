@@ -80,10 +80,10 @@ export function AdminSidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 border-r border-gray-200 bg-white">
-      <div className="p-6 border-b border-gray-200">
+    <div className="fixed left-0 top-0 h-full w-64 border-r border-gray-200 bg-gray-50">
+      <div className="p-6 border-b border-gray-200 bg-white">
         <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center">
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -96,7 +96,7 @@ export function AdminSidebar() {
       </div>
 
       <nav className="p-4">
-        <div className="space-y-1">
+        <div className="space-y-2">
           {navigation.map((item) => {
             const isActive = pathname === item.href
             return (
@@ -105,11 +105,11 @@ export function AdminSidebar() {
                 href={item.href}
                 className={
                   isActive
-                    ? "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 bg-gray-900 text-white"
-                    : "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                    ? "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 bg-blue-600 text-white shadow-sm"
+                    : "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 text-gray-700 hover:text-blue-600 hover:bg-white hover:shadow-sm"
                 }
               >
-                <span className={isActive ? "text-white" : "text-gray-500"}>{item.icon}</span>
+                <span className={isActive ? "text-white" : "text-gray-400"}>{item.icon}</span>
                 <span>{item.name}</span>
               </Link>
             )
@@ -117,9 +117,9 @@ export function AdminSidebar() {
         </div>
       </nav>
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-        <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-          <div className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center">
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white">
+        <div className="flex items-center gap-3 p-3 rounded-lg border border-gray-200">
+          <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
             <span className="text-white font-semibold text-sm">A</span>
           </div>
           <div className="flex-1">
