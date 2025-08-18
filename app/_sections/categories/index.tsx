@@ -234,12 +234,12 @@ const categories: Category[] = [
 
 export function Categories() {
   return (
-    <section className="relative bg-black text-white py-16 md:py-24">
+    <section className="relative bg-white text-black py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="flex items-end justify-between gap-4 mb-10">
           <div>
             <h2 className="text-3xl md:text-5xl font-bold">Danh mục AI Agent</h2>
-            <p className="mt-3 text-gray-400">Duyệt các danh mục phổ biến, tham khảo từ hệ sinh thái AI Agent.</p>
+            <p className="mt-3 text-gray-600">Duyệt các danh mục phổ biến, tham khảo từ hệ sinh thái AI Agent.</p>
           </div>
           <Link href="/agents">
             <Button className="hidden md:inline-flex rounded-xl">
@@ -254,19 +254,19 @@ export function Categories() {
             const Icon = c.icon
             return (
               <Link key={c.slug} href={`/agents?category=${encodeURIComponent(c.slug)}`}>
-                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                <div className="group relative overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm hover:shadow-md p-5 hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                   <div
                     className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br ${c.gradient}`}
                   />
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
                       <div className={`w-12 h-12 rounded-2xl ${c.iconBg} ${c.ring} grid place-items-center`}>
-                        <Icon className={`h-6 w-6 ${c.iconColor} drop-shadow-[0_0_10px_rgba(255,255,255,0.25)]`} />
+                        <Icon className={`h-6 w-6 ${c.iconColor}`} />
                       </div>
                       <span className={`text-xs px-2 py-1 rounded-full ${c.chip}`}>{c.count}+ agents</span>
                     </div>
                     <h3 className="text-xl font-semibold">{c.name}</h3>
-                    <p className="mt-2 text-sm text-gray-300">{c.desc}</p>
+                    <p className="mt-2 text-sm text-gray-700">{c.desc}</p>
                   </div>
                 </div>
               </Link>
@@ -278,7 +278,7 @@ export function Categories() {
           <Link href="/agents">
             <Button
               variant="outline"
-              className="rounded-xl border-white/20 text-white hover:bg-white/10 bg-transparent"
+              className="rounded-xl border-black/20 text-black hover:bg-black/10 bg-transparent"
             >
               Duyệt tất cả
               <ArrowRight className="ml-2 h-4 w-4" />

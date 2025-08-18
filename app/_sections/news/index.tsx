@@ -120,16 +120,16 @@ const news: NewsItem[] = [
 
 const getCategoryColor = (category: string) => {
   const colors = {
-    "Công nghệ": "bg-blue-500/20 text-blue-300 border-blue-500/30",
-    "Nghiên cứu": "bg-green-500/20 text-green-300 border-green-500/30",
-    Startup: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-    "So sánh": "bg-orange-500/20 text-orange-300 border-orange-500/30",
-    "Giáo dục": "bg-pink-500/20 text-pink-300 border-pink-500/30",
-    "Sản phẩm": "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
-    "Xu hướng": "bg-yellow-500/20 text-yellow-300 border-yellow-500/30",
-    "Case study": "bg-gray-500/20 text-gray-300 border-gray-500/30",
+    "Công nghệ": "bg-blue-100 text-blue-800 border-blue-200",
+    "Nghiên cứu": "bg-green-100 text-green-800 border-green-200",
+    Startup: "bg-purple-100 text-purple-800 border-purple-200",
+    "So sánh": "bg-orange-100 text-orange-800 border-orange-200",
+    "Giáo dục": "bg-pink-100 text-pink-800 border-pink-200",
+    "Sản phẩm": "bg-cyan-100 text-cyan-800 border-cyan-200",
+    "Xu hướng": "bg-yellow-100 text-yellow-800 border-yellow-200",
+    "Case study": "bg-gray-100 text-gray-800 border-gray-200",
   }
-  return colors[category as keyof typeof colors] || "bg-gray-500/20 text-gray-300 border-gray-500/30"
+  return colors[category as keyof typeof colors] || "bg-gray-100 text-gray-800 border-gray-200"
 }
 
 export function AINews() {
@@ -157,11 +157,11 @@ export function AINews() {
   ]
 
   return (
-    <section className="bg-black text-white py-16 md:py-24">
+    <section className="bg-gray-50 text-black py-16 md:py-24">
       <div className="container mx-auto px-4 space-y-8">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl sm:text-3xl font-bold">Tin tức AI nổi bật</h2>
-          <Link href="/blog" className="inline-flex items-center text-sm text-gray-300 hover:text-white">
+          <Link href="/blog" className="inline-flex items-center text-sm text-gray-700 hover:text-black">
             Xem tất cả
             <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
@@ -171,27 +171,27 @@ export function AINews() {
           {items.map(({ id, title, category, icon: Icon }) => (
             <article
               key={id}
-              className="group rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-colors"
+              className="group rounded-2xl border border-black/10 bg-white p-6 hover:bg-gray-50 transition-colors shadow-sm"
             >
-              <div className="flex items-center gap-3 text-sm text-gray-300 mb-3">
-                <Icon className="w-4 h-4 text-purple-300" />
+              <div className="flex items-center gap-3 text-sm text-gray-700 mb-3">
+                <Icon className="w-4 h-4 text-purple-600" />
                 <span>{category}</span>
               </div>
-              <h3 className="text-lg font-semibold leading-snug group-hover:text-white">{title}</h3>
+              <h3 className="text-lg font-semibold leading-snug group-hover:text-purple-600">{title}</h3>
             </article>
           ))}
         </div>
 
         {/* Section Header */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4 bg-white/10 text-white border-white/20">
+          <Badge variant="secondary" className="mb-4 bg-black/10 text-black border-black/20">
             <TrendingUp className="w-4 h-4 mr-2" />
             Tin tức AI mới nhất
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent mb-4">
             Cập nhật từ thế giới AI
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Theo dõi những tin tức, nghiên cứu và phát triển mới nhất trong lĩnh vực trí tuệ nhân tạo
           </p>
         </div>
@@ -203,7 +203,7 @@ export function AINews() {
               {featuredNews.map((news) => (
                 <Card
                   key={news.id}
-                  className="group bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 overflow-hidden"
+                  className="group bg-white border-black/10 hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
                   <div className="aspect-video bg-gradient-to-br from-purple-500/20 to-blue-500/20 relative overflow-hidden">
                     <img
@@ -222,10 +222,10 @@ export function AINews() {
                     </div>
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
+                    <h3 className="text-2xl font-bold text-black mb-3 group-hover:text-purple-600 transition-colors">
                       {news.title}
                     </h3>
-                    <p className="text-gray-400 mb-4 line-clamp-3">{news.excerpt}</p>
+                    <p className="text-gray-600 mb-4 line-clamp-3">{news.excerpt}</p>
                     <div className="flex items-center justify-between text-sm text-gray-500">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
@@ -251,7 +251,7 @@ export function AINews() {
           {regularNews.map((news) => (
             <Card
               key={news.id}
-              className="group bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 overflow-hidden"
+              className="group bg-white border-black/10 hover:shadow-md transition-all duration-300 overflow-hidden"
             >
               <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 relative overflow-hidden">
                 <img
@@ -270,10 +270,10 @@ export function AINews() {
                 </div>
               </div>
               <CardContent className="p-5">
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors line-clamp-2">
+                <h3 className="text-lg font-bold text-black mb-2 group-hover:text-purple-600 transition-colors line-clamp-2">
                   {news.title}
                 </h3>
-                <p className="text-gray-400 text-sm mb-4 line-clamp-2">{news.excerpt}</p>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{news.excerpt}</p>
                 <div className="flex items-center justify-between text-xs text-gray-500">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
@@ -294,7 +294,7 @@ export function AINews() {
 
         {/* New News Section */}
         <div className="flex items-center gap-3 mb-8">
-          <Newspaper className="h-6 w-6 text-purple-300" />
+          <Newspaper className="h-6 w-6 text-purple-600" />
           <h2 className="text-3xl md:text-5xl font-bold">Tin tức AI hôm nay</h2>
         </div>
 
@@ -302,11 +302,11 @@ export function AINews() {
           {news.map((n, i) => (
             <article
               key={i}
-              className="h-full rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors"
+              className="h-full rounded-2xl p-5 border border-black/10 bg-white shadow-sm hover:shadow-md transition-all"
             >
               <h3 className="text-xl font-semibold">{n.title}</h3>
-              <p className="mt-2 text-gray-300">{n.excerpt}</p>
-              <div className="mt-4 flex items-center gap-3 text-sm text-gray-400">
+              <p className="mt-2 text-gray-700">{n.excerpt}</p>
+              <div className="mt-4 flex items-center gap-3 text-sm text-gray-600">
                 <Clock className="h-4 w-4" />
                 <span>{n.date}</span>
               </div>
