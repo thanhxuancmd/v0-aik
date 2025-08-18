@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { LayoutWrapper } from "@/components/layout-wrapper"
 
@@ -105,11 +104,9 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <TooltipProvider>
-            <LayoutWrapper>{children}</LayoutWrapper>
-          </TooltipProvider>
-        </ThemeProvider>
+        <TooltipProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </TooltipProvider>
       </body>
     </html>
   )
