@@ -1,5 +1,3 @@
-import { Bot, FolderOpen, FileText, Globe, TrendingUp, Clock, Plus, Edit, Settings } from "lucide-react"
-
 export default function AdminDashboard() {
   return (
     <div className="text-white">
@@ -15,12 +13,12 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-white/70">Tổng số Agents</div>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
-              <Bot className="h-5 w-5 text-white" />
+              <span className="text-lg">🤖</span>
             </div>
           </div>
           <div className="text-3xl font-bold text-white mb-2">12</div>
           <div className="flex items-center gap-2 text-sm">
-            <TrendingUp className="h-4 w-4 text-green-400" />
+            <span className="text-lg">📈</span>
             <span className="text-green-400">+2</span>
             <span className="text-white/50">từ tháng trước</span>
           </div>
@@ -30,7 +28,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-white/70">Danh mục</div>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center">
-              <FolderOpen className="h-5 w-5 text-white" />
+              <span className="text-lg">📁</span>
             </div>
           </div>
           <div className="text-3xl font-bold text-white mb-2">8</div>
@@ -41,12 +39,12 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-white/70">Bài viết Blog</div>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center">
-              <FileText className="h-5 w-5 text-white" />
+              <span className="text-lg">📝</span>
             </div>
           </div>
           <div className="text-3xl font-bold text-white mb-2">24</div>
           <div className="flex items-center gap-2 text-sm">
-            <TrendingUp className="h-4 w-4 text-green-400" />
+            <span className="text-lg">📈</span>
             <span className="text-green-400">+4</span>
             <span className="text-white/50">tuần này</span>
           </div>
@@ -56,7 +54,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-medium text-white/70">Hệ sinh thái</div>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-orange-600 to-red-600 flex items-center justify-center">
-              <Globe className="h-5 w-5 text-white" />
+              <span className="text-lg">🌐</span>
             </div>
           </div>
           <div className="text-3xl font-bold text-white mb-2">156</div>
@@ -78,7 +76,7 @@ export default function AdminDashboard() {
               <div className="flex-1">
                 <p className="text-white font-medium mb-1">Agent mới được thêm: GPT-4 Assistant</p>
                 <div className="flex items-center gap-2 text-sm text-white/50">
-                  <Clock className="h-4 w-4" />
+                  <span>🕐</span>
                   <span>2 giờ trước</span>
                 </div>
               </div>
@@ -89,7 +87,7 @@ export default function AdminDashboard() {
               <div className="flex-1">
                 <p className="text-white font-medium mb-1">Bài viết blog đã được xuất bản</p>
                 <div className="flex items-center gap-2 text-sm text-white/50">
-                  <Clock className="h-4 w-4" />
+                  <span>🕐</span>
                   <span>1 ngày trước</span>
                 </div>
               </div>
@@ -100,7 +98,7 @@ export default function AdminDashboard() {
               <div className="flex-1">
                 <p className="text-white font-medium mb-1">Danh mục đã cập nhật: AI Tools</p>
                 <div className="flex items-center gap-2 text-sm text-white/50">
-                  <Clock className="h-4 w-4" />
+                  <span>🕐</span>
                   <span>3 ngày trước</span>
                 </div>
               </div>
@@ -119,7 +117,7 @@ export default function AdminDashboard() {
             <button className="w-full text-left p-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
-                  <Plus className="h-6 w-6 text-white" />
+                  <span className="text-xl">➕</span>
                 </div>
                 <div className="flex-1">
                   <div className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300">
@@ -133,7 +131,7 @@ export default function AdminDashboard() {
             <button className="w-full text-left p-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center flex-shrink-0">
-                  <Edit className="h-6 w-6 text-white" />
+                  <span className="text-xl">✏️</span>
                 </div>
                 <div className="flex-1">
                   <div className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 group-hover:bg-clip-text transition-all duration-300">
@@ -147,7 +145,7 @@ export default function AdminDashboard() {
             <button className="w-full text-left p-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center flex-shrink-0">
-                  <Settings className="h-6 w-6 text-white" />
+                  <span className="text-xl">⚙️</span>
                 </div>
                 <div className="flex-1">
                   <div className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text transition-all duration-300">
