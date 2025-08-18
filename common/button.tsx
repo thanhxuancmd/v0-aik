@@ -3,32 +3,32 @@ import { type VariantProps, cva } from "class-variance-authority"
 import Link, { type LinkProps } from "next/link"
 
 export const $button = cva(
-  "gap-1 font-normal shrink-0 rounded-full ring-[--control] focus-visible:ring-2 outline-hidden outline-0",
+  "gap-2 font-semibold shrink-0 rounded-xl ring-purple-500/50 focus-visible:ring-2 outline-hidden outline-0 transition-all duration-300",
   {
     variants: {
       intent: {
-        primary: "bg-[--accent-500] hover:bg-[--accent-600] text-[--text-on-accent-primary] border-[--accent-600]",
-        secondary:
-          "bg-[--surface-secondary] text-[--text-primary] border-[--border] border dark:bg-[--dark-surface-secondary] dark:text-[--dark-text-primary] dark:border-[--dark-border] hover:bg-[--surface-tertiary] dark:hover:bg-[--dark-surface-tertiary]",
+        primary:
+          "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:scale-105 shadow-lg hover:shadow-purple-500/25",
+        secondary: "border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 hover:scale-[1.02]",
         tertiary:
-          "bg-[--text-primary] text-[--surface-primary] dark:bg-[--dark-text-primary] dark:text-[--dark-surface-primary] border border-[--dark-border] dark:border-[--border] hover:bg-[--dark-surface-tertiary] dark:hover:bg-[--surface-tertiary]",
+          "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:scale-105 shadow-lg hover:shadow-blue-500/25",
       },
       disabled: {
-        true: "opacity-30",
+        true: "opacity-50 cursor-not-allowed hover:scale-100",
       },
       onlyButton: {
-        true: "rounded-xs",
+        true: "rounded-lg",
       },
       iconSide: {
-        left: "flex-row-reverse pl-3",
-        right: "flex-row pr-3",
+        left: "flex-row-reverse pl-4",
+        right: "flex-row pr-4",
       },
       unstyled: {
-        true: "px-0 py-0 bg-transparent border-none hover:bg-transparent hover:border-none dark:hover:bg-transparent dark:hover:border-none dark:bg-transparent dark:border-none",
+        true: "px-0 py-0 bg-transparent border-none hover:bg-transparent hover:border-none hover:scale-100",
       },
       size: {
-        md: "inline-flex items-center justify-center px-3.5 text-sm h-8 md:px-5",
-        lg: "inline-flex items-center justify-center h-9 px-5 text-sm md:text-base md:h-10",
+        md: "inline-flex items-center justify-center px-4 py-2 text-sm h-10",
+        lg: "inline-flex items-center justify-center h-12 px-6 text-base",
       },
     },
   },
@@ -63,8 +63,8 @@ export const Button = ({
               disabled,
               onlyButton,
               iconSide: icon ? iconSide : undefined,
-              unstyled,
               className,
+              unstyled,
               size,
             }
           : { className },

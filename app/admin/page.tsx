@@ -1,115 +1,164 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Bot, FolderOpen, FileText, Globe } from "lucide-react"
+import { Bot, FolderOpen, FileText, Globe, TrendingUp, Clock, Plus, Edit, Settings } from "lucide-react"
 
 export default function AdminDashboard() {
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Bảng điều khiển</h1>
-        <p className="text-gray-600 mt-2">Chào mừng đến với bảng quản trị AI Agent Store</p>
+    <div className="text-white">
+      <div className="mb-12">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+          Bảng điều khiển
+        </h1>
+        <p className="text-xl text-white/70">Chào mừng đến với bảng quản trị AI Agent Store</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng số Agents</CardTitle>
-            <Bot className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <p className="text-xs text-muted-foreground">+2 từ tháng trước</p>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 hover:scale-[1.02] transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-sm font-medium text-white/70">Tổng số Agents</div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
+              <Bot className="h-5 w-5 text-white" />
+            </div>
+          </div>
+          <div className="text-3xl font-bold text-white mb-2">12</div>
+          <div className="flex items-center gap-2 text-sm">
+            <TrendingUp className="h-4 w-4 text-green-400" />
+            <span className="text-green-400">+2</span>
+            <span className="text-white/50">từ tháng trước</span>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Danh mục</CardTitle>
-            <FolderOpen className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">8</div>
-            <p className="text-xs text-muted-foreground">Danh mục đang hoạt động</p>
-          </CardContent>
-        </Card>
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 hover:scale-[1.02] transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-sm font-medium text-white/70">Danh mục</div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center">
+              <FolderOpen className="h-5 w-5 text-white" />
+            </div>
+          </div>
+          <div className="text-3xl font-bold text-white mb-2">8</div>
+          <div className="text-sm text-white/50">Danh mục đang hoạt động</div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Bài viết Blog</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">24</div>
-            <p className="text-xs text-muted-foreground">+4 tuần này</p>
-          </CardContent>
-        </Card>
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 hover:scale-[1.02] transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-sm font-medium text-white/70">Bài viết Blog</div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center">
+              <FileText className="h-5 w-5 text-white" />
+            </div>
+          </div>
+          <div className="text-3xl font-bold text-white mb-2">24</div>
+          <div className="flex items-center gap-2 text-sm">
+            <TrendingUp className="h-4 w-4 text-green-400" />
+            <span className="text-green-400">+4</span>
+            <span className="text-white/50">tuần này</span>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Hệ sinh thái</CardTitle>
-            <Globe className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">156</div>
-            <p className="text-xs text-muted-foreground">Tổng số mục</p>
-          </CardContent>
-        </Card>
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 hover:scale-[1.02] transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-sm font-medium text-white/70">Hệ sinh thái</div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-orange-600 to-red-600 flex items-center justify-center">
+              <Globe className="h-5 w-5 text-white" />
+            </div>
+          </div>
+          <div className="text-3xl font-bold text-white mb-2">156</div>
+          <div className="text-sm text-white/50">Tổng số mục</div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Hoạt động gần đây</CardTitle>
-            <CardDescription>Những thay đổi mới nhất trong cửa hàng của bạn</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">Agent mới được thêm: GPT-4 Assistant</p>
-                  <p className="text-xs text-gray-500">2 giờ trước</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">Bài viết blog đã được xuất bản</p>
-                  <p className="text-xs text-gray-500">1 ngày trước</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">Danh mục đã cập nhật: AI Tools</p>
-                  <p className="text-xs text-gray-500">3 ngày trước</p>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Recent Activity */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-white mb-2">Hoạt động gần đây</h2>
+            <p className="text-white/60">Những thay đổi mới nhất trong cửa hàng của bạn</p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <p className="text-white font-medium mb-1">Agent mới được thêm: GPT-4 Assistant</p>
+                <div className="flex items-center gap-2 text-sm text-white/50">
+                  <Clock className="h-4 w-4" />
+                  <span>2 giờ trước</span>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Thao tác nhanh</CardTitle>
-            <CardDescription>Các tác vụ quản trị thường dùng</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <button className="w-full text-left p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                <div className="font-medium">Thêm Agent mới</div>
-                <div className="text-sm text-gray-500">Tạo danh sách AI agent mới</div>
-              </button>
-              <button className="w-full text-left p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                <div className="font-medium">Viết bài Blog</div>
-                <div className="text-sm text-gray-500">Xuất bản nội dung mới</div>
-              </button>
-              <button className="w-full text-left p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                <div className="font-medium">Quản lý Danh mục</div>
-                <div className="text-sm text-gray-500">Tổ chức các danh mục agent</div>
-              </button>
+            <div className="flex items-start gap-4">
+              <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <p className="text-white font-medium mb-1">Bài viết blog đã được xuất bản</p>
+                <div className="flex items-center gap-2 text-sm text-white/50">
+                  <Clock className="h-4 w-4" />
+                  <span>1 ngày trước</span>
+                </div>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+
+            <div className="flex items-start gap-4">
+              <div className="w-3 h-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <p className="text-white font-medium mb-1">Danh mục đã cập nhật: AI Tools</p>
+                <div className="flex items-center gap-2 text-sm text-white/50">
+                  <Clock className="h-4 w-4" />
+                  <span>3 ngày trước</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-white mb-2">Thao tác nhanh</h2>
+            <p className="text-white/60">Các tác vụ quản trị thường dùng</p>
+          </div>
+
+          <div className="space-y-4">
+            <button className="w-full text-left p-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
+                  <Plus className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300">
+                    Thêm Agent mới
+                  </div>
+                  <div className="text-sm text-white/60">Tạo danh sách AI agent mới</div>
+                </div>
+              </div>
+            </button>
+
+            <button className="w-full text-left p-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center flex-shrink-0">
+                  <Edit className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 group-hover:bg-clip-text transition-all duration-300">
+                    Viết bài Blog
+                  </div>
+                  <div className="text-sm text-white/60">Xuất bản nội dung mới</div>
+                </div>
+              </div>
+            </button>
+
+            <button className="w-full text-left p-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center flex-shrink-0">
+                  <Settings className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text transition-all duration-300">
+                    Quản lý Danh mục
+                  </div>
+                  <div className="text-sm text-white/60">Tổ chức các danh mục agent</div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
