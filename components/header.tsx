@@ -172,21 +172,6 @@ export function Header() {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {/* Bảng giá */}
-            <NavigationMenuItem>
-              <Link href="/pricing" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(
-                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
-                    "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4",
-                    isActivePath(pathname, "/pricing") && "after:w-3/4",
-                  )}
-                >
-                  Bảng giá
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-
             {/* Doanh nghiệp */}
             <NavigationMenuItem>
               <Link href="/enterprise" legacyBehavior passHref>
@@ -291,13 +276,6 @@ export function Header() {
                 </div>
 
                 <div className="space-y-1 border-t pt-4">
-                  <Link
-                    href="/pricing"
-                    className="block rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Bảng giá
-                  </Link>
                   <Link
                     href="/enterprise"
                     className="block rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
