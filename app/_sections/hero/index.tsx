@@ -30,10 +30,7 @@ export function Hero() {
         {/* Main Heading */}
         <div className="text-center space-y-6 mb-12">
           <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold leading-tight">
-            Tạo ra điều{" "}
-            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-              không thể
-            </span>
+            Tạo ra điều <span className="text-black font-bold">không thể</span>
             <br />
             với AI Agents
           </h1>
@@ -46,8 +43,7 @@ export function Hero() {
         {/* Search Bar */}
         <div className="max-w-2xl mx-auto mb-16">
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
-            <div className="relative flex items-center bg-black/5 backdrop-blur-sm border border-black/10 rounded-2xl p-2">
+            <div className="relative flex items-center bg-black/5 backdrop-blur-sm border border-black/20 rounded-2xl p-2">
               <Search className="w-6 h-6 text-gray-600 ml-4" />
               <Input
                 placeholder="Tìm kiếm AI agents, chatbots, automation tools..."
@@ -66,7 +62,7 @@ export function Hero() {
           <Link href="/agents" className="w-full sm:w-auto">
             <Button
               size="lg"
-              className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl px-8 py-4 text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="w-full sm:w-auto bg-black hover:bg-gray-800 text-white rounded-xl px-8 py-4 text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Duyệt AI Agents
             </Button>

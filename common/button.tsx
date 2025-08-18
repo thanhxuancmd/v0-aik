@@ -3,15 +3,13 @@ import { type VariantProps, cva } from "class-variance-authority"
 import Link, { type LinkProps } from "next/link"
 
 export const $button = cva(
-  "gap-2 font-semibold shrink-0 rounded-xl ring-purple-500/50 focus-visible:ring-2 outline-hidden outline-0 transition-all duration-300",
+  "gap-2 font-semibold shrink-0 rounded-xl ring-black/50 focus-visible:ring-2 outline-hidden outline-0 transition-all duration-300",
   {
     variants: {
       intent: {
-        primary:
-          "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:scale-105 shadow-lg hover:shadow-purple-500/25",
-        secondary: "border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 hover:scale-[1.02]",
-        tertiary:
-          "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:scale-105 shadow-lg hover:shadow-blue-500/25",
+        primary: "bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-lg hover:shadow-black/25",
+        secondary: "border border-gray-300 bg-white text-gray-900 hover:bg-gray-50 hover:scale-[1.02]",
+        tertiary: "bg-gray-800 text-white hover:bg-gray-700 hover:scale-105 shadow-lg hover:shadow-gray-500/25",
       },
       disabled: {
         true: "opacity-50 cursor-not-allowed hover:scale-100",
