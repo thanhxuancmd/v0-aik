@@ -6,20 +6,6 @@ import { cn } from "@/lib/utils"
 
 const navigation = [
   {
-    name: "Về trang chủ",
-    href: "/",
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-        />
-      </svg>
-    ),
-  },
-  {
     name: "Bảng điều khiển",
     href: "/admin",
     icon: (
@@ -97,7 +83,7 @@ export function AdminSidebar() {
   return (
     <div className="fixed left-0 top-0 h-full w-64 border-r border-gray-200 bg-white">
       <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center">
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -107,7 +93,7 @@ export function AdminSidebar() {
             <h1 className="text-xl font-bold text-gray-900">AIK Admin</h1>
             <p className="text-sm text-gray-500">AI Agent Store</p>
           </div>
-        </div>
+        </Link>
       </div>
 
       <nav className="p-4">
