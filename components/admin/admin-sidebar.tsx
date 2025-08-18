@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { AIKLogo } from "@/components/aik-logo"
 
 const navigation = [
   {
@@ -84,12 +85,10 @@ export function AdminSidebar() {
       <div className="p-6 border-b border-gray-100">
         <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
-            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+            <AIKLogo size={24} className="text-gray-700" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">AIK Admin</h1>
+            <h1 className="text-xl font-black text-gray-900">AIK Admin</h1>
             <p className="text-sm text-gray-500">AI Agent Store</p>
           </div>
         </Link>

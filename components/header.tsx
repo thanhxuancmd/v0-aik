@@ -122,7 +122,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <AIKLogo size={28} className="text-foreground" />
-          <span className="text-xl font-bold">AIK</span>
+          <span className="text-xl font-black">AIK</span>
         </Link>
 
         {/* Desktop Navigation */}
