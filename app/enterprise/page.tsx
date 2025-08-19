@@ -1,36 +1,35 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "AIK Enterprise - Giải pháp AI hàng đầu cho Doanh nghiệp Việt Nam",
-  description:
-    "Nền tảng AI Agents #1 Việt Nam với 500+ doanh nghiệp tin dùng. Giải pháp tùy chỉnh, hỗ trợ tiếng Việt 100%, triển khai nhanh chóng.",
+  title: "AIK Enterprise - Giải pháp AI cho Doanh nghiệp",
+  description: "Giải pháp AI agents tùy chỉnh cho doanh nghiệp với bảo mật cao và hỗ trợ chuyên nghiệp",
 }
 
 export default function EnterprisePage() {
   const features = [
     {
-      title: "100% Hỗ trợ tiếng Việt",
-      description: "AI agents hiểu sâu văn hóa và ngữ cảnh Việt Nam, xử lý hoàn hảo tiếng Việt có dấu và không dấu",
+      title: "Bảo mật cấp doanh nghiệp",
+      description: "Mã hóa end-to-end, SSO, và tuân thủ các tiêu chuẩn bảo mật quốc tế",
     },
     {
-      title: "Tuân thủ pháp luật Việt Nam",
-      description: "Đảm bảo tuân thủ Luật An ninh mạng, Nghị định 13/2023 và các quy định về bảo vệ dữ liệu cá nhân",
+      title: "Tùy chỉnh hoàn toàn",
+      description: "AI agents được thiết kế riêng cho quy trình và nhu cầu của doanh nghiệp",
     },
     {
-      title: "Triển khai nhanh 24h",
-      description: "Đội ngũ kỹ thuật tại Việt Nam hỗ trợ triển khai trong 24h, không cần chờ đợi múi giờ khác",
+      title: "Hỗ trợ 24/7",
+      description: "Đội ngũ chuyên gia hỗ trợ kỹ thuật và tư vấn 24/7",
     },
     {
-      title: "Tích hợp hệ thống Việt",
-      description: "Tích hợp sẵn với các hệ thống phổ biến tại Việt Nam: MISA, FAST, Bravo, ViettelPay, MoMo",
+      title: "Tích hợp dễ dàng",
+      description: "Tích hợp với hệ thống hiện có qua API và webhook",
     },
     {
-      title: "Giá cả phù hợp thị trường",
-      description: "Mô hình giá linh hoạt phù hợp với ngân sách doanh nghiệp Việt, từ SME đến tập đoàn lớn",
+      title: "Phân tích chi tiết",
+      description: "Dashboard và báo cáo chi tiết về hiệu suất AI agents",
     },
     {
-      title: "Hỗ trợ 24/7 tại Việt Nam",
-      description: "Đội ngũ support người Việt, hiểu rõ văn hóa làm việc và nhu cầu doanh nghiệp trong nước",
+      title: "SLA đảm bảo",
+      description: "Cam kết uptime 99.9% với SLA rõ ràng",
     },
   ]
 
@@ -46,16 +45,10 @@ export default function EnterprisePage() {
           />
         </svg>
       ),
-      title: "Customer Service AI cho Việt Nam",
-      description: "AI chăm sóc khách hàng 24/7 với khả năng xử lý tiếng Việt hoàn hảo, hiểu slang và từ địa phương",
-      features: [
-        "Chatbot tiếng Việt thông minh",
-        "Tích hợp Zalo, Facebook",
-        "Phân tích cảm xúc người Việt",
-        "Escalation đến nhân viên VN",
-      ],
-      price: "Từ 7 triệu VNĐ/tháng",
-      popular: true,
+      title: "Customer Service AI",
+      description: "AI agent chăm sóc khách hàng 24/7 với khả năng xử lý đa ngôn ngữ",
+      features: ["Chatbot thông minh", "Tích hợp CRM", "Phân tích cảm xúc", "Escalation tự động"],
+      price: "Từ $299/tháng",
     },
     {
       icon: (
@@ -68,16 +61,10 @@ export default function EnterprisePage() {
           />
         </svg>
       ),
-      title: "Sales AI cho thị trường Việt",
-      description: "Hỗ trợ bán hàng với hiểu biết sâu về hành vi mua sắm và văn hóa thương lượng của người Việt",
-      features: [
-        "Lead scoring theo thị trường VN",
-        "Dự đoán xu hướng mua Việt",
-        "Tự động follow-up bằng tiếng Việt",
-        "Báo cáo theo múi giờ VN",
-      ],
-      price: "Từ 9 triệu VNĐ/tháng",
-      popular: false,
+      title: "Sales Assistant AI",
+      description: "Hỗ trợ bán hàng với phân tích lead và dự đoán xu hướng mua",
+      features: ["Lead scoring", "Dự đoán chuyển đổi", "Tự động follow-up", "Báo cáo bán hàng"],
+      price: "Từ $399/tháng",
     },
     {
       icon: (
@@ -85,16 +72,10 @@ export default function EnterprisePage() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
         </svg>
       ),
-      title: "Data Analytics AI Việt Nam",
-      description: "Phân tích dữ liệu với hiểu biết về thị trường, quy định và xu hướng kinh doanh tại Việt Nam",
-      features: [
-        "Báo cáo theo chuẩn VN",
-        "Dự đoán xu hướng thị trường VN",
-        "Phân tích theo ngày lễ VN",
-        "Dashboard tiếng Việt",
-      ],
-      price: "Từ 12 triệu VNĐ/tháng",
-      popular: false,
+      title: "Data Analysis AI",
+      description: "Phân tích dữ liệu doanh nghiệp và tạo insights tự động",
+      features: ["Báo cáo tự động", "Dự đoán xu hướng", "Anomaly detection", "Dashboard thông minh"],
+      price: "Từ $499/tháng",
     },
     {
       icon: (
@@ -107,16 +88,10 @@ export default function EnterprisePage() {
           />
         </svg>
       ),
-      title: "HR AI cho doanh nghiệp Việt",
-      description: "Tự động hóa HR với hiểu biết về Bộ luật Lao động Việt Nam và văn hóa làm việc trong nước",
-      features: [
-        "Screening CV tiếng Việt",
-        "Lập lịch theo giờ VN",
-        "Onboarding theo văn hóa VN",
-        "Quản lý theo luật lao động VN",
-      ],
-      price: "Từ 8 triệu VNĐ/tháng",
-      popular: false,
+      title: "HR Assistant AI",
+      description: "Tự động hóa quy trình HR từ tuyển dụng đến quản lý nhân sự",
+      features: ["Screening CV", "Lập lịch phỏng vấn", "Onboarding tự động", "Performance tracking"],
+      price: "Từ $349/tháng",
     },
     {
       icon: (
@@ -125,15 +100,14 @@ export default function EnterprisePage() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            d="M9 19v-6a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
           />
         </svg>
       ),
-      title: "Document AI Việt Nam",
-      description: "Xử lý tài liệu tiếng Việt với độ chính xác cao, hiểu các loại giấy tờ và văn bản Việt Nam",
-      features: ["OCR tiếng Việt có dấu", "Xử lý hóa đơn VAT", "Phân loại văn bản VN", "Workflow theo quy trình VN"],
-      price: "Từ 6 triệu VNĐ/tháng",
-      popular: false,
+      title: "Document AI",
+      description: "Xử lý và phân tích tài liệu tự động với độ chính xác cao",
+      features: ["OCR thông minh", "Trích xuất dữ liệu", "Phân loại tài liệu", "Workflow tự động"],
+      price: "Từ $249/tháng",
     },
     {
       icon: (
@@ -146,106 +120,155 @@ export default function EnterprisePage() {
           />
         </svg>
       ),
-      title: "Compliance AI Việt Nam",
-      description: "Giám sát tuân thủ theo pháp luật Việt Nam và phát hiện rủi ro phù hợp với quy định trong nước",
-      features: [
-        "Tuân thủ luật An ninh mạng",
-        "Audit theo chuẩn VN",
-        "Monitoring quy định VN",
-        "Alert bằng tiếng Việt",
-      ],
-      price: "Từ 15 triệu VNĐ/tháng",
-      popular: false,
-    },
-  ]
-
-  const successMetrics = [
-    { value: "500+", label: "Doanh nghiệp Việt tin dùng" },
-    { value: "285%", label: "Tăng trưởng ROI trung bình" },
-    { value: "24h", label: "Thời gian triển khai" },
-    { value: "99.9%", label: "Uptime đảm bảo" },
-  ]
-
-  const testimonials = [
-    {
-      quote:
-        "AIK đã giúp Vietcombank tiết kiệm 200 tỷ VNĐ chi phí vận hành và tăng 40% satisfaction khách hàng. Đây là đối tác AI đáng tin cậy nhất cho doanh nghiệp Việt.",
-      author: "Nguyễn Văn A",
-      position: "Giám đốc Công nghệ",
-      company: "Vietcombank",
-    },
-    {
-      quote:
-        "Với 40,000 nhân viên toàn cầu, FPT cần giải pháp AI hiểu được văn hóa Việt. AIK đã vượt xa mong đợi với hiệu quả tăng 300% trong quy trình HR.",
-      author: "Trần Thị B",
-      position: "Giám đốc Nhân sự",
-      company: "FPT Software",
+      title: "Compliance AI",
+      description: "Giám sát tuân thủ quy định và phát hiện rủi ro tự động",
+      features: ["Risk assessment", "Audit tự động", "Compliance monitoring", "Alert system"],
+      price: "Từ $599/tháng",
     },
   ]
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-red-50 to-orange-50">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-20 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-black mb-6">AIK Enterprise</h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Giải pháp AI agents tùy chỉnh cho doanh nghiệp với bảo mật cao, hiệu suất tối ưu và hỗ trợ chuyên nghiệp.
+          </p>
+          <button className="bg-black text-white px-8 py-3 rounded-lg text-lg hover:bg-gray-800 transition-colors">
+            Liên hệ tư vấn
+          </button>
+        </div>
+      </section>
+
+      {/* AI Methodology Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 border border-red-200 mb-6">
-              <span className="text-sm text-red-700 font-medium">🇻🇳 Nền tảng AI Agents #1 Việt Nam</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Giải pháp AI Enterprise <br />
-              <span className="text-red-600">cho doanh nghiệp Việt Nam</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Được tin dùng bởi 500+ doanh nghiệp Việt Nam từ startup đến tập đoàn. 100% hỗ trợ tiếng Việt, triển khai
-              nhanh 24h, tuân thủ pháp luật Việt Nam.
+            <h2 className="text-3xl font-bold text-black mb-4">Phương pháp tiếp cận AI</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Chúng tôi áp dụng các phương pháp tiên tiến nhất để đảm bảo doanh nghiệp của bạn luôn dẫn đầu trong kỷ
+              nguyên AI
             </p>
+          </div>
 
-            {/* Success Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-              {successMetrics.map((metric, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl font-bold text-red-600 mb-1">{metric.value}</div>
-                  <div className="text-sm text-gray-600">{metric.label}</div>
-                </div>
-              ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center p-6 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">AI-First</h3>
+              <p className="text-gray-600 mb-4">Thiết kế hệ thống với AI làm nền tảng từ đầu, không phải bổ sung sau</p>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Kiến trúc tối ưu cho AI</li>
+                <li>• Tự động hóa từ gốc</li>
+                <li>• Scalability cao</li>
+              </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-red-600 text-white px-8 py-4 rounded-xl text-lg hover:bg-red-700 transition-colors font-semibold">
-                Tư vấn miễn phí 1-1
-              </button>
-              <button className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl text-lg hover:bg-red-600 hover:text-white transition-colors font-semibold">
-                Xem demo trực tiếp
-              </button>
+            <div className="text-center p-6 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">AI-Driven</h3>
+              <p className="text-gray-600 mb-4">
+                Quyết định kinh doanh được điều hành bởi insights từ AI và machine learning
+              </p>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Dự đoán xu hướng</li>
+                <li>• Tối ưu hóa tự động</li>
+                <li>• Phản ứng thời gian thực</li>
+              </ul>
+            </div>
+
+            <div className="text-center p-6 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">Data-Driven</h3>
+              <p className="text-gray-600 mb-4">
+                Mọi chiến lược và quyết định đều dựa trên dữ liệu thực tế và phân tích sâu
+              </p>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Analytics toàn diện</li>
+                <li>• KPI tracking</li>
+                <li>• Evidence-based decisions</li>
+              </ul>
+            </div>
+
+            <div className="text-center p-6 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">Data-Science</h3>
+              <p className="text-gray-600 mb-4">
+                Áp dụng khoa học dữ liệu để khám phá patterns và tạo ra competitive advantage
+              </p>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Advanced modeling</li>
+                <li>• Pattern recognition</li>
+                <li>• Predictive analytics</li>
+              </ul>
             </div>
           </div>
 
-          {/* Trusted by Vietnamese companies */}
-          <div className="bg-white rounded-2xl p-8 border border-gray-200">
-            <p className="text-center text-gray-600 mb-6">Được tin dùng bởi các doanh nghiệp hàng đầu Việt Nam:</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 text-gray-500">
-              <span className="font-semibold text-lg">Vietcombank</span>
-              <span className="font-semibold text-lg">FPT Software</span>
-              <span className="font-semibold text-lg">Vingroup</span>
-              <span className="font-semibold text-lg">Techcombank</span>
-              <span className="font-semibold text-lg">Sacombank</span>
-              <span className="font-semibold text-lg">Thaco Group</span>
+          <div className="mt-12 text-center">
+            <div className="bg-gray-50 rounded-xl p-8 max-w-4xl mx-auto">
+              <h3 className="text-2xl font-semibold text-black mb-4">Tại sao phương pháp này quan trọng?</h3>
+              <p className="text-gray-600 mb-6">
+                Trong thời đại chuyển đổi số, các doanh nghiệp áp dụng phương pháp AI-First và Data-Driven có tốc độ
+                tăng trưởng nhanh gấp 3 lần so với các đối thủ truyền thống.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-black mb-2">3x</div>
+                  <div className="text-sm text-gray-600">Tăng trưởng nhanh hơn</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-black mb-2">60%</div>
+                  <div className="text-sm text-gray-600">Giảm chi phí vận hành</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-black mb-2">85%</div>
+                  <div className="text-sm text-gray-600">Cải thiện hiệu quả</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* AI Services Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Dịch vụ AI Agent cho doanh nghiệp Việt Nam
-            </h2>
+            <h2 className="text-3xl font-bold text-black mb-4">Dịch vụ AI Agent cho Doanh nghiệp</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Các giải pháp AI được thiết kế riêng cho thị trường Việt Nam với hiểu biết sâu về văn hóa, pháp luật và
-              nhu cầu kinh doanh trong nước
+              Các giải pháp AI agent chuyên biệt được thiết kế để tối ưu hóa quy trình và nâng cao hiệu quả kinh doanh
             </p>
           </div>
 
@@ -253,25 +276,18 @@ export default function EnterprisePage() {
             {aiServices.map((service, index) => (
               <div
                 key={index}
-                className={`bg-white rounded-2xl p-6 border-2 hover:shadow-lg transition-all duration-300 ${
-                  service.popular ? "border-red-200 bg-red-50" : "border-gray-200"
-                }`}
+                className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
               >
-                {service.popular && (
-                  <div className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
-                    Phổ biến nhất
-                  </div>
-                )}
-                <div className="text-red-600 mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
+                <div className="text-gray-700 mb-4">{service.icon}</div>
+                <h3 className="text-xl font-semibold text-black mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
 
-                <div className="mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">Tính năng chính:</h4>
-                  <ul className="space-y-2">
+                <div className="mb-4">
+                  <h4 className="font-medium text-black mb-2">Tính năng chính:</h4>
+                  <ul className="space-y-1">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="text-sm text-gray-600 flex items-center">
-                        <span className="w-1.5 h-1.5 bg-red-600 rounded-full mr-3"></span>
+                        <span className="w-1.5 h-1.5 bg-black rounded-full mr-2"></span>
                         {feature}
                       </li>
                     ))}
@@ -280,9 +296,9 @@ export default function EnterprisePage() {
 
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-gray-900 text-lg">{service.price}</span>
-                    <button className="bg-red-600 text-white px-4 py-2 rounded-xl text-sm hover:bg-red-700 transition-colors font-medium">
-                      Tư vấn ngay
+                    <span className="font-semibold text-black">{service.price}</span>
+                    <button className="bg-black text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition-colors">
+                      Tìm hiểu thêm
                     </button>
                   </div>
                 </div>
@@ -292,19 +308,14 @@ export default function EnterprisePage() {
         </div>
       </section>
 
-      {/* Features for Vietnamese businesses */}
-      <section className="py-16 px-4 bg-gray-50">
+      {/* Features */}
+      <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Tại sao doanh nghiệp Việt chọn AIK Enterprise?
-          </h2>
+          <h2 className="text-3xl font-bold text-black mb-12 text-center">Tính năng doanh nghiệp</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 border border-gray-200 rounded-2xl hover:shadow-md transition-shadow"
-              >
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
+              <div key={index} className="p-6 border border-gray-200 rounded-xl">
+                <h3 className="text-xl font-semibold text-black mb-4">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </div>
             ))}
@@ -312,85 +323,51 @@ export default function EnterprisePage() {
         </div>
       </section>
 
-      {/* Vietnamese Enterprise Use Cases */}
-      <section className="py-16 px-4">
+      {/* Use Cases */}
+      <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Ứng dụng thực tế tại doanh nghiệp Việt Nam
-          </h2>
+          <h2 className="text-3xl font-bold text-black mb-12 text-center">Ứng dụng thực tế</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-2xl border border-blue-200">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Ngân hàng & Tài chính</h3>
-              <p className="text-gray-700 mb-4">
-                Vietcombank, Techcombank sử dụng AI để xử lý 70% yêu cầu khách hàng tự động, giảm thời gian chờ từ 15
-                phút xuống 30 giây.
+            <div className="bg-white p-8 rounded-xl">
+              <h3 className="text-2xl font-semibold text-black mb-4">Chăm sóc khách hàng</h3>
+              <p className="text-gray-600 mb-4">
+                AI agents xử lý 80% câu hỏi khách hàng tự động, giảm thời gian phản hồi và tăng sự hài lòng.
               </p>
-              <ul className="text-gray-700 space-y-2">
-                <li>• Chatbot hỗ trợ giao dịch 24/7</li>
-                <li>• Phát hiện gian lận real-time</li>
-                <li>• Tư vấn sản phẩm tài chính</li>
-                <li>• Xử lý hồ sơ vay tự động</li>
+              <ul className="text-gray-600 space-y-2">
+                <li>• Chatbot đa ngôn ngữ</li>
+                <li>• Tích hợp CRM</li>
+                <li>• Phân tích cảm xúc</li>
               </ul>
             </div>
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-2xl border border-green-200">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Bán lẻ & Thương mại</h3>
-              <p className="text-gray-700 mb-4">
-                Vingroup triển khai AI tại 2,000+ cửa hàng VinMart, tăng 25% doanh thu và giảm 40% lãng phí hàng hóa.
+            <div className="bg-white p-8 rounded-xl">
+              <h3 className="text-2xl font-semibold text-black mb-4">Tự động hóa quy trình</h3>
+              <p className="text-gray-600 mb-4">
+                Tự động hóa các tác vụ lặp đi lặp lại, giúp nhân viên tập trung vào công việc có giá trị cao hơn.
               </p>
-              <ul className="text-gray-700 space-y-2">
-                <li>• Dự đoán nhu cầu theo mùa Việt Nam</li>
-                <li>• Tối ưu inventory theo khu vực</li>
-                <li>• Chatbot tư vấn sản phẩm</li>
-                <li>• Phân tích hành vi khách Việt</li>
+              <ul className="text-gray-600 space-y-2">
+                <li>• Xử lý đơn hàng</li>
+                <li>• Quản lý tài liệu</li>
+                <li>• Báo cáo tự động</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Lời chứng thực từ doanh nghiệp Việt Nam
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
-                <blockquote className="text-gray-700 text-lg italic mb-6 leading-relaxed">
-                  "{testimonial.quote}"
-                </blockquote>
-                <div className="flex items-center">
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.author}</div>
-                    <div className="text-gray-600">{testimonial.position}</div>
-                    <div className="text-red-600 font-medium">{testimonial.company}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-red-600 to-orange-600">
-        <div className="container mx-auto max-w-4xl text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Sẵn sàng chuyển đổi số với AI?</h2>
-          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-            Tham gia cùng 500+ doanh nghiệp Việt Nam đã thành công với AIK Enterprise. Đội ngũ chuyên gia sẽ tư vấn miễn
-            phí giải pháp phù hợp nhất cho doanh nghiệp của bạn.
+      {/* Contact */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl font-bold text-black mb-8">Sẵn sàng bắt đầu?</h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Liên hệ với đội ngũ chuyên gia để được tư vấn giải pháp phù hợp nhất cho doanh nghiệp của bạn.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <button className="bg-white text-red-600 px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors font-semibold text-lg">
-              Đặt lịch tư vấn miễn phí
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+              Đặt lịch demo
             </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-red-600 transition-colors font-semibold text-lg">
-              Tải case study Việt Nam
+            <button className="border border-black text-black px-8 py-3 rounded-lg hover:bg-black hover:text-white transition-colors">
+              Tải tài liệu
             </button>
-          </div>
-          <div className="text-sm opacity-75">
-            ⚡ Triển khai trong 24h • 🇻🇳 Hỗ trợ 24/7 tại Việt Nam • 💰 ROI trung bình 285%
           </div>
         </div>
       </section>

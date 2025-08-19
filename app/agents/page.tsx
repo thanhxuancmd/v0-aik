@@ -212,58 +212,22 @@ function AgentsPageContent() {
     <div className="min-h-screen bg-white text-gray-900">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-200 mb-6">
-            <span className="text-sm text-red-700 font-medium">🇻🇳 Nền tảng AI Agents #1 Việt Nam</span>
-          </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900">
-            <span className="text-red-600">25,000+</span> AI Agents cho <br />
-            <span className="text-black">doanh nghiệp Việt Nam</span>
+            Thư viện <span className="text-black">AI Agents</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-            Marketplace AI Agents lớn nhất Việt Nam với hơn 25,000 giải pháp AI được tin dùng bởi 500+ doanh nghiệp hàng
-            đầu. Tất cả đều hỗ trợ tiếng Việt và tối ưu cho thị trường trong nước.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Khám phá và tìm kiếm các AI Agent tốt nhất từ cộng đồng developer toàn cầu
           </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-8">
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-red-600 mb-1">500+</div>
-              <div className="text-sm text-gray-600">Doanh nghiệp Việt</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-red-600 mb-1">100%</div>
-              <div className="text-sm text-gray-600">Hỗ trợ tiếng Việt</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-red-600 mb-1">24/7</div>
-              <div className="text-sm text-gray-600">Support tại VN</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-red-600 mb-1">4.9★</div>
-              <div className="text-sm text-gray-600">Đánh giá TB</div>
-            </div>
-          </div>
-
-          <div className="bg-gray-50 rounded-2xl p-6 max-w-4xl mx-auto">
-            <p className="text-sm text-gray-600 mb-4">Được tin dùng bởi các doanh nghiệp hàng đầu Việt Nam:</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 text-gray-500">
-              <span className="font-semibold">Vietcombank</span>
-              <span className="font-semibold">FPT Software</span>
-              <span className="font-semibold">Vingroup</span>
-              <span className="font-semibold">Techcombank</span>
-              <span className="font-semibold">Sacombank</span>
-              <span className="font-semibold">Thaco Group</span>
-            </div>
-          </div>
         </div>
 
         <div className="mb-12">
           <div className="max-w-6xl mx-auto">
             <div className="mb-6">
               <div className="relative group max-w-2xl mx-auto">
-                <div className="relative flex items-center bg-white border-2 border-gray-200 rounded-2xl p-2 focus-within:border-red-500 transition-colors">
+                <div className="relative flex items-center bg-white border-2 border-gray-200 rounded-2xl p-2 focus-within:border-black transition-colors">
                   <SearchIcon />
                   <Input
-                    placeholder="Tìm AI agents cho doanh nghiệp Việt: chatbot tiếng Việt, tự động hóa, CRM..."
+                    placeholder="Tìm kiếm AI agents, chatbots, automation tools..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="flex-1 bg-transparent border-0 text-gray-900 placeholder-gray-500 text-lg px-4 focus:ring-0 focus:outline-none"
@@ -275,23 +239,20 @@ function AgentsPageContent() {
             <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
               <div className="flex items-center gap-2 text-gray-600">
                 <FilterIcon />
-                <span className="text-sm">Bộ lọc cho doanh nghiệp Việt:</span>
+                <span className="text-sm">Bộ lọc:</span>
               </div>
 
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger className="md:max-w-xs bg-white border-gray-200 text-gray-900 rounded-xl">
-                  <SelectValue placeholder="Chọn ngành nghề" />
+                  <SelectValue placeholder="Chọn danh mục" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-200">
-                  <SelectItem value="all">Tất cả ngành nghề</SelectItem>
-                  <SelectItem value="banking">Ngân hàng - Tài chính</SelectItem>
-                  <SelectItem value="retail">Bán lẻ - Thương mại</SelectItem>
-                  <SelectItem value="manufacturing">Sản xuất - Công nghiệp</SelectItem>
-                  <SelectItem value="healthcare">Y tế - Sức khỏe</SelectItem>
-                  <SelectItem value="education">Giáo dục - Đào tạo</SelectItem>
-                  <SelectItem value="logistics">Logistics - Vận tải</SelectItem>
-                  <SelectItem value="real-estate">Bất động sản</SelectItem>
-                  <SelectItem value="hospitality">Du lịch - Khách sạn</SelectItem>
+                  <SelectItem value="all">Tất cả danh mục</SelectItem>
+                  <SelectItem value="productivity">Năng suất</SelectItem>
+                  <SelectItem value="creative">Sáng tạo</SelectItem>
+                  <SelectItem value="business">Kinh doanh</SelectItem>
+                  <SelectItem value="development">Phát triển</SelectItem>
+                  <SelectItem value="research">Nghiên cứu</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -300,71 +261,32 @@ function AgentsPageContent() {
                   <SelectValue placeholder="Sắp xếp theo" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-200">
-                  <SelectItem value="popular">Phổ biến tại VN</SelectItem>
-                  <SelectItem value="vietnamese">Hỗ trợ tiếng Việt</SelectItem>
-                  <SelectItem value="enterprise">Doanh nghiệp lớn</SelectItem>
-                  <SelectItem value="sme">SME Việt Nam</SelectItem>
+                  <SelectItem value="popular">Phổ biến nhất</SelectItem>
                   <SelectItem value="newest">Mới nhất</SelectItem>
                   <SelectItem value="users">Nhiều người dùng</SelectItem>
+                  <SelectItem value="name">Tên A-Z</SelectItem>
                 </SelectContent>
               </Select>
 
               <Select value={pricing} onValueChange={setPricing}>
                 <SelectTrigger className="md:max-w-xs bg-white border-gray-200 text-gray-900 rounded-xl">
-                  <SelectValue placeholder="Mô hình giá" />
+                  <SelectValue placeholder="Giá cả" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-200">
                   <SelectItem value="all">Tất cả</SelectItem>
                   <SelectItem value="free">Miễn phí</SelectItem>
-                  <SelectItem value="trial">Dùng thử 30 ngày</SelectItem>
-                  <SelectItem value="subscription">Theo tháng/năm</SelectItem>
-                  <SelectItem value="enterprise">Giá doanh nghiệp</SelectItem>
+                  <SelectItem value="freemium">Freemium</SelectItem>
+                  <SelectItem value="paid">Trả phí</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-12 bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Tại sao doanh nghiệp Việt chọn chúng tôi?</h2>
-            <p className="text-gray-600">Những lợi thế vượt trội cho thị trường Việt Nam</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-red-600 text-xl">🇻🇳</span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">100% Tiếng Việt</h3>
-              <p className="text-sm text-gray-600">
-                Tất cả AI agents đều hỗ trợ tiếng Việt hoàn chỉnh, hiểu văn hóa và ngữ cảnh Việt Nam
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-red-600 text-xl">⚡</span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Triển khai nhanh</h3>
-              <p className="text-sm text-gray-600">
-                Đội ngũ kỹ thuật tại Việt Nam hỗ trợ triển khai trong 24h, không cần chờ đợi
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-red-600 text-xl">🏢</span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Phù hợp DN Việt</h3>
-              <p className="text-sm text-gray-600">
-                Được thiết kế riêng cho quy trình và văn hóa làm việc của doanh nghiệp Việt Nam
-              </p>
             </div>
           </div>
         </div>
 
         {loading && (
           <div className="text-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-6"></div>
-            <p className="text-gray-600 text-lg">Đang tải agents cho doanh nghiệp Việt...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-6"></div>
+            <p className="text-gray-600 text-lg">Đang tải agents...</p>
           </div>
         )}
 
@@ -382,10 +304,7 @@ function AgentsPageContent() {
         {!loading && !error && agents.length === 0 && (
           <div className="text-center py-20">
             <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 max-w-md mx-auto">
-              <p className="text-gray-600 mb-4">Không tìm thấy AI agents phù hợp với doanh nghiệp của bạn.</p>
-              <p className="text-sm text-gray-500">
-                Hãy thử điều chỉnh bộ lọc hoặc liên hệ với chúng tôi để được tư vấn riêng.
-              </p>
+              <p className="text-gray-600">Không tìm thấy agents nào phù hợp với bộ lọc của bạn.</p>
             </div>
           </div>
         )}
@@ -394,8 +313,7 @@ function AgentsPageContent() {
           <>
             <div className="mb-8 text-center">
               <p className="text-gray-600">
-                Tìm thấy <span className="text-red-600 font-semibold">{agents.length}</span> AI agents phù hợp cho doanh
-                nghiệp Việt Nam
+                Tìm thấy <span className="text-gray-900 font-semibold">{agents.length}</span> agents
               </p>
             </div>
 
