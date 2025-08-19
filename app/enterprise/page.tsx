@@ -325,30 +325,223 @@ export default function EnterprisePage() {
 
       {/* Use Cases */}
       <section className="py-16 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-black mb-12 text-center">Ứng dụng thực tế</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-xl">
-              <h3 className="text-2xl font-semibold text-black mb-4">Chăm sóc khách hàng</h3>
-              <p className="text-gray-600 mb-4">
-                AI agents xử lý 80% câu hỏi khách hàng tự động, giảm thời gian phản hồi và tăng sự hài lòng.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li>• Chatbot đa ngôn ngữ</li>
-                <li>• Tích hợp CRM</li>
-                <li>• Phân tích cảm xúc</li>
-              </ul>
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4">Ứng dụng thực tế</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Khám phá cách các doanh nghiệp hàng đầu đang sử dụng AI Agents để tối ưu hóa quy trình và tăng trưởng
+              doanh thu
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Banking & Finance */}
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-black">Ngân hàng & Tài chính</h3>
+                  <p className="text-sm text-gray-500">Vietcombank, Techcombank, BIDV</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">AI Customer Service</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Xử lý 85% câu hỏi khách hàng tự động, giảm thời gian chờ từ 15 phút xuống 30 giây
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded">↑ 300% hiệu quả</span>
+                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">↓ 60% chi phí</span>
+                  </div>
+                </div>
+
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">Fraud Detection AI</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Phát hiện gian lận thời gian thực với độ chính xác 99.2%, ngăn chặn 15M USD tổn thất/năm
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded">↓ 95% false positive</span>
+                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded">$15M tiết kiệm</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="bg-white p-8 rounded-xl">
-              <h3 className="text-2xl font-semibold text-black mb-4">Tự động hóa quy trình</h3>
-              <p className="text-gray-600 mb-4">
-                Tự động hóa các tác vụ lặp đi lặp lại, giúp nhân viên tập trung vào công việc có giá trị cao hơn.
+
+            {/* E-commerce & Retail */}
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-black">Thương mại điện tử</h3>
+                  <p className="text-sm text-gray-500">Tiki, Shopee, Lazada</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="border-l-4 border-orange-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">Personalization Engine</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Tăng conversion rate 45% thông qua gợi ý sản phẩm AI và dynamic pricing
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded">↑ 45% conversion</span>
+                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded">↑ 25% AOV</span>
+                  </div>
+                </div>
+
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">Inventory Management AI</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Dự đoán nhu cầu với độ chính xác 92%, giảm 30% hàng tồn kho và 40% stockout
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded">↓ 30% inventory</span>
+                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">↓ 40% stockout</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Manufacturing */}
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-black">Sản xuất & Chế tạo</h3>
+                  <p className="text-sm text-gray-500">Vingroup, Hoa Phat, Thaco</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="border-l-4 border-gray-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">Predictive Maintenance</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Giảm 70% downtime máy móc, tiết kiệm 2.5M USD chi phí bảo trì hàng năm
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded">↓ 70% downtime</span>
+                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded">$2.5M tiết kiệm</span>
+                  </div>
+                </div>
+
+                <div className="border-l-4 border-red-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">Quality Control AI</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Phát hiện lỗi sản phẩm với độ chính xác 99.8%, giảm 85% sản phẩm lỗi ra thị trường
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded">↓ 85% defects</span>
+                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">99.8% accuracy</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Healthcare */}
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-black">Y tế & Chăm sóc sức khỏe</h3>
+                  <p className="text-sm text-gray-500">Vinmec, FV Hospital, Bệnh viện Chợ Rẫy</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="border-l-4 border-red-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">Medical Diagnosis AI</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Hỗ trợ chẩn đoán hình ảnh y tế với độ chính xác 96%, giảm 50% thời gian chẩn đoán
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded">96% accuracy</span>
+                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded">↓ 50% thời gian</span>
+                  </div>
+                </div>
+
+                <div className="border-l-4 border-pink-500 pl-4">
+                  <h4 className="font-semibold text-black mb-2">Patient Management</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Tự động hóa lịch hẹn và theo dõi bệnh nhân, tăng 40% hiệu quả vận hành
+                  </p>
+                  <div className="flex space-x-4 text-xs">
+                    <span className="bg-pink-100 text-pink-800 px-2 py-1 rounded">↑ 40% hiệu quả</span>
+                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">24/7 monitoring</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ROI Summary */}
+          <div className="bg-gradient-to-r from-black to-gray-800 rounded-xl p-8 text-white">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold mb-4">Tổng quan ROI từ AI Agents</h3>
+              <p className="text-gray-300 max-w-2xl mx-auto">
+                Dựa trên dữ liệu từ 500+ doanh nghiệp đã triển khai AI Agents trong 2 năm qua
               </p>
-              <ul className="text-gray-600 space-y-2">
-                <li>• Xử lý đơn hàng</li>
-                <li>• Quản lý tài liệu</li>
-                <li>• Báo cáo tự động</li>
-              </ul>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-400 mb-2">285%</div>
+                <div className="text-sm text-gray-300">Trung bình ROI</div>
+                <div className="text-xs text-gray-400">trong 18 tháng</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-400 mb-2">65%</div>
+                <div className="text-sm text-gray-300">Giảm chi phí vận hành</div>
+                <div className="text-xs text-gray-400">so với phương pháp truyền thống</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-400 mb-2">4.2x</div>
+                <div className="text-sm text-gray-300">Tăng năng suất</div>
+                <div className="text-xs text-gray-400">nhân viên trung bình</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-orange-400 mb-2">12</div>
+                <div className="text-sm text-gray-300">Tháng payback</div>
+                <div className="text-xs text-gray-400">thời gian hoàn vốn trung bình</div>
+              </div>
             </div>
           </div>
         </div>
