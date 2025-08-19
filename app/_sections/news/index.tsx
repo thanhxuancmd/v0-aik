@@ -22,112 +22,115 @@ type NewsItem = {
 const newsData = [
   {
     id: 1,
-    title: "OpenAI ra mắt GPT-5: Bước đột phá mới trong AI",
+    title: "Vietcombank triển khai AI Agents cho 15 triệu khách hàng",
     excerpt:
-      "GPT-5 mang đến khả năng reasoning mạnh mẽ và hiểu biết sâu sắc hơn về ngữ cảnh, mở ra nhiều ứng dụng mới trong các lĩnh vực khác nhau.",
-    category: "Công nghệ",
+      "Ngân hàng lớn nhất Việt Nam chính thức áp dụng AI Agents để tự động hóa 70% quy trình chăm sóc khách hàng, giảm thời gian chờ từ 15 phút xuống 30 giây.",
+    category: "Case study",
     author: "Minh Hoàng",
     publishedAt: "2024-01-15",
     readTime: "5 phút",
     trending: true,
     featured: true,
-    image: "/placeholder.svg?height=200&width=400&text=GPT-5+Launch",
+    image: "/placeholder.svg?height=200&width=400&text=Vietcombank+AI",
   },
   {
     id: 2,
-    title: "AI Agents tự động hóa 80% công việc văn phòng",
+    title: "FPT Software ra mắt nền tảng AI Agents 'Made in Vietnam'",
     excerpt:
-      "Nghiên cứu mới cho thấy AI Agents có thể thay thế con người trong nhiều tác vụ lặp đi lặp lại, giúp tăng hiệu quả làm việc đáng kể.",
-    category: "Nghiên cứu",
+      "Nền tảng AI Agents đầu tiên do Việt Nam phát triển, hỗ trợ đầy đủ tiếng Việt và tích hợp sâu với hệ thống doanh nghiệp trong nước.",
+    category: "Sản phẩm",
     author: "Thu Hà",
     publishedAt: "2024-01-14",
     readTime: "7 phút",
     trending: true,
     featured: false,
-    image: "/placeholder.svg?height=200&width=400&text=AI+Automation",
+    image: "/placeholder.svg?height=200&width=400&text=FPT+AI+Platform",
   },
   {
     id: 3,
-    title: "Startup Việt Nam phát triển AI chatbot y tế",
+    title: "Vingroup đầu tư 500 tỷ VNĐ vào AI Agents cho bán lẻ",
     excerpt:
-      "Chatbot AI có thể tư vấn sức khỏe ban đầu và hỗ trợ bác sĩ trong việc chẩn đoán, được phát triển bởi team kỹ sư Việt Nam.",
-    category: "Startup",
+      "Tập đoàn Vingroup công bố kế hoạch triển khai AI Agents tại toàn bộ hệ thống VinMart và Vincom, dự kiến tăng 40% hiệu quả bán hàng.",
+    category: "Đầu tư",
     author: "Đức Anh",
     publishedAt: "2024-01-13",
     readTime: "4 phút",
     trending: false,
     featured: false,
-    image: "/placeholder.svg?height=200&width=400&text=Medical+AI",
+    image: "/placeholder.svg?height=200&width=400&text=Vingroup+AI",
   },
   {
     id: 4,
-    title: "Google Gemini Ultra vượt mặt GPT-4 trong benchmark",
+    title: "Startup Việt Zalo AI đạt 10 triệu người dùng AI Assistant",
     excerpt:
-      "Gemini Ultra đạt điểm số cao hơn GPT-4 trong nhiều bài test đánh giá khả năng reasoning và hiểu biết ngôn ngữ tự nhiên.",
-    category: "So sánh",
+      "Zalo AI trở thành nền tảng AI Assistant phổ biến nhất Việt Nam với 10 triệu người dùng hoạt động hàng tháng, vượt mặt các đối thủ quốc tế.",
+    category: "Startup",
     author: "Quang Minh",
     publishedAt: "2024-01-12",
     readTime: "6 phút",
     trending: true,
     featured: false,
-    image: "/placeholder.svg?height=200&width=400&text=Gemini+vs+GPT",
+    image: "/placeholder.svg?height=200&width=400&text=Zalo+AI+Success",
   },
   {
     id: 5,
-    title: "AI trong giáo dục: Cơ hội và thách thức",
+    title: "Bộ GD&ĐT phê duyệt AI Agents trong giáo dục công lập",
     excerpt:
-      "Việc ứng dụng AI vào giáo dục mang lại nhiều lợi ích nhưng cũng đặt ra những câu hỏi về đạo đức và tương lai của ngành giáo dục.",
-    category: "Giáo dục",
+      "Bộ Giáo dục và Đào tạo chính thức cho phép sử dụng AI Agents hỗ trợ giảng dạy tại các trường công lập, mở ra kỷ nguyên mới cho giáo dục Việt Nam.",
+    category: "Chính sách",
     author: "Lan Anh",
     publishedAt: "2024-01-11",
     readTime: "8 phút",
     trending: false,
     featured: false,
-    image: "/placeholder.svg?height=200&width=400&text=AI+Education",
+    image: "/placeholder.svg?height=200&width=400&text=Education+AI+Policy",
   },
   {
     id: 6,
-    title: "Anthropic Claude 3 ra mắt với khả năng xử lý hình ảnh",
+    title: "Techcombank tiết kiệm 200 tỷ VNĐ nhờ AI Agents",
     excerpt:
-      "Claude 3 không chỉ xử lý văn bản mà còn có thể phân tích hình ảnh, biểu đồ và tài liệu một cách chính xác và chi tiết.",
-    category: "Sản phẩm",
+      "Ngân hàng Techcombank báo cáo tiết kiệm được 200 tỷ VNĐ chi phí vận hành trong năm 2024 nhờ triển khai AI Agents cho các quy trình nội bộ.",
+    category: "Tài chính",
     author: "Hoàng Nam",
     publishedAt: "2024-01-10",
     readTime: "5 phút",
     trending: false,
     featured: false,
-    image: "/placeholder.svg?height=200&width=400&text=Claude+3+Vision",
+    image: "/placeholder.svg?height=200&width=400&text=Techcombank+Savings",
   },
 ]
 
 const news: NewsItem[] = [
   {
-    title: "Doanh nghiệp tăng tốc triển khai AI Agents cho vận hành",
-    date: "Aug 2025",
-    excerpt: "Các case study cho thấy tiết kiệm 40% chi phí vận hành khi áp dụng agent vào quy trình.",
+    title: "Thaco Group triển khai AI Agents cho chuỗi cung ứng ô tô",
+    date: "Hôm nay",
+    excerpt:
+      "Tập đoàn ô tô lớn nhất Việt Nam sử dụng AI để tối ưu hóa 500+ đại lý trên toàn quốc, dự kiến tăng 25% hiệu quả vận hành.",
   },
   {
-    title: "RAG thế hệ mới giúp trả lời theo ngữ cảnh chính xác hơn",
-    date: "Aug 2025",
-    excerpt: "Kỹ thuật re-ranking và multi-hop reasoning cải thiện độ chính xác của hệ thống tìm kiếm ngữ nghĩa.",
+    title: "Sacombank ra mắt AI Assistant hỗ trợ vay vốn SME",
+    date: "2 giờ trước",
+    excerpt:
+      "AI Agent mới có thể xử lý hồ sơ vay vốn doanh nghiệp nhỏ trong 15 phút, giảm 80% thời gian so với quy trình truyền thống.",
   },
   {
-    title: "Tự động hóa quy trình bán hàng đa kênh bằng AI",
-    date: "Aug 2025",
-    excerpt: "Từ tạo lead đến chăm sóc và chốt đơn, agent có thể theo dõi chiến dịch end-to-end.",
+    title: "Tiki áp dụng AI Agents cho 2 triệu seller trên sàn",
+    date: "5 giờ trước",
+    excerpt:
+      "Nền tảng thương mại điện tử hàng đầu Việt Nam triển khai AI hỗ trợ seller tự động tối ưu listing và quản lý đơn hàng.",
   },
 ]
 
 const getCategoryColor = (category: string) => {
   const colors = {
-    "Công nghệ": "bg-blue-100 text-blue-800 border-blue-200",
-    "Nghiên cứu": "bg-green-100 text-green-800 border-green-200",
+    "Case study": "bg-red-100 text-red-800 border-red-200",
+    "Sản phẩm": "bg-blue-100 text-blue-800 border-blue-200",
+    "Đầu tư": "bg-green-100 text-green-800 border-green-200",
     Startup: "bg-purple-100 text-purple-800 border-purple-200",
-    "So sánh": "bg-orange-100 text-orange-800 border-orange-200",
-    "Giáo dục": "bg-pink-100 text-pink-800 border-pink-200",
-    "Sản phẩm": "bg-cyan-100 text-cyan-800 border-cyan-200",
+    "Chính sách": "bg-orange-100 text-orange-800 border-orange-200",
+    "Tài chính": "bg-cyan-100 text-cyan-800 border-cyan-200",
     "Xu hướng": "bg-yellow-100 text-yellow-800 border-yellow-200",
-    "Case study": "bg-gray-100 text-gray-800 border-gray-200",
+    "Công nghệ": "bg-indigo-100 text-indigo-800 border-indigo-200",
   }
   return colors[category as keyof typeof colors] || "bg-gray-100 text-gray-800 border-gray-200"
 }
@@ -138,20 +141,20 @@ export function AINews() {
   const items = [
     {
       id: 1,
-      title: "Mô hình đa phương thức thế hệ mới tăng tốc tạo nội dung",
-      category: "Xu hướng",
+      title: "Vietnam AI Summit 2024: 500+ doanh nghiệp tham gia",
+      category: "Sự kiện",
       icon: Flame,
     },
     {
       id: 2,
-      title: "Doanh nghiệp Việt ứng dụng AI Agents trong chăm sóc khách hàng",
+      title: "Bamboo Airways triển khai AI Agents cho dịch vụ khách hàng",
       category: "Case study",
       icon: Bot,
     },
     {
       id: 3,
-      title: "Cập nhật: Công cụ tạo video AI độ phân giải cao",
-      category: "Sản phẩm",
+      title: "Chính phủ Việt Nam phê duyệt Chiến lược AI quốc gia 2030",
+      category: "Chính sách",
       icon: Newspaper,
     },
   ]
@@ -160,8 +163,11 @@ export function AINews() {
     <section className="bg-gray-50 text-black py-16 md:py-24">
       <div className="container mx-auto px-4 space-y-8">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl sm:text-3xl font-bold">Tin tức AI nổi bật</h2>
-          <Link href="/blog" className="inline-flex items-center text-sm text-gray-700 hover:text-black">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold">Tin tức AI Việt Nam</h2>
+            <p className="text-gray-600 mt-2">Cập nhật mới nhất về thị trường AI tại Việt Nam</p>
+          </div>
+          <Link href="/blog" className="inline-flex items-center text-sm text-red-600 hover:text-red-700 font-medium">
             Xem tất cả
             <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
@@ -174,25 +180,23 @@ export function AINews() {
               className="group rounded-2xl border border-black/10 bg-white p-6 hover:bg-gray-50 transition-colors shadow-sm"
             >
               <div className="flex items-center gap-3 text-sm text-gray-700 mb-3">
-                <Icon className="w-4 h-4 text-purple-600" />
+                <Icon className="w-4 h-4 text-red-600" />
                 <span>{category}</span>
               </div>
-              <h3 className="text-lg font-semibold leading-snug group-hover:text-purple-600">{title}</h3>
+              <h3 className="text-lg font-semibold leading-snug group-hover:text-red-600">{title}</h3>
             </article>
           ))}
         </div>
 
-        {/* Section Header */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4 bg-black/10 text-black border-black/20">
+          <Badge variant="secondary" className="mb-4 bg-red-50 text-red-700 border-red-200">
             <TrendingUp className="w-4 h-4 mr-2" />
-            Tin tức AI mới nhất
+            🇻🇳 Thị trường AI Việt Nam
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent mb-4">
-            Cập nhật từ thế giới AI
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">Doanh nghiệp Việt dẫn đầu ứng dụng AI</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Theo dõi những tin tức, nghiên cứu và phát triển mới nhất trong lĩnh vực trí tuệ nhân tạo
+            Theo dõi những câu chuyện thành công và xu hướng mới nhất của các doanh nghiệp Việt Nam trong việc ứng dụng
+            AI Agents
           </p>
         </div>
 
@@ -294,8 +298,8 @@ export function AINews() {
 
         {/* New News Section */}
         <div className="flex items-center gap-3 mb-8">
-          <Newspaper className="h-6 w-6 text-purple-600" />
-          <h2 className="text-3xl md:text-5xl font-bold">Tin tức AI hôm nay</h2>
+          <Newspaper className="h-6 w-6 text-red-600" />
+          <h2 className="text-3xl md:text-5xl font-bold">Tin nóng AI Việt Nam</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

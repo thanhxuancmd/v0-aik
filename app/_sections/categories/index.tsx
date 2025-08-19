@@ -238,11 +238,25 @@ export function Categories() {
       <div className="container mx-auto px-4">
         <div className="flex items-end justify-between gap-4 mb-10">
           <div>
-            <h2 className="text-3xl md:text-5xl font-bold">Danh mục AI Agent</h2>
-            <p className="mt-3 text-gray-600">Duyệt các danh mục phổ biến, tham khảo từ hệ sinh thái AI Agent.</p>
+            <h2 className="text-3xl md:text-5xl font-bold">AI Agents cho doanh nghiệp Việt</h2>
+            <p className="mt-3 text-gray-600">
+              Khám phá các giải pháp AI được tin dùng bởi hàng nghìn doanh nghiệp Việt Nam. Từ startup đến tập đoàn lớn,
+              tất cả đều tìm thấy AI Agent phù hợp tại đây.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-600">
+              <span className="flex items-center gap-1">
+                🏢 <strong>500+</strong> doanh nghiệp Việt tin dùng
+              </span>
+              <span className="flex items-center gap-1">
+                🇻🇳 <strong>100%</strong> hỗ trợ tiếng Việt
+              </span>
+              <span className="flex items-center gap-1">
+                ⚡ <strong>24/7</strong> support tại Việt Nam
+              </span>
+            </div>
           </div>
           <Link href="/agents">
-            <Button className="hidden md:inline-flex rounded-xl">
+            <Button className="hidden md:inline-flex rounded-xl bg-red-600 hover:bg-red-700 text-white">
               Duyệt tất cả
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -278,7 +292,7 @@ export function Categories() {
           <Link href="/agents">
             <Button
               variant="outline"
-              className="rounded-xl border-black/20 text-black hover:bg-black/10 bg-transparent"
+              className="rounded-xl border-red-600/30 text-red-600 hover:bg-red-50 bg-transparent"
             >
               Duyệt tất cả
               <ArrowRight className="ml-2 h-4 w-4" />
