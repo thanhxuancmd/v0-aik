@@ -2,8 +2,75 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { TrendingUp, Clock, User, ArrowRight, Flame, Bot, Newspaper } from "lucide-react"
 import Link from "next/link"
+
+// SVG Components to replace lucide-react icons
+const TrendingUpIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+  </svg>
+)
+
+const ClockIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+)
+
+const UserIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+    />
+  </svg>
+)
+
+const ArrowRightIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+)
+
+const FlameIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+    />
+  </svg>
+)
+
+const BotIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+    />
+  </svg>
+)
+
+const NewspaperIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+    />
+  </svg>
+)
 
 type News = {
   title: string
@@ -103,17 +170,17 @@ const newsData = [
 const news: NewsItem[] = [
   {
     title: "Doanh nghiệp tăng tốc triển khai AI Agents cho vận hành",
-    date: "Aug 2025",
+    date: "Tháng 8 2025",
     excerpt: "Các case study cho thấy tiết kiệm 40% chi phí vận hành khi áp dụng agent vào quy trình.",
   },
   {
     title: "RAG thế hệ mới giúp trả lời theo ngữ cảnh chính xác hơn",
-    date: "Aug 2025",
+    date: "Tháng 8 2025",
     excerpt: "Kỹ thuật re-ranking và multi-hop reasoning cải thiện độ chính xác của hệ thống tìm kiếm ngữ nghĩa.",
   },
   {
     title: "Tự động hóa quy trình bán hàng đa kênh bằng AI",
-    date: "Aug 2025",
+    date: "Tháng 8 2025",
     excerpt: "Từ tạo lead đến chăm sóc và chốt đơn, agent có thể theo dõi chiến dịch end-to-end.",
   },
 ]
@@ -140,19 +207,19 @@ export function AINews() {
       id: 1,
       title: "Mô hình đa phương thức thế hệ mới tăng tốc tạo nội dung",
       category: "Xu hướng",
-      icon: Flame,
+      icon: FlameIcon,
     },
     {
       id: 2,
       title: "Doanh nghiệp Việt ứng dụng AI Agents trong chăm sóc khách hàng",
       category: "Case study",
-      icon: Bot,
+      icon: BotIcon,
     },
     {
       id: 3,
       title: "Cập nhật: Công cụ tạo video AI độ phân giải cao",
       category: "Sản phẩm",
-      icon: Newspaper,
+      icon: NewspaperIcon,
     },
   ]
 
@@ -163,7 +230,7 @@ export function AINews() {
           <h2 className="text-2xl sm:text-3xl font-bold">Tin tức AI nổi bật</h2>
           <Link href="/blog" className="inline-flex items-center text-sm text-gray-700 hover:text-black">
             Xem tất cả
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <ArrowRightIcon className="w-4 h-4 ml-2" />
           </Link>
         </div>
 
@@ -185,7 +252,7 @@ export function AINews() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="mb-4 bg-black/10 text-black border-black/20">
-            <TrendingUp className="w-4 h-4 mr-2" />
+            <TrendingUpIcon className="w-4 h-4 mr-2" />
             Tin tức AI mới nhất
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent mb-4">
@@ -214,8 +281,8 @@ export function AINews() {
                     <div className="absolute top-4 left-4 flex gap-2">
                       <Badge className={`${getCategoryColor(news.category)} border`}>{news.category}</Badge>
                       {news.trending && (
-                        <Badge className="bg-red-500/20 text-red-300 border-red-500/30 border">
-                          <TrendingUp className="w-3 h-3 mr-1" />
+                        <Badge className="bg-red-500/20 text-red-600 border-red-500/30 border">
+                          <TrendingUpIcon className="w-3 h-3 mr-1" />
                           Trending
                         </Badge>
                       )}
@@ -229,15 +296,15 @@ export function AINews() {
                     <div className="flex items-center justify-between text-sm text-gray-500">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
-                          <User className="w-4 h-4" />
+                          <UserIcon className="w-4 h-4" />
                           {news.author}
                         </div>
                         <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
+                          <ClockIcon className="w-4 h-4" />
                           {news.readTime}
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </CardContent>
                 </Card>
@@ -262,8 +329,8 @@ export function AINews() {
                 <div className="absolute top-3 left-3 flex gap-2">
                   <Badge className={`${getCategoryColor(news.category)} border text-xs`}>{news.category}</Badge>
                   {news.trending && (
-                    <Badge className="bg-red-500/20 text-red-300 border-red-500/30 border text-xs">
-                      <TrendingUp className="w-3 h-3 mr-1" />
+                    <Badge className="bg-red-500/20 text-red-600 border-red-500/30 border text-xs">
+                      <TrendingUpIcon className="w-3 h-3 mr-1" />
                       Hot
                     </Badge>
                   )}
@@ -277,15 +344,15 @@ export function AINews() {
                 <div className="flex items-center justify-between text-xs text-gray-500">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
-                      <User className="w-3 h-3" />
+                      <UserIcon className="w-3 h-3" />
                       {news.author}
                     </div>
                     <div className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
+                      <ClockIcon className="w-3 h-3" />
                       {news.readTime}
                     </div>
                   </div>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRightIcon className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                 </div>
               </CardContent>
             </Card>
@@ -294,7 +361,7 @@ export function AINews() {
 
         {/* New News Section */}
         <div className="flex items-center gap-3 mb-8">
-          <Newspaper className="h-6 w-6 text-purple-600" />
+          <NewspaperIcon className="h-6 w-6 text-purple-600" />
           <h2 className="text-3xl md:text-5xl font-bold">Tin tức AI hôm nay</h2>
         </div>
 
@@ -307,7 +374,7 @@ export function AINews() {
               <h3 className="text-xl font-semibold">{n.title}</h3>
               <p className="mt-2 text-gray-700">{n.excerpt}</p>
               <div className="mt-4 flex items-center gap-3 text-sm text-gray-600">
-                <Clock className="h-4 w-4" />
+                <ClockIcon className="h-4 w-4" />
                 <span>{n.date}</span>
               </div>
             </article>
