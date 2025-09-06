@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import Image from "next/image"
 
 // SVG Components to replace lucide-react icons
 const SearchIcon = ({ className }: { className?: string }) => (
@@ -99,6 +100,90 @@ export function Hero() {
           >
             AI Automation Agency
           </Button>
+        </div>
+
+        {/* Demo Images Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">AI Agents đang hoạt động</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Xem các AI agents thực tế đang giúp doanh nghiệp Việt Nam tự động hóa và tăng hiệu quả
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Customer Service AI Demo */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 bg-gradient-to-br from-blue-50 to-blue-100">
+                <Image src="/ai-chatbot-customer-service-interface-with-vietnam.jpg" alt="AI Customer Service Demo" fill className="object-cover" />
+                <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  Hỗ trợ khách hàng
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-black mb-2">AI Hỗ trợ khách hàng 24/7</h3>
+                <p className="text-gray-600 mb-4">Trả lời tự động 95% câu hỏi khách hàng bằng tiếng Việt</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-green-600 font-semibold">Tiết kiệm 70% chi phí</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-blue-600 text-blue-600 hover:bg-blue-50 bg-transparent"
+                  >
+                    Xem demo
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Sales AI Demo */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 bg-gradient-to-br from-green-50 to-green-100">
+                <Image src="/placeholder-3q4ye.png" alt="AI Sales Assistant Demo" fill className="object-cover" />
+                <div className="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  Bán hàng
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-black mb-2">AI Trợ lý bán hàng</h3>
+                <p className="text-gray-600 mb-4">Tự động chăm sóc leads và tăng tỷ lệ chuyển đổi</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-green-600 font-semibold">Tăng 150% doanh số</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-green-600 text-green-600 hover:bg-green-50 bg-transparent"
+                  >
+                    Xem demo
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Data Analysis AI Demo */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 bg-gradient-to-br from-purple-50 to-purple-100">
+                <Image src="/placeholder-4ix39.png" alt="AI Data Analysis Demo" fill className="object-cover" />
+                <div className="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  Phân tích dữ liệu
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-black mb-2">AI Phân tích dữ liệu</h3>
+                <p className="text-gray-600 mb-4">Tự động tạo báo cáo và insights từ dữ liệu kinh doanh</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-green-600 font-semibold">Nhanh hơn 10x</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-purple-600 text-purple-600 hover:bg-purple-50 bg-transparent"
+                  >
+                    Xem demo
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Stats */}
