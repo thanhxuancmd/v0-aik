@@ -1,6 +1,18 @@
 import { BlogpostCard } from "./_components/blogpost-card"
 import { PageView } from "../../components/page-view"
-import { Search, Filter } from "lucide-react"
+const Search = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.35-4.35" />
+  </svg>
+)
+
+const Filter = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46" />
+  </svg>
+)
+
 import type { Metadata } from "next"
 
 export const dynamic = "force-static"
