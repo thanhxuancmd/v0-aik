@@ -216,8 +216,11 @@ export function AgentForm({ agent, onClose }: AgentFormProps) {
                 type="number"
                 min="1"
                 max="10"
-                value={formData.autonomy}
-                onChange={(e) => setFormData({ ...formData, autonomy: Number.parseInt(e.target.value) })}
+                value={isNaN(formData.autonomy) ? "" : formData.autonomy.toString()}
+                onChange={(e) => {
+                  const value = e.target.value === "" ? 5 : Number.parseInt(e.target.value)
+                  setFormData({ ...formData, autonomy: isNaN(value) ? 5 : value })
+                }}
               />
             </div>
             <div>
@@ -226,8 +229,11 @@ export function AgentForm({ agent, onClose }: AgentFormProps) {
                 id="popularity"
                 type="number"
                 min="0"
-                value={formData.popularity}
-                onChange={(e) => setFormData({ ...formData, popularity: Number.parseInt(e.target.value) })}
+                value={isNaN(formData.popularity) ? "" : formData.popularity.toString()}
+                onChange={(e) => {
+                  const value = e.target.value === "" ? 0 : Number.parseInt(e.target.value)
+                  setFormData({ ...formData, popularity: isNaN(value) ? 0 : value })
+                }}
               />
             </div>
           </div>
