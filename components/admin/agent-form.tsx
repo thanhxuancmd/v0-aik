@@ -56,7 +56,23 @@ export function AgentForm({ agent, onClose }: AgentFormProps) {
 
   useEffect(() => {
     if (agent) {
-      setFormData(agent)
+      setFormData({
+        ...agent,
+        name: agent.name || "",
+        description: agent.description || "",
+        category: agent.category || "",
+        image_url: agent.image_url || "",
+        demo_url: agent.demo_url || "",
+        github_url: agent.github_url || "",
+        author_name: agent.author_name || "",
+        author_avatar: agent.author_avatar || "",
+        tags: agent.tags || [],
+        pricing: agent.pricing || "Free",
+        source_type: agent.source_type || "Open Source",
+        autonomy: agent.autonomy || 5,
+        popularity: agent.popularity || 0,
+        featured: agent.featured || false,
+      })
       setTagsInput(agent.tags?.join(", ") || "")
     }
   }, [agent])
