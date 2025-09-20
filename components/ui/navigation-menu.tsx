@@ -1,7 +1,24 @@
 import * as React from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
-import { cva } from "class-variance-authority"
-import { ChevronDown } from "lucide-react"
+const navigationMenuTriggerStyle = () =>
+  "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+
+const ChevronDown = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className={className}
+    fill="none"
+    height="24"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width="24"
+    {...props}
+  >
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+)
 
 import { cn } from "@/lib/utils"
 
@@ -33,10 +50,6 @@ const NavigationMenuList = React.forwardRef<
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 
 const NavigationMenuItem = NavigationMenuPrimitive.Item
-
-const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
-)
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
