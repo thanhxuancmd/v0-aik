@@ -2,56 +2,7 @@
 
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
-const Check = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    fill="none"
-    height="24"
-    stroke="currentColor"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    width="24"
-    {...props}
-  >
-    <path d="M20 6 9 17l-5-5" />
-  </svg>
-)
-
-const ChevronRight = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    fill="none"
-    height="24"
-    stroke="currentColor"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    width="24"
-    {...props}
-  >
-    <path d="m9 18 6-6-6-6" />
-  </svg>
-)
-
-const Circle = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    fill="none"
-    height="24"
-    stroke="currentColor"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    width="24"
-    {...props}
-  >
-    <circle cx="12" cy="12" r="10" />
-  </svg>
-)
+import { Check, ChevronRight, Circle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 

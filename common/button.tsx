@@ -1,42 +1,45 @@
-import type React from "react"
-import { type VariantProps, cva } from "class-variance-authority"
-import Link, { type LinkProps } from "next/link"
+import { type VariantProps, cva } from "class-variance-authority";
+import Link, { type LinkProps } from "next/link";
+import { Icon } from "basehub/react-icon";
 
 export const $button = cva(
-  "gap-2 font-semibold shrink-0 rounded-xl ring-black/50 focus-visible:ring-2 outline-hidden outline-0 transition-all duration-300",
+  "gap-1 font-normal shrink-0 rounded-full ring-[--control] focus-visible:ring-2 outline-hidden outline-0",
   {
     variants: {
       intent: {
-        primary: "bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-lg hover:shadow-black/25",
-        secondary: "border border-gray-300 bg-white text-gray-900 hover:bg-gray-50 hover:scale-[1.02]",
-        tertiary: "bg-gray-800 text-white hover:bg-gray-700 hover:scale-105 shadow-lg hover:shadow-gray-500/25",
+        primary:
+          "bg-[--accent-500] hover:bg-[--accent-600] text-[--text-on-accent-primary] border-[--accent-600]",
+        secondary:
+          "bg-[--surface-secondary] text-[--text-primary] border-[--border] border dark:bg-[--dark-surface-secondary] dark:text-[--dark-text-primary] dark:border-[--dark-border] hover:bg-[--surface-tertiary] dark:hover:bg-[--dark-surface-tertiary]",
+        tertiary:
+          "bg-[--text-primary] text-[--surface-primary] dark:bg-[--dark-text-primary] dark:text-[--dark-surface-primary] border border-[--dark-border] dark:border-[--border] hover:bg-[--dark-surface-tertiary] dark:hover:bg-[--surface-tertiary]",
       },
       disabled: {
-        true: "opacity-50 cursor-not-allowed hover:scale-100",
+        true: "opacity-30",
       },
       onlyButton: {
-        true: "rounded-lg",
+        true: "rounded-xs",
       },
       iconSide: {
-        left: "flex-row-reverse pl-4",
-        right: "flex-row pr-4",
+        left: "flex-row-reverse pl-3",
+        right: "flex-row pr-3",
       },
       unstyled: {
-        true: "px-0 py-0 bg-transparent border-none hover:bg-transparent hover:border-none hover:scale-100",
+        true: "px-0 py-0 bg-transparent border-none hover:bg-transparent hover:border-none dark:hover:bg-transparent dark:hover:border-none dark:bg-transparent dark:border-none",
       },
       size: {
-        md: "inline-flex items-center justify-center px-4 py-2 text-sm h-10",
-        lg: "inline-flex items-center justify-center h-12 px-6 text-base",
+        md: "inline-flex items-center justify-center px-3.5 text-sm h-8 md:px-5",
+        lg: "inline-flex items-center justify-center h-9 px-5 text-sm md:text-base md:h-10",
       },
     },
   },
-)
+);
 
 type ButtonProps<C extends keyof React.JSX.IntrinsicElements> = VariantProps<typeof $button> &
   React.JSX.IntrinsicElements[C] & {
-    icon?: React.ReactNode
-    unstyled?: boolean
-  }
+    icon?: React.ReactNode;
+    unstyled?: boolean;
+  };
 
 export const Button = ({
   children,
@@ -61,8 +64,8 @@ export const Button = ({
               disabled,
               onlyButton,
               iconSide: icon ? iconSide : undefined,
-              className,
               unstyled,
+              className,
               size,
             }
           : { className },
@@ -73,8 +76,8 @@ export const Button = ({
       {children}
       {icon ? <span>{icon}</span> : null}
     </button>
-  )
-}
+  );
+};
 
 export const ButtonLink = ({
   children,
@@ -110,5 +113,5 @@ export const ButtonLink = ({
       {children}
       {icon ? <span>{icon}</span> : null}
     </Link>
-  )
-}
+  );
+};
