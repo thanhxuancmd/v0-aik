@@ -19,6 +19,15 @@ const nextConfig = {
       },
     ],
   },
+  // Suppress BaseHub warnings during build
+  webpack: (config, { isServer }) => {
+    if (isServer && !process.env.BASEHUB_TOKEN) {
+      config.externals.push({
+        'basehub': 'commonjs basehub'
+      })
+    }
+    return config
+  }
 };
 
 export default nextConfig;
