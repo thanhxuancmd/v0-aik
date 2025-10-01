@@ -1,53 +1,56 @@
-// Compatibility exports for legacy code
-// These are no longer used but kept to prevent build errors
+// Stub fragments for compatibility with legacy code
+// BaseHub is no longer used
 
 export const GeneralEvents = {
-  _id: true,
-  _title: true,
-  _slug: true,
+  ingestKey: true,
 }
 
 export const headingFragment = {
   _id: true,
-  level: true,
-  text: true,
+  _title: true,
+  subtitle: true,
+  align: true,
 }
 
 export const buttonFragment = {
   _id: true,
-  label: true,
+  _title: true,
   href: true,
   variant: true,
+  size: true,
 }
 
 export const quoteFragment = {
   _id: true,
-  text: true,
+  quote: true,
   author: true,
 }
 
 export const authorFragment = {
   _id: true,
   _title: true,
-  name: true,
-  avatar: {
-    url: true,
-    alt: true,
-  },
-}
-
-export const darkLightImageFragment = {
-  dark: {
+  image: {
     url: true,
     alt: true,
     width: true,
     height: true,
   },
+}
+
+export const darkLightImageFragment = {
   light: {
     url: true,
     alt: true,
     width: true,
     height: true,
+    aspectRatio: true,
+  },
+  dark: {
+    url: true,
+    alt: true,
+    width: true,
+    height: true,
+    aspectRatio: true,
   },
 }
 
@@ -56,4 +59,6 @@ export const optimizedImageFragment = {
   alt: true,
   width: true,
   height: true,
+  aspectRatio: true,
+  blurDataURL: true,
 }

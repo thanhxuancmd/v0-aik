@@ -1,10 +1,5 @@
-import { Heading } from "../../common/heading"
-import { Section } from "../../common/section-wrapper"
-import { SearchContent as Search } from "../../common/search"
-import { SearchHitsProvider } from "../../context/search-hits-context"
-import { BlogpostCard } from "./_components/blogpost-card"
-import { PageView } from "../../components/page-view"
 import type { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 export const dynamic = "force-static"
 export const revalidate = 30
@@ -65,30 +60,31 @@ const samplePosts = [
 const featuredPosts = samplePosts.slice(0, 2)
 
 export default async function BlogPage() {
-  return (
-    <Section className="gap-16">
-      <PageView />
-      <div className="grid grid-cols-1 gap-5 self-stretch md:grid-cols-2">
-        <Heading align="left">
-          <h2>Blog & Tin tức</h2>
-        </Heading>
-        <SearchHitsProvider authorsAvatars={{}}>
-          <Search _searchKey="blog" />
-        </SearchHitsProvider>
-        {featuredPosts.map((post) => (
-          <BlogpostCard key={post._id} type="card" {...post} />
-        ))}
-      </div>
-      <div className="w-full space-y-3">
-        <Heading align="left">
-          <h3 className="!text-xl lg:!text-2xl">Tất cả bài viết</h3>
-        </Heading>
-        <div className="-mx-4 flex flex-col self-stretch">
-          {samplePosts.map((post) => (
-            <BlogpostCard key={post._id} {...post} className="-mx-4" />
-          ))}
-        </div>
-      </div>
-    </Section>
-  )
+  // Temporary: Blog list will be implemented later
+  return notFound()
+
+  // <Section className="gap-16">
+  //   <PageView />
+  //   <div className="grid grid-cols-1 gap-5 self-stretch md:grid-cols-2">
+  //     <Heading align="left">
+  //       <h2>Blog & Tin tức</h2>
+  //     </Heading>
+  //     <SearchHitsProvider authorsAvatars={{}}>
+  //       <Search _searchKey="blog" />
+  //     </SearchHitsProvider>
+  //     {featuredPosts.map((post) => (
+  //       <BlogpostCard key={post._id} type="card" {...post} />
+  //     ))}
+  //   </div>
+  //   <div className="w-full space-y-3">
+  //     <Heading align="left">
+  //       <h3 className="!text-xl lg:!text-2xl">Tất cả bài viết</h3>
+  //     </Heading>
+  //     <div className="-mx-4 flex flex-col self-stretch">
+  //       {samplePosts.map((post) => (
+  //         <BlogpostCard key={post._id} {...post} className="-mx-4" />
+  //       ))}
+  //     </div>
+  //   </div>
+  // </Section>
 }

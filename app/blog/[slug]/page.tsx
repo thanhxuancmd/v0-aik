@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation";
-import { RichText } from "basehub/react-rich-text";
-import type { Metadata } from "next";
-import { Section } from "../../../common/section-wrapper";
-import { authorFragment, darkLightImageFragment } from "../../../lib/basehub/fragments";
-import { Heading } from "../../../common/heading";
-import { Avatar } from "../../../common/avatar";
+import { notFound } from "next/navigation"
+import { RichText } from "basehub/react-rich-text"
+import type { Metadata } from "next"
+import { Section } from "../../../common/section-wrapper"
+import { authorFragment, darkLightImageFragment } from "../../../lib/basehub/fragments"
+import { Heading } from "../../../common/heading"
+import { Avatar } from "../../../common/avatar"
 import {
   FaqItemComponentFragment,
   FaqRichtextComponent,
@@ -12,17 +12,17 @@ import {
   RichTextCalloutComponent,
   richTextCalloutComponentFragment,
   richTextClasses,
-} from "../../../components/rich-text";
-import { CodeSnippet, codeSnippetFragment } from "../../../components/code-snippet";
-import { basehub } from "basehub";
-import { cx } from "class-variance-authority";
-import { DarkLightImage } from "../../../common/dark-light-image";
-import { PageView } from "../../../components/page-view";
-import { formatDate } from "../../_utils/dates";
-import "../../../basehub.config";
+} from "../../../components/rich-text"
+import { CodeSnippet, codeSnippetFragment } from "../../../components/code-snippet"
+import { basehub } from "basehub"
+import { cx } from "class-variance-authority"
+import { DarkLightImage } from "../../../common/dark-light-image"
+import { PageView } from "../../../components/page-view"
+import { formatDate } from "../../_utils/dates"
+import "../../../basehub.config"
 
-export const dynamic = "force-static";
-export const revalidate = 30;
+export const dynamic = "force-static"
+export const revalidate = 30
 
 export const generateStaticParams = async () => {
   const data = await basehub({ cache: "no-store" }).query({
@@ -35,21 +35,21 @@ export const generateStaticParams = async () => {
         },
       },
     },
-  });
+  })
 
   return data.site.blog.posts.items.map((post) => {
     return {
       slug: post._slug,
-    };
-  });
-};
+    }
+  })
+}
 
 export const generateMetadata = async ({
   params: _params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> => {
-  const { slug } = await _params;
+  const { slug } = await _params
   const data = await basehub().query({
     site: {
       settings: {
@@ -75,12 +75,18 @@ export const generateMetadata = async ({
         },
       },
     },
-  });
+  })
 
-  const post = data.site.blog.posts.items[0];
+  const post = data.site.blog.posts.items[0]
 
-  if (!post) return undefined;
-  const images = [{ url: post.ogImage.url }];
+  if (!post) {
+    return {
+      title: slug,
+      description: "Blog post",
+    }
+  }
+
+  const images = [{ url: post.ogImage.url }]
 
   return {
     title: post._title,
@@ -94,11 +100,11 @@ export const generateMetadata = async ({
       card: "summary_large_image",
       site: data.site.settings.metadata.sitename,
     },
-  };
-};
+  }
+}
 
 export default async function BlogPage({ params: _params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await _params;
+  const { slug } = await _params
   const {
     site: {
       generalEvents,
@@ -141,11 +147,11 @@ export default async function BlogPage({ params: _params }: { params: Promise<{ 
         },
       },
     },
-  });
+  })
 
-  const blogpost = posts.items.at(0);
+  const blogpost = posts.items.at(0)
 
-  if (!blogpost) return notFound();
+  if (!blogpost) return notFound()
 
   return (
     <>
@@ -183,9 +189,7 @@ export default async function BlogPage({ params: _params }: { params: Promise<{ 
         style={{ aspectRatio: blogpost.image.light.aspectRatio }}
       />
       <Section>
-        <div
-          className={cx(richTextClasses, "[&>p:first-child]:text-2xl [&>p:first-child]:font-light")}
-        >
+        <div className={cx(richTextClasses, "[&>p:first-child]:text-2xl [&>p:first-child]:font-light")}>
           <RichText
             blocks={blogpost.body.json.blocks}
             components={{
@@ -200,5 +204,5 @@ export default async function BlogPage({ params: _params }: { params: Promise<{ 
         </div>
       </Section>
     </>
-  );
+  )
 }

@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { Heading } from "../../common/heading"
-import { ChangelogList } from "./_components/changelog-list"
 import { PageView } from "../../components/page-view"
 import type { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 export const dynamic = "force-static"
 export const revalidate = 30
@@ -57,7 +57,7 @@ const sampleChangelog = {
   },
 }
 
-export default async function ChangelogPage() {
+export default function ChangelogPage() {
   const changelog = sampleChangelog
 
   return (
@@ -83,7 +83,8 @@ export default async function ChangelogPage() {
         </div>
       </div>
       <div className="!mx-auto !max-w-screen-md px-8 pt-16">
-        <ChangelogList changelogPosts={changelog.posts.items} />
+        {/* Temporary: Changelog list will be implemented later */}
+        {notFound()}
       </div>
     </>
   )

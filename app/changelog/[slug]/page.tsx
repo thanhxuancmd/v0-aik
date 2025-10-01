@@ -1,28 +1,26 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { BaseHubImage } from "basehub/next-image";
-import { RichText } from "basehub/react-rich-text";
-import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
-import type { Metadata } from "next";
-import { Heading } from "../../../common/heading";
-import { authorFragment, optimizedImageFragment } from "../../../lib/basehub/fragments";
-import { CodeSnippet } from "../../../components/code-snippet";
-import { richTextBaseComponents, richTextClasses } from "../../../components/rich-text";
-import { ButtonLink } from "../../../common/button";
-import { AvatarsGroup } from "../../../common/avatars-group";
-import { Author } from "../../../common/avatar";
-import { basehub } from "basehub";
-import { formatDate } from "../../_utils/dates";
-import { PageView } from "../../../components/page-view";
-import "../../../basehub.config";
+import { notFound } from "next/navigation"
+import Link from "next/link"
+import { BaseHubImage } from "basehub/next-image"
+import { RichText } from "basehub/react-rich-text"
+import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import type { Metadata } from "next"
+import { Heading } from "../../../common/heading"
+import { authorFragment, optimizedImageFragment } from "../../../lib/basehub/fragments"
+import { CodeSnippet } from "../../../components/code-snippet"
+import { richTextBaseComponents, richTextClasses } from "../../../components/rich-text"
+import { ButtonLink } from "../../../common/button"
+import { AvatarsGroup } from "../../../common/avatars-group"
+import { Author } from "../../../common/avatar"
+import { basehub } from "basehub"
+import { formatDate } from "../../_utils/dates"
+import { PageView } from "../../../components/page-view"
+import "../../../basehub.config"
 
-export const dynamic = "force-static";
-export const revalidate = 30;
+export const dynamic = "force-static"
+export const revalidate = 30
 
-interface ChangelogPageParams {
-  params: Promise<{
-    slug: string;
-  }>;
+interface ChangelogPageProps {
+  params: Promise<{ slug: string }>
 }
 
 export const generateStaticParams = async () => {
@@ -36,19 +34,17 @@ export const generateStaticParams = async () => {
         },
       },
     },
-  });
+  })
 
   return data.site.changelog.posts.items.map((post) => {
     return {
       slug: post._slug,
-    };
-  });
-};
+    }
+  })
+}
 
-export const generateMetadata = async ({
-  params: _params,
-}: ChangelogPageParams): Promise<Metadata | undefined> => {
-  const params = await _params;
+export const generateMetadata = async ({ params: _params }: ChangelogPageProps): Promise<Metadata | undefined> => {
+  const params = await _params
   const data = await basehub().query({
     site: {
       settings: {
@@ -74,13 +70,13 @@ export const generateMetadata = async ({
         },
       },
     },
-  });
+  })
 
-  const post = data.site.changelog.posts.items[0];
+  const post = data.site.changelog.posts.items[0]
 
-  if (!post) return undefined;
+  if (!post) return undefined
 
-  const images = [{ url: post.ogImage.url }];
+  const images = [{ url: post.ogImage.url }]
 
   return {
     title: post._title,
@@ -93,11 +89,11 @@ export const generateMetadata = async ({
       card: "summary_large_image",
       site: data.site.settings.metadata.sitename,
     },
-  };
-};
+  }
+}
 
-export default async function ChangelogPage({ params: _params }: ChangelogPageParams) {
-  const params = await _params;
+export default async function ChangelogPage({ params: _params }: ChangelogPageProps) {
+  const params = await _params
   const [
     {
       site: { changelog, generalEvents },
@@ -164,15 +160,14 @@ export default async function ChangelogPage({ params: _params }: ChangelogPagePa
         },
       },
     }),
-  ]);
+  ])
 
-  const post = changelog.posts.items.at(0);
-  const socialLinks = changelog.socialLinks;
-  if (!post) return notFound();
+  const post = changelog.posts.items.at(0)
+  const socialLinks = changelog.socialLinks
+  if (!post) return notFound()
 
-  const postIndex = allPosts.site.changelog.posts.items.findIndex((p) => p._slug === post._slug);
-  const nextPost =
-    allPosts.site.changelog.posts.items[postIndex + 1] ?? allPosts.site.changelog.posts.items[0];
+  const postIndex = allPosts.site.changelog.posts.items.findIndex((p) => p._slug === post._slug)
+  const nextPost = allPosts.site.changelog.posts.items[postIndex + 1] ?? allPosts.site.changelog.posts.items[0]
 
   return (
     <>
@@ -199,19 +194,8 @@ export default async function ChangelogPage({ params: _params }: ChangelogPagePa
             </p>
             <div className="flex gap-2">
               {socialLinks.map((link) => (
-                <Link
-                  key={link._id}
-                  className="aspect-square hover:brightness-90"
-                  href={link.url}
-                  target="_blank"
-                >
-                  <BaseHubImage
-                    priority
-                    alt={link._title}
-                    height={18}
-                    src={link.icon?.url ?? ""}
-                    width={18}
-                  />
+                <Link key={link._id} className="aspect-square hover:brightness-90" href={link.url} target="_blank">
+                  <BaseHubImage priority alt={link._title} height={18} src={link.icon?.url ?? ""} width={18} />
                 </Link>
               ))}
             </div>
@@ -230,9 +214,7 @@ export default async function ChangelogPage({ params: _params }: ChangelogPagePa
           style={{ aspectRatio: post.image.aspectRatio }}
           width={post.image.width}
         />
-        <p className="text-sm text-[--text-secondary] dark:text-[--dark-text-secondary] md:text-base">
-          {post.excerpt}
-        </p>
+        <p className="text-sm text-[--text-secondary] dark:text-[--dark-text-secondary] md:text-base">{post.excerpt}</p>
         <div className={richTextClasses}>
           <RichText
             blocks={post.body.json.blocks}
@@ -272,5 +254,5 @@ export default async function ChangelogPage({ params: _params }: ChangelogPagePa
         </div>
       </div>
     </>
-  );
+  )
 }

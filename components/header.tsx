@@ -1,23 +1,24 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
+import { Menu, Search } from "lucide-react"
 import { AIKLogo } from "@/components/aik-logo"
 import { ThemeToggle } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Search } from "lucide-react"
-import { useState } from "react"
 
-const navigation = [
-  { name: "Trang chủ", href: "/" },
-  { name: "AI Agents", href: "/agents" },
-  { name: "Blog", href: "/blog" },
-  { name: "Changelog", href: "/changelog" },
+const navItems = [
+  { href: "/", label: "Trang chủ" },
+  { href: "/agents", label: "AI Agents" },
+  { href: "/blog", label: "Blog" },
+  { href: "/changelog", label: "Thay đổi" },
 ]
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -30,76 +31,79 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {item.name}
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href} className="text-sm font-medium transition-colors hover:text-primary">
+              {item.label}
             </Link>
           ))}
         </nav>
 
         {/* Search Bar */}
-        <div className="hidden md:flex flex-1 max-w-sm mx-6">
+        <div className="hidden md:flex items-center gap-2 flex-1 max-w-sm mx-4">
           <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input type="search" placeholder="Tìm kiếm AI agents..." className="pl-10 w-full" />
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Tìm kiếm AI agents..."
+              className="pl-8"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
         </div>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-4">
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-4">
           <ThemeToggle />
+          <Button asChild>
+            <Link href="/agents">Khám phá</Link>
+          </Button>
+        </div>
 
-          <div className="hidden md:flex items-center gap-2">
-            <Button variant="ghost" asChild>
-              <Link href="/login">Đăng nhập</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/signup">Đăng ký</Link>
-            </Button>
-          </div>
-
-          {/* Mobile Menu */}
+        {/* Mobile Menu */}
+        <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="md:hidden">
+            <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
-              <div className="flex flex-col gap-4 mt-8">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <div className="flex flex-col gap-6 mt-6">
                 {/* Mobile Search */}
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input type="search" placeholder="Tìm kiếm..." className="pl-10" />
+                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="search"
+                    placeholder="Tìm kiếm..."
+                    className="pl-8"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
                 </div>
 
                 {/* Mobile Navigation */}
-                <nav className="flex flex-col gap-2">
-                  {navigation.map((item) => (
+                <nav className="flex flex-col gap-4">
+                  {navItems.map((item) => (
                     <Link
-                      key={item.name}
+                      key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                      className="text-lg font-medium transition-colors hover:text-primary"
                     >
-                      {item.name}
+                      {item.label}
                     </Link>
                   ))}
                 </nav>
 
-                {/* Mobile Auth Buttons */}
-                <div className="flex flex-col gap-2 mt-4">
-                  <Button variant="outline" asChild className="w-full bg-transparent">
-                    <Link href="/login">Đăng nhập</Link>
-                  </Button>
-                  <Button asChild className="w-full">
-                    <Link href="/signup">Đăng ký</Link>
-                  </Button>
-                </div>
+                {/* Mobile Actions */}
+                <Button asChild className="w-full">
+                  <Link href="/agents" onClick={() => setIsOpen(false)}>
+                    Khám phá AI Agents
+                  </Link>
+                </Button>
               </div>
             </SheetContent>
           </Sheet>

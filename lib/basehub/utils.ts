@@ -1,10 +1,8 @@
-// Compatibility exports for legacy code
-// These are no longer used but kept to prevent build errors
+// Stub utilities for compatibility with legacy code
 
 export function getArticleSlugFromSlugPath(slugPath: string): string {
-  // Extract the last segment of the slug path
-  const segments = slugPath.split("/")
-  return segments[segments.length - 1] || ""
+  const parts = slugPath.split("/")
+  return parts[parts.length - 1] || slugPath
 }
 
 export function formatDate(date: string | Date): string {
@@ -16,7 +14,7 @@ export function formatDate(date: string | Date): string {
   }).format(d)
 }
 
-export function truncate(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text
-  return text.slice(0, maxLength) + "..."
+export function truncate(str: string, length: number): string {
+  if (str.length <= length) return str
+  return str.slice(0, length) + "..."
 }
