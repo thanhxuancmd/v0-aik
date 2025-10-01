@@ -4,11 +4,9 @@ import { notFound } from "next/navigation"
 export const dynamic = "force-static"
 export const revalidate = 30
 
-export const generateMetadata = async (): Promise<Metadata | undefined> => {
-  return {
-    title: "Blog - AIK Marketplace",
-    description: "Tin tức và bài viết mới nhất về AI, công nghệ và marketplace",
-  }
+export const metadata: Metadata = {
+  title: "Blog - AIK Marketplace",
+  description: "Khám phá các bài viết về AI Agents và công nghệ AI",
 }
 
 // Sample blog posts data
@@ -59,8 +57,8 @@ const samplePosts = [
 
 const featuredPosts = samplePosts.slice(0, 2)
 
-export default async function BlogPage() {
-  // Temporary: Blog list will be implemented later
+export default function BlogPage() {
+  // Return 404 for now - blog listing will be implemented later
   return notFound()
 
   // <Section className="gap-16">

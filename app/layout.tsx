@@ -9,29 +9,25 @@ import { Toaster } from "@/components/ui/sonner"
 const inter = Inter({ subsets: ["latin", "vietnamese"] })
 
 export const metadata: Metadata = {
-  title: {
-    default: "AIK Marketplace - Khám phá AI Agents",
-    template: "%s | AIK Marketplace",
-  },
-  description: "Khám phá và so sánh các công cụ AI tốt nhất cho công việc của bạn",
-  keywords: ["AI", "AI Agents", "Machine Learning", "Automation", "ChatGPT", "Claude"],
+  title: "AIK Marketplace - Khám phá AI Agents",
+  description: "Khám phá và so sánh các AI Agents hàng đầu",
     generator: 'v0.app'
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="vi" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="aik-theme">
-          <div className="min-h-screen bg-background text-foreground">
+          <div className="relative flex min-h-screen flex-col bg-background text-foreground">
             <Header />
-            <main>{children}</main>
+            <main className="flex-1">{children}</main>
+            <Toaster />
           </div>
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>

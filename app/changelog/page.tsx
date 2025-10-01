@@ -1,17 +1,12 @@
-import Link from "next/link"
-import { Heading } from "../../common/heading"
-import { PageView } from "../../components/page-view"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const dynamic = "force-static"
 export const revalidate = 30
 
-export const generateMetadata = async (): Promise<Metadata | undefined> => {
-  return {
-    title: "Changelog - AIK Marketplace",
-    description: "Theo dõi các cập nhật và tính năng mới của AIK Marketplace",
-  }
+export const metadata: Metadata = {
+  title: "Changelog - AIK Marketplace",
+  description: "Cập nhật mới nhất về AIK Marketplace",
 }
 
 // Sample changelog data
@@ -58,34 +53,6 @@ const sampleChangelog = {
 }
 
 export default function ChangelogPage() {
-  const changelog = sampleChangelog
-
-  return (
-    <>
-      <PageView />
-      <div className="flex items-center justify-between border-b border-[--border] dark:border-[--dark-border]">
-        <div className="mx-auto flex w-full max-w-screen-md flex-col items-start justify-between gap-4 border-r border-[--border] px-8 py-24 dark:border-[--dark-border] md:flex-row md:items-center">
-          <Heading align="left" className="flex-1 !flex-col-reverse" subtitle={changelog.subtitle}>
-            <h1>{changelog.title}</h1>
-          </Heading>
-          <div className="flex items-center gap-2 md:flex-col">
-            <p className="text-sm text-[--text-tertiary] dark:text-[--dark-text-tertiary]">
-              {changelog.socialLinksTitle}
-            </p>
-            <div className="flex gap-2">
-              {changelog.socialLinks.map((link) => (
-                <Link key={link._id} className="aspect-square hover:brightness-90" href={link.url} target="_blank">
-                  <img alt={link._title} height={18} src={link.icon?.url ?? "/placeholder.svg"} width={18} />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="!mx-auto !max-w-screen-md px-8 pt-16">
-        {/* Temporary: Changelog list will be implemented later */}
-        {notFound()}
-      </div>
-    </>
-  )
+  // Return 404 for now - changelog listing will be implemented later
+  return notFound()
 }

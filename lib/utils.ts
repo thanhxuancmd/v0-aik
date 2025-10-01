@@ -15,38 +15,48 @@ export function formatNumber(num: number): string {
   return num.toString()
 }
 
-export function formatDate(date: string | Date): string {
-  const d = typeof date === "string" ? new Date(date) : date
-  return new Intl.DateTimeFormat("vi-VN", {
+export function formatDate(date: string | number | Date): string {
+  const d = new Date(date)
+  return d.toLocaleDateString("vi-VN", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(d)
+  })
 }
 
-export function formatRelativeTime(date: string | Date): string {
-  const d = typeof date === "string" ? new Date(date) : date
+export function formatRelativeTime(date: string | number | Date): string {
+  const d = new Date(date)
   const now = new Date()
   const diffInSeconds = Math.floor((now.getTime() - d.getTime()) / 1000)
 
-  if (diffInSeconds < 60) return "vừa xong"
-  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} phút trước`
-  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} giờ trước`
-  if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} ngày trước`
-
-  return formatDate(d)
+  if (diffInSeconds < 60) {
+    return "vừa xong"
+  }
+  if (diffInSeconds < 3600) {
+    const minutes = Math.floor(diffInSeconds / 60)
+    return `${minutes} phút trước`
+  }
+  if (diffInSeconds < 86400) {
+    const hours = Math.floor(diffInSeconds / 3600)
+    return `${hours} giờ trước`
+  }
+  if (diffInSeconds < 604800) {
+    const days = Math.floor(diffInSeconds / 86400)
+    return `${days} ngày trước`
+  }
+  return formatDate(date)
 }
 
-export function truncate(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text
-  return text.slice(0, maxLength) + "..."
+export function truncate(str: string, length: number): string {
+  if (str.length <= length) return str
+  return str.slice(0, length) + "..."
 }
 
-export function slugify(text: string): string {
-  return text
+export function slugify(str: string): string {
+  return str
     .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "")
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
 }

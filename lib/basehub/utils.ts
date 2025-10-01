@@ -1,17 +1,18 @@
 // Stub utilities for compatibility with legacy code
+// BaseHub is no longer used in the project
 
 export function getArticleSlugFromSlugPath(slugPath: string): string {
   const parts = slugPath.split("/")
-  return parts[parts.length - 1] || slugPath
+  return parts[parts.length - 1] || ""
 }
 
-export function formatDate(date: string | Date): string {
-  const d = typeof date === "string" ? new Date(date) : date
-  return new Intl.DateTimeFormat("vi-VN", {
+export function formatDate(date: string | number | Date): string {
+  const d = new Date(date)
+  return d.toLocaleDateString("vi-VN", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(d)
+  })
 }
 
 export function truncate(str: string, length: number): string {

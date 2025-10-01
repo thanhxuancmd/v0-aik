@@ -1,28 +1,26 @@
-// Stub fragments for compatibility with legacy code
-// BaseHub is no longer used
+// Stub fragments for compatibility with legacy code that imports from this file
+// BaseHub is no longer used in the project
 
 export const GeneralEvents = {
-  ingestKey: true,
+  ingestKey: "stub-ingest-key",
 }
 
 export const headingFragment = {
   _id: true,
   _title: true,
   subtitle: true,
-  align: true,
 }
 
 export const buttonFragment = {
   _id: true,
-  _title: true,
+  label: true,
   href: true,
   variant: true,
-  size: true,
 }
 
 export const quoteFragment = {
   _id: true,
-  quote: true,
+  text: true,
   author: true,
 }
 
@@ -32,8 +30,6 @@ export const authorFragment = {
   image: {
     url: true,
     alt: true,
-    width: true,
-    height: true,
   },
 }
 
@@ -41,15 +37,11 @@ export const darkLightImageFragment = {
   light: {
     url: true,
     alt: true,
-    width: true,
-    height: true,
     aspectRatio: true,
   },
   dark: {
     url: true,
     alt: true,
-    width: true,
-    height: true,
     aspectRatio: true,
   },
 }
@@ -59,6 +51,5 @@ export const optimizedImageFragment = {
   alt: true,
   width: true,
   height: true,
-  aspectRatio: true,
   blurDataURL: true,
 }
