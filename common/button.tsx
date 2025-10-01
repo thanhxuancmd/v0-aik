@@ -74,7 +74,7 @@ export const Button = ({
       {...props}
     >
       {children}
-      {icon ? <span>{icon}</span> : null}
+      {icon ? <span>{typeof icon === "string" ? <Icon content={icon} /> : icon}</span> : null}
     </button>
   );
 };

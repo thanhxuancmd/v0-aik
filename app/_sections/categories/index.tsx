@@ -1,0 +1,293 @@
+"use client"
+
+import type React from "react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import {
+  Headphones,
+  ShoppingCart,
+  Megaphone,
+  Code2,
+  BarChart3,
+  FlaskConical,
+  Palette,
+  GraduationCap,
+  Wallet,
+  Users,
+  Cog,
+  Scale,
+  Stethoscope,
+  Building2,
+  Bot,
+  Search,
+  ArrowRight,
+} from "lucide-react"
+
+type Category = {
+  slug: string
+  name: string
+  desc: string
+  count: number
+  icon: React.ComponentType<{ className?: string }>
+  // visual classes (TAILWIND tokens, not dynamic)
+  gradient: string
+  chip: string
+  iconBg: string
+  iconColor: string
+  ring: string
+}
+
+const categories: Category[] = [
+  {
+    slug: "customer-support",
+    name: "Customer Support",
+    desc: "Tự động phản hồi, phân loại ticket và hỗ trợ đa kênh.",
+    count: 980,
+    icon: Headphones,
+    gradient: "from-blue-500/15 to-cyan-500/15",
+    chip: "bg-blue-500/20 text-blue-300",
+    iconBg: "bg-blue-500/15",
+    iconColor: "text-blue-400",
+    ring: "ring-1 ring-blue-500/30",
+  },
+  {
+    slug: "sales",
+    name: "Sales",
+    desc: "Tạo lead, nuôi dưỡng khách hàng, nhắc lịch và chốt đơn.",
+    count: 860,
+    icon: ShoppingCart,
+    gradient: "from-emerald-500/15 to-teal-500/15",
+    chip: "bg-emerald-500/20 text-emerald-300",
+    iconBg: "bg-emerald-500/15",
+    iconColor: "text-emerald-400",
+    ring: "ring-1 ring-emerald-500/30",
+  },
+  {
+    slug: "marketing",
+    name: "Marketing",
+    desc: "Content, quảng cáo, social và tối ưu chiến dịch.",
+    count: 1120,
+    icon: Megaphone,
+    gradient: "from-pink-500/15 to-rose-500/15",
+    chip: "bg-pink-500/20 text-pink-300",
+    iconBg: "bg-pink-500/15",
+    iconColor: "text-pink-400",
+    ring: "ring-1 ring-pink-500/30",
+  },
+  {
+    slug: "coding",
+    name: "Coding",
+    desc: "Code generation, review, test và fix bug.",
+    count: 740,
+    icon: Code2,
+    gradient: "from-teal-500/15 to-blue-500/15",
+    chip: "bg-teal-500/20 text-teal-300",
+    iconBg: "bg-teal-500/15",
+    iconColor: "text-teal-400",
+    ring: "ring-1 ring-teal-500/30",
+  },
+  {
+    slug: "data-analytics",
+    name: "Data Analytics",
+    desc: "Phân tích, trực quan hóa và dự đoán dữ liệu.",
+    count: 690,
+    icon: BarChart3,
+    gradient: "from-green-500/15 to-lime-500/15",
+    chip: "bg-green-500/20 text-green-300",
+    iconBg: "bg-green-500/15",
+    iconColor: "text-green-400",
+    ring: "ring-1 ring-green-500/30",
+  },
+  {
+    slug: "research",
+    name: "Research",
+    desc: "Tổng hợp tài liệu, trích xuất insight và lập báo cáo.",
+    count: 520,
+    icon: FlaskConical,
+    gradient: "from-purple-500/15 to-indigo-500/15",
+    chip: "bg-purple-500/20 text-purple-300",
+    iconBg: "bg-purple-500/15",
+    iconColor: "text-purple-400",
+    ring: "ring-1 ring-purple-500/30",
+  },
+  {
+    slug: "design",
+    name: "Design",
+    desc: "Ý tưởng, UI/UX, hình ảnh và video sáng tạo.",
+    count: 600,
+    icon: Palette,
+    gradient: "from-fuchsia-500/15 to-violet-500/15",
+    chip: "bg-fuchsia-500/20 text-fuchsia-300",
+    iconBg: "bg-fuchsia-500/15",
+    iconColor: "text-fuchsia-400",
+    ring: "ring-1 ring-fuchsia-500/30",
+  },
+  {
+    slug: "education",
+    name: "Education",
+    desc: "Trợ giảng, luyện thi, giáo trình và chấm điểm.",
+    count: 430,
+    icon: GraduationCap,
+    gradient: "from-yellow-500/15 to-orange-500/15",
+    chip: "bg-yellow-500/20 text-yellow-300",
+    iconBg: "bg-yellow-500/15",
+    iconColor: "text-yellow-400",
+    ring: "ring-1 ring-yellow-500/30",
+  },
+  {
+    slug: "finance",
+    name: "Finance",
+    desc: "Phân tích đầu tư, kế toán và báo cáo tài chính.",
+    count: 410,
+    icon: Wallet,
+    gradient: "from-amber-500/15 to-orange-500/15",
+    chip: "bg-amber-500/20 text-amber-300",
+    iconBg: "bg-amber-500/15",
+    iconColor: "text-amber-400",
+    ring: "ring-1 ring-amber-500/30",
+  },
+  {
+    slug: "hr",
+    name: "HR",
+    desc: "Tuyển dụng, sàng lọc CV và onboard nhân sự.",
+    count: 350,
+    icon: Users,
+    gradient: "from-sky-500/15 to-blue-500/15",
+    chip: "bg-sky-500/20 text-sky-300",
+    iconBg: "bg-sky-500/15",
+    iconColor: "text-sky-400",
+    ring: "ring-1 ring-sky-500/30",
+  },
+  {
+    slug: "operations",
+    name: "Operations",
+    desc: "Tối ưu quy trình, RPA và quản trị vận hành.",
+    count: 480,
+    icon: Cog,
+    gradient: "from-slate-500/15 to-gray-500/15",
+    chip: "bg-slate-500/20 text-slate-300",
+    iconBg: "bg-slate-500/15",
+    iconColor: "text-slate-300",
+    ring: "ring-1 ring-slate-500/30",
+  },
+  {
+    slug: "legal",
+    name: "Legal",
+    desc: "Soạn thảo hợp đồng, kiểm tra rủi ro và tuân thủ.",
+    count: 290,
+    icon: Scale,
+    gradient: "from-neutral-500/15 to-zinc-500/15",
+    chip: "bg-neutral-500/20 text-neutral-300",
+    iconBg: "bg-neutral-500/15",
+    iconColor: "text-neutral-300",
+    ring: "ring-1 ring-neutral-500/30",
+  },
+  {
+    slug: "healthcare",
+    name: "Healthcare",
+    desc: "Hỗ trợ lâm sàng, tóm tắt EMR và tư vấn sức khỏe.",
+    count: 260,
+    icon: Stethoscope,
+    gradient: "from-rose-500/15 to-red-500/15",
+    chip: "bg-rose-500/20 text-rose-300",
+    iconBg: "bg-rose-500/15",
+    iconColor: "text-rose-400",
+    ring: "ring-1 ring-rose-500/30",
+  },
+  {
+    slug: "real-estate",
+    name: "Real Estate",
+    desc: "Tìm listing, sàng lọc khách và tư vấn khoản vay.",
+    count: 220,
+    icon: Building2,
+    gradient: "from-indigo-500/15 to-blue-500/15",
+    chip: "bg-indigo-500/20 text-indigo-300",
+    iconBg: "bg-indigo-500/15",
+    iconColor: "text-indigo-400",
+    ring: "ring-1 ring-indigo-500/30",
+  },
+  {
+    slug: "chatbots",
+    name: "Chatbots",
+    desc: "Đối thoại tự nhiên đa nền tảng, đa ngôn ngữ.",
+    count: 1250,
+    icon: Bot,
+    gradient: "from-cyan-500/15 to-teal-500/15",
+    chip: "bg-cyan-500/20 text-cyan-300",
+    iconBg: "bg-cyan-500/15",
+    iconColor: "text-cyan-400",
+    ring: "ring-1 ring-cyan-500/30",
+  },
+  {
+    slug: "search",
+    name: "Search & RAG",
+    desc: "RAG, tìm kiếm ngữ nghĩa và truy vấn tài liệu.",
+    count: 540,
+    icon: Search,
+    gradient: "from-lime-500/15 to-green-500/15",
+    chip: "bg-lime-500/20 text-lime-300",
+    iconBg: "bg-lime-500/15",
+    iconColor: "text-lime-400",
+    ring: "ring-1 ring-lime-500/30",
+  },
+]
+
+export function Categories() {
+  return (
+    <section className="relative bg-black text-white py-16 md:py-24">
+      <div className="container mx-auto px-4">
+        <div className="flex items-end justify-between gap-4 mb-10">
+          <div>
+            <h2 className="text-3xl md:text-5xl font-bold">Danh mục AI Agent</h2>
+            <p className="mt-3 text-gray-400">Duyệt các danh mục phổ biến, tham khảo từ hệ sinh thái AI Agent.</p>
+          </div>
+          <Link href="/agents">
+            <Button className="hidden md:inline-flex rounded-xl">
+              Duyệt tất cả
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {categories.map((c) => {
+            const Icon = c.icon
+            return (
+              <Link key={c.slug} href={`/agents?category=${encodeURIComponent(c.slug)}`}>
+                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                  <div
+                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br ${c.gradient}`}
+                  />
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`w-12 h-12 rounded-2xl ${c.iconBg} ${c.ring} grid place-items-center`}>
+                        <Icon className={`h-6 w-6 ${c.iconColor} drop-shadow-[0_0_10px_rgba(255,255,255,0.25)]`} />
+                      </div>
+                      <span className={`text-xs px-2 py-1 rounded-full ${c.chip}`}>{c.count}+ agents</span>
+                    </div>
+                    <h3 className="text-xl font-semibold">{c.name}</h3>
+                    <p className="mt-2 text-sm text-gray-300">{c.desc}</p>
+                  </div>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+
+        <div className="mt-8 flex justify-center md:hidden">
+          <Link href="/agents">
+            <Button
+              variant="outline"
+              className="rounded-xl border-white/20 text-white hover:bg-white/10 bg-transparent"
+            >
+              Duyệt tất cả
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Categories

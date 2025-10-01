@@ -1,60 +1,94 @@
-import { Heading } from "../../common/heading";
-import { Section } from "../../common/section-wrapper";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { Heading } from "../../common/heading"
+import { Section } from "../../common/section-wrapper"
+import { SearchContent as Search } from "../../common/search"
+import { SearchHitsProvider } from "../../context/search-hits-context"
+import { BlogpostCard } from "./_components/blogpost-card"
+import { PageView } from "../../components/page-view"
+import type { Metadata } from "next"
 
-export const dynamic = "force-static";
-export const revalidate = 30;
+export const dynamic = "force-static"
+export const revalidate = 30
 
 export const generateMetadata = async (): Promise<Metadata | undefined> => {
   return {
     title: "Blog - AIK Marketplace",
-    description: "Tin tức và insights về AI agents và công nghệ",
-  };
-};
+    description: "Tin tức và bài viết mới nhất về AI, công nghệ và marketplace",
+  }
+}
 
-const mockPosts = [
+// Sample blog posts data
+const samplePosts = [
   {
-    id: "1",
-    title: "Cách tạo AI Agent đầu tiên của bạn",
-    description: "Hướng dẫn từng bước để tạo ra AI agent đầu tiên",
+    _id: "1",
+    _title: "Xu hướng AI Agents trong năm 2024",
+    _slug: "xu-huong-ai-agents-2024",
+    excerpt: "Khám phá những xu hướng mới nhất trong lĩnh vực AI Agents và cách chúng đang thay đổi cách làm việc.",
     publishedAt: "2024-01-15",
-    slug: "cach-tao-ai-agent-dau-tien",
-    authors: [{ name: "Nguyễn Văn A" }],
+    author: {
+      _id: "author1",
+      _title: "Nguyễn Văn A",
+      image: { url: "/placeholder-user.jpg" },
+    },
+    tags: ["AI", "Technology", "Trends"],
+    image: { url: "/placeholder.jpg" },
   },
   {
-    id: "2", 
-    title: "Xu hướng AI trong năm 2024",
-    description: "Những xu hướng AI đáng chú ý trong năm 2024",
-    publishedAt: "2024-01-10",
-    slug: "xu-huong-ai-2024",
-    authors: [{ name: "Trần Thị B" }],
+    _id: "2",
+    _title: "Cách tạo AI Agent đầu tiên của bạn",
+    _slug: "cach-tao-ai-agent-dau-tien",
+    excerpt: "Hướng dẫn từng bước để tạo ra AI Agent đầu tiên với các công cụ hiện đại.",
+    publishedAt: "2024-01-12",
+    author: {
+      _id: "author2",
+      _title: "Trần Thị B",
+      image: { url: "/placeholder-user.jpg" },
+    },
+    tags: ["Tutorial", "AI", "Development"],
+    image: { url: "/placeholder.jpg" },
   },
-];
+  {
+    _id: "3",
+    _title: "Marketplace AI: Tương lai của thương mại điện tử",
+    _slug: "marketplace-ai-tuong-lai-thuong-mai",
+    excerpt: "Phân tích về cách AI đang thay đổi ngành thương mại điện tử và marketplace.",
+    publishedAt: "2024-01-10",
+    author: {
+      _id: "author3",
+      _title: "Lê Văn C",
+      image: { url: "/placeholder-user.jpg" },
+    },
+    tags: ["E-commerce", "AI", "Business"],
+    image: { url: "/placeholder.jpg" },
+  },
+]
+
+const featuredPosts = samplePosts.slice(0, 2)
 
 export default async function BlogPage() {
-  if (mockPosts.length === 0) {
-    notFound();
-  }
-
   return (
     <Section className="gap-16">
-      <div className="grid grid-cols-1 gap-5 self-stretch">
+      <PageView />
+      <div className="grid grid-cols-1 gap-5 self-stretch md:grid-cols-2">
         <Heading align="left">
           <h2>Blog & Tin tức</h2>
         </Heading>
-        <div className="grid gap-6 md:grid-cols-2">
-          {mockPosts.map((post) => (
-            <article key={post.id} className="border rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-              <p className="text-gray-600 mb-4">{post.description}</p>
-              <div className="text-sm text-gray-500">
-                {new Date(post.publishedAt).toLocaleDateString('vi-VN')} • {post.authors[0].name}
-              </div>
-            </article>
+        <SearchHitsProvider authorsAvatars={{}}>
+          <Search _searchKey="blog" />
+        </SearchHitsProvider>
+        {featuredPosts.map((post) => (
+          <BlogpostCard key={post._id} type="card" {...post} />
+        ))}
+      </div>
+      <div className="w-full space-y-3">
+        <Heading align="left">
+          <h3 className="!text-xl lg:!text-2xl">Tất cả bài viết</h3>
+        </Heading>
+        <div className="-mx-4 flex flex-col self-stretch">
+          {samplePosts.map((post) => (
+            <BlogpostCard key={post._id} {...post} className="-mx-4" />
           ))}
         </div>
       </div>
     </Section>
-  );
+  )
 }

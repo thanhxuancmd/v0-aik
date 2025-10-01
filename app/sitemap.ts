@@ -1,42 +1,65 @@
+import { siteUrl } from "../lib/constants";
+import { basehub } from "basehub";
 import type { MetadataRoute } from "next";
 
-export const revalidate = 1800; // 30 minutes
+export const revalidate = 1800; // 30 minutes - adjust as needed
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://aik-marketplace.vercel.app";
+  const data = await basehub().query({
+    site: {
+      pages: {
+        items: {
+          pathname: true,
+        },
+      },
+      blog: {
+        posts: {
+          items: {
+            _slug: true,
+          },
+        },
+      },
+      changelog: {
+        posts: {
+          items: {
+            _slug: true,
+          },
+        },
+      },
+    },
+  });
 
-  const routes = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "daily" as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/agents`,
-      lastModified: new Date(),
-      changeFrequency: "daily" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/marketplace`,
-      lastModified: new Date(),
-      changeFrequency: "daily" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/changelog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.5,
-    },
-  ];
+  let index = 1;
+  const formattedPages = data.site.pages.items.map(
+    (page) =>
+      ({
+        url: `${siteUrl}${page.pathname}`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: index++,
+      }) satisfies MetadataRoute.Sitemap[number],
+  );
 
+  const formattedBlogPosts = data.site.blog.posts.items.map(
+    (post) =>
+      ({
+        url: `${siteUrl}/blog/${post._slug}`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: index++,
+      }) satisfies MetadataRoute.Sitemap[number],
+  );
+
+  const formattedChangelogPosts = data.site.changelog.posts.items.map(
+    (post) =>
+      ({
+        url: `${siteUrl}/changelog/${post._slug}`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: index++,
+      }) satisfies MetadataRoute.Sitemap[number],
+  );
+
+  const routes = [...formattedPages, ...formattedBlogPosts, ...formattedChangelogPosts];
   return routes;
 }
