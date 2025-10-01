@@ -1,24 +1,11 @@
-interface AIKLogoProps {
-  className?: string
-  size?: number
-}
-
-export function AIKLogo({ className = "", size = 32 }: AIKLogoProps) {
+export function AIKLogo({ className = "" }: { className?: string }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-    >
-      {/* Letter A with black triangle at top */}
-      <path d="M16 4L24 28H20L18.5 24H13.5L12 28H8L16 4Z" fill="currentColor" stroke="currentColor" strokeWidth="1" />
-      {/* Black triangle at the top of A */}
-      <path d="M16 4L13.5 12H18.5L16 4Z" fill="black" />
-      {/* Horizontal bar of A */}
-      <rect x="14" y="18" width="4" height="2" fill="currentColor" />
+    <svg className={className} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="40" height="40" rx="8" fill="currentColor" className="text-primary" />
+      <path d="M20 10L28 26H12L20 10Z" fill="white" className="text-primary-foreground" />
+      <text x="20" y="30" textAnchor="middle" fill="white" className="text-primary-foreground font-bold" fontSize="14">
+        A
+      </text>
     </svg>
   )
 }

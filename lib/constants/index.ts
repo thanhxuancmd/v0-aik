@@ -4,6 +4,10 @@ export const SITE_CONFIG = {
   url: "https://aik-marketplace.vercel.app",
 }
 
+// Export for compatibility
+export const siteUrl = SITE_CONFIG.url
+export const siteHost = "aik-marketplace.vercel.app"
+
 export const PRICING_OPTIONS = [
   { value: "all", label: "Tất cả" },
   { value: "free", label: "Miễn phí" },
