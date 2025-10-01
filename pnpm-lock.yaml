@@ -119,9 +119,6 @@ importers:
       embla-carousel-wheel-gestures:
         specifier: latest
         version: 8.1.0(embla-carousel@8.6.0)
-      hast-util-to-jsx-runtime:
-        specifier: ^2.3.0
-        version: 2.3.6
       input-otp:
         specifier: latest
         version: 1.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -164,16 +161,16 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
+      tailwindcss-radix:
+        specifier: latest
+        version: 4.0.2(tailwindcss@3.4.17)
       vaul:
         specifier: latest
         version: 1.1.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@tailwindcss/typography':
-        specifier: ^0.5.13
+        specifier: ^0.5.15
         version: 0.5.16(tailwindcss@3.4.17)
-      '@types/culori':
-        specifier: ^4.0.0
-        version: 4.0.0
       '@types/node':
         specifier: ^22
         version: 22.0.0
@@ -184,7 +181,7 @@ importers:
         specifier: ^19
         version: 19.0.0
       autoprefixer:
-        specifier: ^10.4.21
+        specifier: ^10.4.20
         version: 10.4.21(postcss@8.5.0)
       postcss:
         specifier: ^8.5
@@ -193,11 +190,8 @@ importers:
         specifier: ^3.2.5
         version: 3.2.5
       prettier-plugin-tailwindcss:
-        specifier: ^0.6.11
+        specifier: ^0.6.6
         version: 0.6.11(prettier@3.2.5)
-      tailwindcss-radix:
-        specifier: ^3.0.5
-        version: 3.0.5(tailwindcss@3.4.17)
       typescript:
         specifier: ^5
         version: 5.0.2
@@ -1114,9 +1108,6 @@ packages:
     resolution: {integrity: sha512-0wDLwCVF5V3x3b1SGXPCDcdsbDHMBe+lkFzBRaHeLvNi+nrrnZ1lA18u+OTWO8iSWU2GxUOCvlXtDuqftc1oiA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
-
-  '@types/culori@4.0.0':
-    resolution: {integrity: sha512-aFljQwjb++sl6TAyEXeHTiK/fk9epZOQ+nMmadjnAvzZFIvNoQ0x8XQYfcOaRTBwmDUPUlghhZCJ66MTcqQAsg==}
 
   '@types/d3-array@3.2.1':
     resolution: {integrity: sha512-Y2Jn2idRrLzUfAKV2LyRImR+y4oa2AntrgID95SHJxuMUrkNXmanDSed71sRNZysveJVt1hLLemQZIady0FpEg==}
@@ -2396,11 +2387,11 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
 
-  tailwindcss-radix@3.0.5:
-    resolution: {integrity: sha512-dy5bIHixuvrmMzljDoteKD1mcLAm76Z1IPkCr7IWUN89zoxfokVepPlxMQkmWEQokYs3N9BOLsXXvn8fLZWoBg==}
-    engines: {pnpm: '9'}
+  tailwindcss-radix@4.0.2:
+    resolution: {integrity: sha512-Uoa2BUCfWKGCjQPXbj4X4Q4EWAeCsvhj0udn0IupeNcvuLbqRXvC5+bKAqsngIne5mrRUPTy/IqMXGh81YyrCA==}
+    engines: {node: '>=20'}
     peerDependencies:
-      tailwindcss: ^3.4.1
+      tailwindcss: ^3.0 || ^4.0
 
   tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
@@ -3475,8 +3466,6 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.17
-
-  '@types/culori@4.0.0': {}
 
   '@types/d3-array@3.2.1': {}
 
@@ -4834,7 +4823,7 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.17
 
-  tailwindcss-radix@3.0.5(tailwindcss@3.4.17):
+  tailwindcss-radix@4.0.2(tailwindcss@3.4.17):
     dependencies:
       tailwindcss: 3.4.17
 

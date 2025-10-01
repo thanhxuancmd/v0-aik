@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import type { Category, CategoriesResponse } from "@/lib/types/agent"
+import type { Category } from "@/lib/types/agent"
 
 export function useCategories() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -9,28 +9,23 @@ export function useCategories() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    async function fetchCategories() {
       try {
         setLoading(true)
         setError(null)
 
         const response = await fetch("/api/categories")
-        const result: CategoriesResponse = await response.json()
 
         if (!response.ok) {
-          throw new Error(result.message || result.error || "Failed to fetch categories")
+          throw new Error("Failed to fetch categories")
         }
 
-        if (result.success && Array.isArray(result.data)) {
-          setCategories(result.data)
-        } else {
-          throw new Error("Invalid response format")
-        }
+        const data = await response.json()
+        setCategories(data)
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "Unknown error occurred"
+        const errorMessage = err instanceof Error ? err.message : "An error occurred"
         setError(errorMessage)
         console.error("Error fetching categories:", err)
-        setCategories([])
       } finally {
         setLoading(false)
       }
@@ -39,15 +34,5 @@ export function useCategories() {
     fetchCategories()
   }, [])
 
-  return {
-    categories,
-    loading,
-    error,
-    refetch: () => {
-      setLoading(true)
-      setError(null)
-      // Re-trigger the effect
-      setCategories([])
-    },
-  }
+  return { categories, loading, error }
 }

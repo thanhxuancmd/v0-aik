@@ -1,39 +1,25 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next"
 import { neon } from "@neondatabase/serverless"
 
 const sql = neon(process.env.DATABASE_URL!)
 
 export async function GET() {
   try {
-    const query = `
+    const result = await sql`
       SELECT 
-        c.id,
-        c.name,
-        c.slug,
-        c.description,
-        c.icon,
-        COALESCE(c.agent_count, 0) as agent_count,
-        c.created_at
-      FROM categories c
-      ORDER BY c.name ASC
+        id,
+        name,
+        slug,
+        icon,
+        description,
+        agent_count
+      FROM categories
+      ORDER BY agent_count DESC, name ASC
     `
 
-    const categories = await sql(query)
-
-    return NextResponse.json({
-      success: true,
-      data: categories,
-      categories: categories, // For backward compatibility
-    })
+    return NextResponse.json(result)
   } catch (error) {
     console.error("Error fetching categories:", error)
-    return NextResponse.json(
-      {
-        success: false,
-        error: "Internal server error",
-        message: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500 },
-    )
+    return NextResponse.json({ error: "Failed to fetch categories" }, { status: 500 })
   }
 }

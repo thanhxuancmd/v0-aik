@@ -1,10 +1,10 @@
 {
-  "name": "basehub-marketing-website-template",
+  "name": "aik-marketplace",
   "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "basehub": "basehub",
     "build": "next build",
-    "dev": "basehub dev & next dev --turbopack",
+    "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
   },
@@ -46,7 +46,6 @@
     "embla-carousel": "latest",
     "embla-carousel-react": "latest",
     "embla-carousel-wheel-gestures": "latest",
-    "hast-util-to-jsx-runtime": "^2.3.0",
     "input-otp": "latest",
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
@@ -61,19 +60,18 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-radix": "latest",
     "vaul": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.13",
-    "@types/culori": "^4.0.0",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.20",
     "postcss": "^8.5",
     "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss-radix": "^3.0.5",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "typescript": "^5"
   }
 }

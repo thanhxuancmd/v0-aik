@@ -1,130 +1,105 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
+import type { Agent, AgentFilters } from "@/lib/types/agent"
 import { useDebounce } from "./use-debounce"
-import type { Agent, AgentFilters, Pagination, AgentsResponse } from "@/lib/types/agent"
 
-const initialFilters: AgentFilters = {
-  search: "",
-  category: "all",
-  pricing: "all",
-  sourceType: "all",
-  sortBy: "popularity",
-  sortOrder: "desc",
+interface UseAgentsResult {
+  agents: Agent[]
+  loading: boolean
+  error: string | null
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+    hasMore: boolean
+  }
+  loadMore: () => void
+  retry: () => void
 }
 
-const initialPagination: Pagination = {
-  page: 1,
-  limit: 12,
-  total: 0,
-  totalPages: 0,
-  hasMore: false,
-}
-
-export function useAgents() {
+export function useAgents(filters: AgentFilters): UseAgentsResult {
   const [agents, setAgents] = useState<Agent[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [filters, setFilters] = useState<AgentFilters>(initialFilters)
-  const [pagination, setPagination] = useState<Pagination>(initialPagination)
+  const [page, setPage] = useState(1)
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 12,
+    total: 0,
+    totalPages: 0,
+    hasMore: false,
+  })
 
   const debouncedSearch = useDebounce(filters.search, 500)
 
-  const buildQueryString = useCallback(
-    (currentFilters: AgentFilters, page = 1) => {
-      const params = new URLSearchParams()
+  useEffect(() => {
+    setPage(1)
+    setAgents([])
+  }, [debouncedSearch, filters.category, filters.pricing, filters.sourceType, filters.sortBy])
 
-      if (currentFilters.search) params.set("search", currentFilters.search)
-      if (currentFilters.category !== "all") params.set("category", currentFilters.category)
-      if (currentFilters.pricing !== "all") params.set("pricing", currentFilters.pricing)
-      if (currentFilters.sourceType !== "all") params.set("sourceType", currentFilters.sourceType)
-      if (currentFilters.sortBy) params.set("sortBy", currentFilters.sortBy)
-      if (currentFilters.sortOrder) params.set("sortOrder", currentFilters.sortOrder)
-      params.set("page", page.toString())
-      params.set("limit", pagination.limit.toString())
-
-      return params.toString()
-    },
-    [pagination.limit],
-  )
-
-  const fetchAgents = useCallback(
-    async (currentFilters: AgentFilters, page = 1, append = false) => {
+  useEffect(() => {
+    async function fetchAgents() {
       try {
-        if (!append) {
-          setLoading(true)
-        }
+        setLoading(true)
         setError(null)
 
-        const queryString = buildQueryString(currentFilters, page)
-        const response = await fetch(`/api/agents?${queryString}`)
-        const result: AgentsResponse = await response.json()
+        const params = new URLSearchParams({
+          search: debouncedSearch,
+          category: filters.category,
+          pricing: filters.pricing,
+          sourceType: filters.sourceType,
+          sortBy: filters.sortBy,
+          page: page.toString(),
+          limit: "12",
+        })
+
+        const response = await fetch(`/api/agents?${params.toString()}`)
 
         if (!response.ok) {
-          throw new Error(result.message || result.error || "Failed to fetch agents")
+          throw new Error("Failed to fetch agents")
         }
 
-        if (result.success && Array.isArray(result.data)) {
-          if (append) {
-            setAgents((prev) => [...prev, ...result.data])
-          } else {
-            setAgents(result.data)
-          }
-          setPagination(result.pagination)
+        const data = await response.json()
+
+        if (page === 1) {
+          setAgents(data.agents)
         } else {
-          throw new Error("Invalid response format")
+          setAgents((prev) => [...prev, ...data.agents])
         }
+
+        setPagination(data.pagination)
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "Unknown error occurred"
+        const errorMessage = err instanceof Error ? err.message : "An error occurred"
         setError(errorMessage)
         console.error("Error fetching agents:", err)
-
-        if (!append) {
-          setAgents([])
-          setPagination(initialPagination)
-        }
       } finally {
         setLoading(false)
       }
-    },
-    [buildQueryString],
-  )
-
-  // Fetch agents when filters change
-  useEffect(() => {
-    const currentFilters = { ...filters, search: debouncedSearch }
-    fetchAgents(currentFilters, 1, false)
-  }, [debouncedSearch, filters, fetchAgents])
-
-  const updateFilters = useCallback((newFilters: Partial<AgentFilters>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }))
-  }, [])
-
-  const resetFilters = useCallback(() => {
-    setFilters(initialFilters)
-  }, [])
-
-  const loadMore = useCallback(() => {
-    if (pagination.hasMore && !loading) {
-      const currentFilters = { ...filters, search: debouncedSearch }
-      fetchAgents(currentFilters, pagination.page + 1, true)
     }
-  }, [pagination.hasMore, pagination.page, loading, filters, debouncedSearch, fetchAgents])
 
-  const refetch = useCallback(() => {
-    const currentFilters = { ...filters, search: debouncedSearch }
-    fetchAgents(currentFilters, 1, false)
-  }, [filters, debouncedSearch, fetchAgents])
+    fetchAgents()
+  }, [debouncedSearch, filters.category, filters.pricing, filters.sourceType, filters.sortBy, page])
+
+  const loadMore = () => {
+    if (pagination.hasMore && !loading) {
+      setPage((prev) => prev + 1)
+    }
+  }
+
+  const retry = () => {
+    setPage(1)
+    setAgents([])
+    setError(null)
+  }
 
   return {
     agents,
     loading,
     error,
     pagination,
-    filters,
-    updateFilters,
-    resetFilters,
     loadMore,
-    refetch,
+    retry,
   }
 }

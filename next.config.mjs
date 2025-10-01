@@ -11,23 +11,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "assets.basehub.com",
-      },
-      {
-        protocol: "https",
-        hostname: "basehub.earth",
+        hostname: "placeholder.com",
       },
     ],
   },
-  // Suppress BaseHub warnings during build
-  webpack: (config, { isServer }) => {
-    if (isServer && !process.env.BASEHUB_TOKEN) {
-      config.externals.push({
-        'basehub': 'commonjs basehub'
-      })
-    }
-    return config
-  }
 };
 
 export default nextConfig;
