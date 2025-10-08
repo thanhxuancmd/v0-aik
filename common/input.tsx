@@ -1,6 +1,7 @@
-import clsx from "clsx";
+import type React from "react"
+import { cn } from "@/lib/utils"
 
-import { Button } from "./button";
+import { Button } from "./button"
 
 export function Input({
   className,
@@ -12,25 +13,23 @@ export function Input({
   return (
     <div className="relative">
       <input
-        className={clsx(
-          "h-9 w-full rounded-full border border-[--border] py-2 pl-4 pr-28 dark:border-[--dark-border] md:h-11",
+        className={cn(
+          "h-9 w-full rounded-full border border-(--border) py-2 pl-4 pr-28 dark:border-(--dark-border) md:h-11",
           "disabled:opacity-50",
-          "placeholder:text-sm placeholder:text-[--text-tertiary] dark:placeholder-[--dark-text-tertiary]",
-          "text-sm text-[--text-primary] dark:text-[--dark-text-primary]",
-          "outline-hidden focus-visible:ring-2 focus-visible:ring-[--control]",
-          error ? "text-[--error] placeholder:text-[--error-50]" : "",
+          "placeholder:text-sm placeholder:text-(--text-tertiary) dark:placeholder-(--dark-text-tertiary)",
+          "text-sm text-(--text-primary) dark:text-(--dark-text-primary)",
+          "outline-hidden focus-visible:ring-2 focus-visible:ring-(--control)",
+          error ? "text-(--error) placeholder:text-(--error-50)" : "",
           className,
         )}
         disabled={disabled}
         {...props}
       />
       {error ? (
-        <p className="absolute -bottom-5 left-4 text-xs text-[--error] dark:text-[--dark-error]">
-          {error}
-        </p>
+        <p className="absolute -bottom-5 left-4 text-xs text-(--error) dark:text-(--dark-error)">{error}</p>
       ) : null}
       <Button
-        className={clsx(
+        className={cn(
           "absolute right-1 top-1 !h-7 peer-disabled:opacity-50 md:right-1.5 md:top-1.5 md:!h-8",
           error && "opacity-50",
         )}
@@ -41,5 +40,5 @@ export function Input({
         {buttonContent}
       </Button>
     </div>
-  );
+  )
 }
